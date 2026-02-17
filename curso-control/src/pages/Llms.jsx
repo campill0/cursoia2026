@@ -33,7 +33,7 @@ const Llms = () => {
             {/* Header with placeholder image */}
             <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
                 <img
-                    src="https://placehold.co/1200x300/080b12/00e5ff?text=The+Bunker+%E2%80%94+LLM+Architecture+Visualization&font=mono"
+                    src="/images/header-llm-architecture.jpeg"
                     alt="LLM Architecture placeholder"
                     className="w-full h-48 md:h-64 object-cover opacity-40"
                 />
@@ -75,6 +75,7 @@ const Llms = () => {
                     <span className="w-1.5 h-6 bg-emerald-glow rounded-full" />
                     Componente Visual: La Mesa de Trabajo
                 </h2>
+                <img src="/images/concept-context-window.png" alt="Context Window" className="w-full rounded-xl mb-4 opacity-60" />
                 <ContextWindowVisual />
             </motion.div>
 

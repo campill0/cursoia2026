@@ -21,7 +21,7 @@ const Home = () => (
         <motion.section variants={fadeUp} className="relative overflow-hidden rounded-3xl border border-surface-3">
             <div className="absolute inset-0">
                 <img
-                    src="https://placehold.co/1200x500/080b12/00e5ff?text=HERO+%E2%80%94+Neural+Network+Visualization&font=mono"
+                    src="/images/hero-neural-network.png"
                     alt="Hero placeholder"
                     className="w-full h-full object-cover opacity-30"
                 />
@@ -157,7 +157,7 @@ const Home = () => (
                             </div>
                             <div className="relative w-full md:w-48 h-32 md:h-auto rounded-xl overflow-hidden shrink-0">
                                 <img
-                                    src="https://placehold.co/400x300/0f1520/00e5ff?text=Framework+Diagram&font=mono"
+                                    src="/images/card-framework-shield.png"
                                     alt="Framework diagram placeholder"
                                     className="w-full h-full object-cover opacity-50"
                                 />

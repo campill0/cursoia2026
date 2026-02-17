@@ -31,7 +31,7 @@ const Pathologies = () => {
             {/* Header */}
             <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
                 <img
-                    src="https://placehold.co/1200x300/080b12/e040fb?text=Pathology+Atlas+%E2%80%94+Model+Failure+Patterns&font=mono"
+                    src="/images/header-pathology-atlas.jpeg"
                     alt="Pathology atlas placeholder"
                     className="w-full h-48 md:h-56 object-cover opacity-40"
                 />

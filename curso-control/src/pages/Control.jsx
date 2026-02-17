@@ -25,7 +25,7 @@ const Control = () => {
             {/* Header */}
             <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
                 <img
-                    src="https://placehold.co/1200x300/080b12/00e5ff?text=C.O.N.T.R.O.L.+Framework+%E2%80%94+7+Phases&font=mono"
+                    src="/images/header-framework-control.jpeg"
                     alt="Framework placeholder"
                     className="w-full h-48 md:h-56 object-cover opacity-40"
                 />
