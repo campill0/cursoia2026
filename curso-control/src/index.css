@@ -1,33 +1,253 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* ── Fonts ── */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
+}
+
 @theme {
-  --color-control-primary: #0ea5e9;
-  --color-control-secondary: #6366f1;
-  --color-control-accent: #ec4899;
-  --color-control-bg: #0f172a;
+  /* 60-30-10 Palette */
+  --color-obsidian: #080b12;
+  --color-deep-slate: #0f1520;
+  --color-deep-slate-hover: #161d2d;
+  --color-electric-cyan: #00e5ff;
+  --color-electric-cyan-dim: #00e5ff33;
+  --color-neon-magenta: #e040fb;
+  --color-neon-magenta-dim: #e040fb22;
+  --color-ghost-white: #e8eaed;
+  --color-muted: #64748b;
+  --color-muted-dim: #64748b44;
+  --color-emerald-glow: #34d399;
+  --color-amber-glow: #fbbf24;
+  --color-red-glow: #f87171;
 
-  --font-sans: 'Inter', sans-serif;
+  /* Surfaces */
+  --color-surface-0: #080b12;
+  --color-surface-1: #0f1520;
+  --color-surface-2: #161d2d;
+  --color-surface-3: #1e2740;
+
+  /* Typography */
+  --font-display: 'Satoshi', 'Inter', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', 'Fira Code', monospace;
+  --font-sans: 'Satoshi', 'Inter', system-ui, sans-serif;
 }
 
-@utility btn-primary {
-  @apply px-4 py-2 bg-control-primary text-white rounded-lg hover:bg-sky-600 transition-colors font-medium shadow-lg hover:shadow-sky-500/20 active:scale-95;
-}
-
-@utility btn-outline {
-  @apply px-4 py-2 border border-slate-700 text-slate-300 rounded-lg hover:bg-slate-800 transition-colors font-medium active:scale-95;
-}
-
-@utility card {
-  @apply bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl p-6 shadow-xl;
-}
-
+/* ── Base ── */
 @layer base {
   html {
     @apply scroll-smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-surface-3) var(--color-obsidian);
   }
 
   body {
-    @apply bg-control-bg text-slate-200 antialiased min-h-screen selection:bg-control-primary selection:text-white;
+    background: var(--color-obsidian);
+    color: var(--color-ghost-white);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Noise grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    mix-blend-mode: overlay;
+  }
+
+  ::selection {
+    background: var(--color-electric-cyan);
+    color: var(--color-obsidian);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-obsidian);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface-3);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-electric-cyan-dim);
+  }
+}
+
+/* ── Skeleton Animation ── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ── Utility Classes ── */
+@utility skeleton {
+  background: linear-gradient(90deg, var(--color-surface-1) 25%, var(--color-surface-2) 50%, var(--color-surface-1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+@utility glow-cyan {
+  box-shadow: 0 0 20px var(--color-electric-cyan-dim), 0 0 60px rgba(0, 229, 255, 0.05);
+}
+
+@utility glow-magenta {
+  box-shadow: 0 0 20px var(--color-neon-magenta-dim), 0 0 60px rgba(224, 64, 251, 0.05);
+}
+
+@utility gradient-text-cyan {
+  background: linear-gradient(135deg, var(--color-electric-cyan), #6ee7b7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility gradient-text-magenta {
+  background: linear-gradient(135deg, var(--color-neon-magenta), #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility tap-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ── Prose Overrides ── */
+.prose-cyber {
+  --tw-prose-body: var(--color-ghost-white);
+  --tw-prose-headings: var(--color-electric-cyan);
+  --tw-prose-links: var(--color-electric-cyan);
+  --tw-prose-bold: var(--color-ghost-white);
+  --tw-prose-code: var(--color-neon-magenta);
+  --tw-prose-pre-bg: var(--color-surface-1);
+  --tw-prose-hr: var(--color-surface-3);
+  --tw-prose-quotes: var(--color-muted);
+  --tw-prose-quote-borders: var(--color-electric-cyan-dim);
+}
+
+.prose-cyber h1,
+.prose-cyber h2,
+.prose-cyber h3,
+.prose-cyber h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.prose-cyber code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-surface-3);
+}
+
+.prose-cyber pre {
+  border: 1px solid var(--color-surface-3);
+  border-radius: 12px;
+}
+
+.prose-cyber blockquote {
+  border-left: 3px solid var(--color-electric-cyan);
+  background: var(--color-surface-1);
+  padding: 1rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.prose-cyber strong {
+  color: var(--color-electric-cyan);
+  font-weight: 700;
+}
+
+.prose-cyber a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-electric-cyan-dim);
+  transition: border-color 0.2s;
+}
+
+.prose-cyber a:hover {
+  border-bottom-color: var(--color-electric-cyan);
+}
+
+/* ── Gradient Mesh Background Utility ── */
+.gradient-mesh {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(0, 229, 255, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(224, 64, 251, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(52, 211, 153, 0.03) 0%, transparent 50%),
+    var(--color-obsidian);
+}
+
+/* ── Responsive Helpers ── */
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .bento-grid>.span-2 {
+    grid-column: span 1 !important;
   }
 }
