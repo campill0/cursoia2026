@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-control-primary: #0ea5e9;
+  --color-control-secondary: #6366f1;
+  --color-control-accent: #ec4899;
+  --color-control-bg: #0f172a;
+
+  --font-sans: 'Inter', sans-serif;
+}
+
+@utility btn-primary {
+  @apply px-4 py-2 bg-control-primary text-white rounded-lg hover:bg-sky-600 transition-colors font-medium shadow-lg hover:shadow-sky-500/20 active:scale-95;
+}
+
+@utility btn-outline {
+  @apply px-4 py-2 border border-slate-700 text-slate-300 rounded-lg hover:bg-slate-800 transition-colors font-medium active:scale-95;
+}
+
+@utility card {
+  @apply bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl p-6 shadow-xl;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-control-bg text-slate-200 antialiased min-h-screen selection:bg-control-primary selection:text-white;
+  }
+}
