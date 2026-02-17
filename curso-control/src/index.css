@@ -241,6 +241,41 @@
     var(--color-obsidian);
 }
 
+/* ── Header Image Bloom ── */
+.header-image {
+  filter: brightness(1.2) saturate(1.4);
+}
+
+.header-bloom {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, rgba(0, 229, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 30% 60%, rgba(224, 64, 251, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.header-text-shadow {
+  text-shadow: 0 2px 12px rgba(8, 11, 18, 0.9), 0 1px 3px rgba(8, 11, 18, 0.7);
+}
+
+/* ── Animated Border ── */
+@keyframes border-glow {
+
+  0%,
+  100% {
+    border-color: rgba(0, 229, 255, 0.15);
+  }
+
+  50% {
+    border-color: rgba(0, 229, 255, 0.45);
+  }
+}
+
+.animate-border-glow {
+  animation: border-glow 2s ease-in-out infinite;
+}
+
 /* ── Responsive Helpers ── */
 @media (max-width: 768px) {
   .bento-grid {

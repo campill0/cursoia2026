@@ -4,7 +4,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db/db';
 import {
     Home, Brain, AlertTriangle, ShieldCheck, Download, Upload,
-    Check, ChevronLeft, ChevronRight, X, Wrench
+    Check, ChevronLeft, ChevronRight, X, Wrench, Settings
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { exportBackup, downloadBackup, importBackupReplace } from '../../services/storage';
@@ -20,6 +20,7 @@ const navItems = [
 
 export const Sidebar = ({ collapsed, onToggleCollapse, onClose, isMobile }) => {
     const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [importFile, setImportFile] = useState(null);
     const [importStatus, setImportStatus] = useState('idle');
     const fileInputRef = useRef(null);
@@ -79,6 +80,19 @@ export const Sidebar = ({ collapsed, onToggleCollapse, onClose, isMobile }) => {
                                 </div>
                             </div>
                         )}
+                        {/* Settings gear (top-right, always visible when expanded) */}
+                        {!collapsed && !isMobile && (
+                            <button
+                                onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                                className={cn(
+                                    "tap-target flex items-center justify-center rounded-lg p-1.5 transition-colors",
+                                    isSettingsOpen ? "text-electric-cyan bg-electric-cyan/10" : "text-muted hover:text-ghost-white hover:bg-surface-2"
+                                )}
+                                aria-label="Configuración"
+                            >
+                                <Settings className="w-3.5 h-3.5" />
+                            </button>
+                        )}
                         {isMobile && (
                             <button onClick={onClose} className="text-muted hover:text-ghost-white tap-target flex items-center justify-center">
                                 <X className="w-4 h-4" />
@@ -103,7 +117,26 @@ export const Sidebar = ({ collapsed, onToggleCollapse, onClose, isMobile }) => {
                     </div>
                 )}
 
-                {/* Nav */}
+                {/* Settings dropdown (hidden in nav, shown by gear) */}
+                {isSettingsOpen && !collapsed && (
+                    <div className="px-2 py-2 border-b border-surface-3 bg-surface-1/50 space-y-0.5">
+                        <p className="text-[10px] font-mono text-muted/60 px-2 py-1 tracking-wider">DATOS</p>
+                        <button
+                            onClick={handleExport}
+                            className="w-full tap-target flex items-center gap-2 px-3 py-2 text-xs font-mono text-muted hover:text-ghost-white hover:bg-surface-2 rounded-lg transition-colors"
+                        >
+                            <Download className="w-3.5 h-3.5" /> Exportar Backup
+                        </button>
+                        <button
+                            onClick={() => setIsImportModalOpen(true)}
+                            className="w-full tap-target flex items-center gap-2 px-3 py-2 text-xs font-mono text-muted hover:text-ghost-white hover:bg-surface-2 rounded-lg transition-colors"
+                        >
+                            <Upload className="w-3.5 h-3.5" /> Importar Backup
+                        </button>
+                    </div>
+                )}
+
+                {/* Nav — clean, no technical functions */}
                 <nav className="flex-1 overflow-y-auto p-2 space-y-0.5">
                     {navItems.map((item) => {
                         const isCompleted = item.moduleId && completedIds.includes(item.moduleId);
@@ -136,9 +169,10 @@ export const Sidebar = ({ collapsed, onToggleCollapse, onClose, isMobile }) => {
                     })}
                 </nav>
 
-                {/* Footer */}
+                {/* Footer — only collapse toggle */}
                 <div className={cn("border-t border-surface-3", collapsed ? "p-2" : "p-3")}>
-                    {!collapsed && (
+                    {/* Mobile: settings buttons inline */}
+                    {isMobile && (
                         <div className="space-y-1 mb-3">
                             <button
                                 onClick={handleExport}

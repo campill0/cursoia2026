@@ -17,16 +17,17 @@ const fadeUp = {
 const Home = () => (
     <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12">
 
-        {/* Hero */}
+        {/* Hero with bloom */}
         <motion.section variants={fadeUp} className="relative overflow-hidden rounded-3xl border border-surface-3">
             <div className="absolute inset-0">
                 <img
                     src="/images/hero-neural-network.png"
-                    alt="Hero placeholder"
-                    className="w-full h-full object-cover opacity-30"
+                    alt="Hero"
+                    className="w-full h-full object-cover opacity-30 header-image"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/80 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-obsidian/60 to-transparent" />
+                <div className="header-bloom" />
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/80 to-transparent z-[2]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-obsidian/60 to-transparent z-[2]" />
             </div>
 
             <div className="relative z-10 p-8 md:p-16 lg:p-20">
@@ -35,13 +36,13 @@ const Home = () => (
                         <Zap className="w-3 h-3" /> PROMPT ENGINEERING 2026
                     </motion.div>
 
-                    <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95]">
+                    <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95] header-text-shadow">
                         <span className="gradient-text-cyan">Método</span>
                         <br />
                         <span className="text-ghost-white">C.O.N.T.R.O.L.</span>
                     </motion.h1>
 
-                    <motion.p variants={fadeUp} className="mt-6 text-lg text-muted max-w-lg leading-relaxed">
+                    <motion.p variants={fadeUp} className="mt-6 text-lg text-muted max-w-lg leading-relaxed header-text-shadow">
                         Domina los modelos de lenguaje con un framework sistemático de 7 fases. De la teoría a la ingeniería profesional de prompts.
                     </motion.p>
 
@@ -92,8 +93,8 @@ const Home = () => (
                         <div className="relative h-32 -mx-6 -mt-6 mb-4 overflow-hidden rounded-t-2xl">
                             <img
                                 src="https://placehold.co/600x250/0f1520/00e5ff?text=LLM+Internals&font=mono"
-                                alt="LLM internals placeholder"
-                                className="w-full h-full object-cover opacity-60"
+                                alt="LLM internals"
+                                className="w-full h-full object-cover opacity-60 header-image"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-deep-slate to-transparent" />
                         </div>
@@ -115,8 +116,8 @@ const Home = () => (
                         <div className="relative h-32 -mx-6 -mt-6 mb-4 overflow-hidden rounded-t-2xl">
                             <img
                                 src="https://placehold.co/600x250/0f1520/e040fb?text=Pathology+Map&font=mono"
-                                alt="Pathology map placeholder"
-                                className="w-full h-full object-cover opacity-60"
+                                alt="Pathology map"
+                                className="w-full h-full object-cover opacity-60 header-image"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-deep-slate to-transparent" />
                         </div>
@@ -158,8 +159,8 @@ const Home = () => (
                             <div className="relative w-full md:w-48 h-32 md:h-auto rounded-xl overflow-hidden shrink-0">
                                 <img
                                     src="/images/card-framework-shield.png"
-                                    alt="Framework diagram placeholder"
-                                    className="w-full h-full object-cover opacity-50"
+                                    alt="Framework diagram"
+                                    className="w-full h-full object-cover opacity-50 header-image"
                                 />
                             </div>
                         </div>
