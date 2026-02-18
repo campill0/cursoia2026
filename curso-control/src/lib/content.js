@@ -35,17 +35,29 @@ export const getPathologiesContent = () => {
 };
 
 export const getControlContent = () => {
-    // 00, 01, 02... 07
-    // exclude "000" ones which are general
-    // We want specifically the phases and the main Guide
-
-    // Filter for 'Fase' or 'Guía Técnica'
-    // But be careful not to include other stuff.
-    // The files are numbered: 00 Guía..., 01 Fase C..., etc.
-
     const files = Object.keys(contentMap).filter(name => {
         return (name.startsWith('00 ') || name.startsWith('01 ') || name.includes('Fase')) && !name.includes('000');
     }).sort();
-
     return files.map(name => contentMap[name]).join('\n\n<hr class="my-12 border-slate-800" />\n\n');
+};
+
+const phasesMeta = [
+    { prefix: '00 ', letter: '0', key: 'F0', title: 'Fundamentos', subtitle: 'La Física del Modelo', color: 'slate' },
+    { prefix: '01 ', letter: 'C', key: 'C', title: 'Contexto Curado', subtitle: 'Signal-to-Noise Ratio', color: 'cyan' },
+    { prefix: '02 ', letter: 'O', key: 'O', title: 'Omni-Rol', subtitle: 'Ingeniería de Identidad', color: 'magenta' },
+    { prefix: '03 ', letter: 'N', key: 'N', title: 'Normas y Negativas', subtitle: 'Muro de Contención', color: 'red' },
+    { prefix: '04 ', letter: 'T', key: 'T', title: 'Traza de Pensamiento', subtitle: 'Motor Cognitivo 2026', color: 'amber' },
+    { prefix: '05 ', letter: 'R', key: 'R', title: 'Realidad y Resistencia', subtitle: 'Protocolos de Verdad', color: 'emerald' },
+    { prefix: '06 ', letter: 'O₂', key: 'O2', title: 'Output y Organización', subtitle: 'Vibe Coding', color: 'blue' },
+    { prefix: '07 ', letter: 'L', key: 'L', title: 'Loop de Mejora', subtitle: 'Meta-Prompting', color: 'violet' },
+];
+
+export const getControlPhases = () => {
+    return phasesMeta.map(meta => {
+        const file = Object.keys(contentMap).find(name => name.startsWith(meta.prefix) && !name.includes('000'));
+        return {
+            ...meta,
+            content: file ? contentMap[file] : '',
+        };
+    }).filter(p => p.content);
 };

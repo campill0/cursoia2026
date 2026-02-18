@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { PhaseCard, phaseData } from '../components/ui/PhaseCard';
 import { CompleteButton } from '../components/ui/CompleteButton';
 import { MarkdownRenderer } from '../components/ui/MarkdownRenderer';
-import { getControlContent } from '../lib/content';
-import { ChevronDown } from 'lucide-react';
+import { getControlPhases } from '../lib/content';
+import { Crosshair, BookOpen } from 'lucide-react';
 
 const stagger = {
     hidden: { opacity: 0 },
@@ -16,25 +16,87 @@ const fadeUp = {
     show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 200, damping: 25 } }
 };
 
-const Control = () => {
-    const [expandedPhase, setExpandedPhase] = useState(null);
-    const [showFullContent, setShowFullContent] = useState(false);
-    const content = getControlContent();
+const phaseColorMap = {
+    slate: { text: 'text-ghost-white/80', bg: 'bg-ghost-white/10', border: 'border-ghost-white/20', accent: 'bg-ghost-white/60', letterBg: 'bg-surface-2', letterText: 'text-ghost-white' },
+    cyan: { text: 'text-electric-cyan', bg: 'bg-electric-cyan/10', border: 'border-electric-cyan/30', accent: 'bg-electric-cyan', letterBg: 'bg-electric-cyan/10', letterText: 'text-electric-cyan' },
+    magenta: { text: 'text-neon-magenta', bg: 'bg-neon-magenta/10', border: 'border-neon-magenta/30', accent: 'bg-neon-magenta', letterBg: 'bg-neon-magenta/10', letterText: 'text-neon-magenta' },
+    red: { text: 'text-red-glow', bg: 'bg-red-glow/10', border: 'border-red-glow/30', accent: 'bg-red-glow', letterBg: 'bg-red-glow/10', letterText: 'text-red-glow' },
+    amber: { text: 'text-amber-glow', bg: 'bg-amber-glow/10', border: 'border-amber-glow/30', accent: 'bg-amber-glow', letterBg: 'bg-amber-glow/10', letterText: 'text-amber-glow' },
+    emerald: { text: 'text-emerald-glow', bg: 'bg-emerald-glow/10', border: 'border-emerald-glow/30', accent: 'bg-emerald-glow', letterBg: 'bg-emerald-glow/10', letterText: 'text-emerald-glow' },
+    blue: { text: 'text-blue-400', bg: 'bg-blue-400/10', border: 'border-blue-400/30', accent: 'bg-blue-400', letterBg: 'bg-blue-400/10', letterText: 'text-blue-400' },
+    violet: { text: 'text-violet-400', bg: 'bg-violet-400/10', border: 'border-violet-400/30', accent: 'bg-violet-400', letterBg: 'bg-violet-400/10', letterText: 'text-violet-400' },
+};
+
+const PhaseSection = ({ phase, index }) => {
+    const cs = phaseColorMap[phase.color] || phaseColorMap.cyan;
 
     return (
-        <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-10">
+        <motion.section variants={fadeUp} className="scroll-mt-24" id={`phase-${phase.key}`}>
+            {/* Phase Header Bar */}
+            <div className={`flex items-center gap-5 mb-6 pb-4 border-b ${cs.border}`}>
+                <div className={`w-14 h-14 rounded-2xl ${cs.letterBg} ${cs.letterText} flex items-center justify-center text-2xl font-black shrink-0 border ${cs.border}`}>
+                    {phase.letter}
+                </div>
+                <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3 mb-1">
+                        <span className={`text-[10px] font-mono ${cs.text} tracking-[0.2em] uppercase font-bold`}>
+                            FASE {phase.letter}
+                        </span>
+                        <span className={`flex-1 h-px ${cs.accent} opacity-20`} />
+                        <span className="text-[10px] font-mono text-muted/40 tabular-nums">
+                            {String(index + 1).padStart(2, '0')}/08
+                        </span>
+                    </div>
+                    <h2 className="text-xl font-black text-ghost-white uppercase tracking-tight">
+                        {phase.title}
+                    </h2>
+                    <p className={`text-xs font-mono ${cs.text} opacity-70 mt-0.5`}>{phase.subtitle}</p>
+                </div>
+            </div>
+
+            {/* Phase Content — rendered from markdown with cyber styling */}
+            <div className={`pl-4 lg:pl-8 border-l-2 ${cs.border} ml-7`}>
+                <div className="prose-cyber prose prose-invert max-w-none prose-sm
+                    prose-headings:text-ghost-white prose-headings:font-bold prose-headings:tracking-tight
+                    prose-h2:text-lg prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-surface-3 prose-h2:pb-2
+                    prose-h3:text-base prose-h3:mt-8 prose-h3:mb-3
+                    prose-h4:text-sm prose-h4:mt-6 prose-h4:mb-2
+                    prose-p:text-ghost-white/80 prose-p:leading-relaxed prose-p:text-sm prose-p:my-3
+                    prose-li:text-ghost-white/80 prose-li:text-sm prose-li:leading-relaxed
+                    prose-strong:text-ghost-white prose-strong:font-semibold
+                    prose-em:text-ghost-white/70
+                    prose-table:rounded-xl prose-table:overflow-hidden prose-table:border prose-table:border-surface-3
+                    prose-thead:bg-surface-2
+                    prose-th:text-xs prose-th:font-mono prose-th:text-ghost-white/90 prose-th:uppercase prose-th:tracking-wider prose-th:px-4 prose-th:py-3
+                    prose-td:text-xs prose-td:text-ghost-white/75 prose-td:px-4 prose-td:py-3 prose-td:border-t prose-td:border-surface-3
+                    prose-blockquote:border-l-2 prose-blockquote:border-electric-cyan/40 prose-blockquote:bg-surface-1/50 prose-blockquote:rounded-r-xl prose-blockquote:py-1 prose-blockquote:px-4
+                    prose-code:text-electric-cyan prose-code:bg-electric-cyan/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:font-mono
+                    prose-hr:border-surface-3 prose-hr:my-8
+                ">
+                    <MarkdownRenderer content={phase.content} />
+                </div>
+            </div>
+        </motion.section>
+    );
+};
+
+const Control = () => {
+    const phases = getControlPhases();
+
+    return (
+        <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12 pb-20">
 
             {/* Header with bloom */}
             <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
                 <img
                     src="/images/header-framework-control.jpeg"
                     alt="Framework C.O.N.T.R.O.L."
-                    className="w-full h-48 md:h-56 object-cover opacity-40 header-image"
+                    className="w-full h-48 md:h-64 object-cover opacity-40 header-image"
                 />
                 <div className="header-bloom" />
                 <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/70 to-transparent z-[2]" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-[3]">
-                    <p className="text-xs font-mono text-electric-cyan/60 tracking-wider mb-2 header-text-shadow">MANUAL OPERATIVO · 7 FASES</p>
+                    <p className="text-xs font-mono text-electric-cyan/60 tracking-wider mb-2 header-text-shadow">MANUAL OPERATIVO · 7 FASES + FUNDAMENTOS</p>
                     <h1 className="text-3xl md:text-4xl font-black header-text-shadow">
                         <span className="gradient-text-cyan">Framework </span>
                         <span className="text-ghost-white">C.O.N.T.R.O.L.</span>
@@ -43,7 +105,7 @@ const Control = () => {
                 </div>
             </motion.div>
 
-            {/* Phase cards */}
+            {/* Phase cards — quick nav */}
             <motion.div variants={fadeUp}>
                 <h2 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
                     <span className="w-1.5 h-6 bg-electric-cyan rounded-full" />
@@ -55,43 +117,54 @@ const Control = () => {
                             <PhaseCard
                                 phase={phase}
                                 index={i}
-                                isExpanded={expandedPhase === phase.key}
-                                onToggle={() => setExpandedPhase(prev => prev === phase.key ? null : phase.key)}
+                                isExpanded={false}
+                                onToggle={() => {
+                                    const el = document.getElementById(`phase-${phase.key}`);
+                                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }}
                             />
                         </div>
                     ))}
                 </div>
             </motion.div>
 
-            {/* Progressive disclosure for full content */}
-            <motion.div variants={fadeUp}>
-                <button
-                    onClick={() => setShowFullContent(!showFullContent)}
-                    className="w-full flex items-center justify-between p-4 bg-deep-slate border border-surface-3 rounded-2xl hover:bg-surface-2 transition-colors group"
-                >
-                    <div className="flex items-center gap-3">
-                        <span className="w-1.5 h-6 bg-amber-glow rounded-full" />
-                        <h2 className="text-lg font-bold text-ghost-white">Manual Operativo Completo</h2>
+            {/* Intro — what this manual is */}
+            <motion.div variants={fadeUp} className="grid lg:grid-cols-3 gap-8 items-start">
+                <div className="lg:col-span-2 relative">
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-electric-cyan/50 to-transparent rounded-full" />
+                    <div className="pl-8 space-y-4">
+                        <p className="text-sm text-muted leading-relaxed">
+                            Este manual despliega el sistema <span className="text-ghost-white font-medium">C.O.N.T.R.O.L.</span> fase por fase. Cada sección contiene la especificación técnica completa: fundamento teórico, técnicas tácticas, tablas de decisión y listas de verificación para cerrar cada fase antes de pasar a la siguiente.
+                        </p>
+                        <p className="text-sm text-muted leading-relaxed">
+                            Todo el contenido se presenta <span className="text-ghost-white font-medium">sin sintetizar</span>. Desplázate a tu ritmo por cada fase o usa las tarjetas superiores como navegación rápida.
+                        </p>
                     </div>
-                    <ChevronDown className={`w-5 h-5 text-muted group-hover:text-electric-cyan transition-all duration-200 ${showFullContent ? 'rotate-180 text-electric-cyan' : ''}`} />
-                </button>
+                </div>
 
-                <AnimatePresence>
-                    {showFullContent && (
-                        <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="overflow-hidden"
-                        >
-                            <div className="prose-cyber prose prose-invert max-w-none mt-4 pt-4">
-                                <MarkdownRenderer content={content} />
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                <div className="hidden lg:block">
+                    <div className="p-6 rounded-2xl border border-surface-3 bg-deep-slate/50 backdrop-blur-sm relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <Crosshair className="w-24 h-24 text-electric-cyan -rotate-12" />
+                        </div>
+                        <h4 className="text-[10px] font-mono text-electric-cyan tracking-[0.2em] mb-3 uppercase">Manual Completo</h4>
+                        <p className="text-xs text-ghost-white/90 leading-relaxed font-medium">
+                            8 secciones técnicas con todo el contenido íntegro del framework. Cero resúmenes, cero recortes.
+                        </p>
+                        <div className="mt-4 flex items-center gap-2 text-muted/50">
+                            <BookOpen className="w-4 h-4" />
+                            <span className="text-[9px] font-mono tracking-wider uppercase">{phases.length} secciones desplegadas</span>
+                        </div>
+                    </div>
+                </div>
             </motion.div>
+
+            {/* All phases — always visible, each with its own visual identity */}
+            <div className="space-y-16">
+                {phases.map((phase, i) => (
+                    <PhaseSection key={phase.key} phase={phase} index={i} />
+                ))}
+            </div>
 
             <CompleteButton moduleId="control" />
         </motion.div>
