@@ -255,9 +255,7 @@
   z-index: 1;
 }
 
-.header-text-shadow {
-  
-}
+.header-text-shadow {}
 
 /* ── Animated Border ── */
 @keyframes border-glow {
@@ -285,4 +283,22 @@
   .bento-grid>.span-2 {
     grid-column: span 1 !important;
   }
+}
+
+/* ── Search Highlight ── */
+mark.search-highlight {
+  background: rgba(251, 191, 36, 0.30);
+  color: #fbbf24;
+  border-radius: 3px;
+  padding: 0 2px;
+  font-style: inherit;
+  font-weight: inherit;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+mark.search-highlight--active {
+  background: rgba(251, 191, 36, 0.55);
+  color: #fff;
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.6), 0 0 12px rgba(251, 191, 36, 0.3);
+  border-radius: 3px;
 }

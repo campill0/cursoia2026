@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PhaseCard, phaseData } from '../components/ui/PhaseCard';
 import { CompleteButton } from '../components/ui/CompleteButton';
 import { MarkdownRenderer } from '../components/ui/MarkdownRenderer';
 import { getControlPhases } from '../lib/content';
-import { Crosshair, BookOpen, ChevronDown } from 'lucide-react';
+import { Crosshair, BookOpen, ChevronDown, Search, X, ChevronUp, ChevronDown as ChevronDownIcon } from 'lucide-react';
 
 const stagger = {
     hidden: { opacity: 0 },
@@ -27,7 +27,28 @@ const phaseColorMap = {
     violet: { text: 'text-violet-400', bg: 'bg-violet-400/10', border: 'border-violet-400/30', accent: 'bg-violet-400', letterBg: 'bg-violet-400/10', letterText: 'text-violet-400' },
 };
 
-const PhaseSection = ({ phase, index, isExpanded, onToggle }) => {
+// ─── Highlight helper ────────────────────────────────────────────────────────
+/**
+ * Splits `text` by `query` and returns an array of React nodes with
+ * matching segments wrapped in a <mark> element.
+ */
+const HighlightText = ({ text, query }) => {
+    if (!query || !text) return <>{text}</>;
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const parts = text.split(new RegExp(`(${escaped})`, 'gi'));
+    return (
+        <>
+            {parts.map((part, i) =>
+                part.toLowerCase() === query.toLowerCase()
+                    ? <mark key={i} className="search-highlight">{part}</mark>
+                    : part
+            )}
+        </>
+    );
+};
+
+// ─── PhaseSection ────────────────────────────────────────────────────────────
+const PhaseSection = ({ phase, index, isExpanded, onToggle, searchQuery }) => {
     const cs = phaseColorMap[phase.color] || phaseColorMap.cyan;
 
     return (
@@ -51,9 +72,11 @@ const PhaseSection = ({ phase, index, isExpanded, onToggle }) => {
                         </span>
                     </div>
                     <h2 className="text-xl font-black text-ghost-white uppercase tracking-tight group-hover:text-electric-cyan transition-colors">
-                        {phase.title}
+                        <HighlightText text={phase.title} query={searchQuery} />
                     </h2>
-                    <p className={`text-xs font-mono ${cs.text} opacity-70 mt-0.5`}>{phase.subtitle}</p>
+                    <p className={`text-xs font-mono ${cs.text} opacity-70 mt-0.5`}>
+                        <HighlightText text={phase.subtitle} query={searchQuery} />
+                    </p>
                 </div>
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center border ${cs.border} bg-obsidian transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
                     <ChevronDown className={`w-4 h-4 ${cs.text}`} />
@@ -88,7 +111,7 @@ const PhaseSection = ({ phase, index, isExpanded, onToggle }) => {
                                 prose-code:text-electric-cyan prose-code:bg-electric-cyan/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:font-mono
                                 prose-hr:border-surface-3 prose-hr:my-8
                             ">
-                                <MarkdownRenderer content={phase.content} />
+                                <MarkdownRenderer content={phase.content} searchQuery={searchQuery} />
                             </div>
                         </div>
                     </motion.div>
@@ -98,23 +121,198 @@ const PhaseSection = ({ phase, index, isExpanded, onToggle }) => {
     );
 };
 
+// ─── SearchBar ───────────────────────────────────────────────────────────────
+const SearchBar = ({ value, onChange, onClear, resultCount, currentResult, onPrev, onNext }) => {
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        const handleKey = (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                inputRef.current?.focus();
+            }
+            if (e.key === 'Escape') onClear();
+            if (e.key === 'Enter' && value) {
+                e.shiftKey ? onPrev() : onNext();
+            }
+        };
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
+    }, [value, onClear, onPrev, onNext]);
+
+    return (
+        <div className="relative flex items-center gap-2 bg-surface-1 border border-surface-3 rounded-xl px-4 py-3 focus-within:border-electric-cyan/50 transition-colors group">
+            <Search className="w-4 h-4 text-electric-cyan/60 shrink-0" />
+            <input
+                ref={inputRef}
+                type="text"
+                value={value}
+                onChange={e => onChange(e.target.value)}
+                placeholder="Buscar en las fases… (Ctrl+F)"
+                className="flex-1 bg-transparent text-sm text-ghost-white placeholder:text-muted/40 outline-none font-mono"
+            />
+
+            {/* Result counter */}
+            {value && (
+                <div className="flex items-center gap-1 shrink-0">
+                    <span className="text-xs font-mono text-muted/60 tabular-nums min-w-[4rem] text-right">
+                        {resultCount === 0
+                            ? 'Sin resultados'
+                            : `${currentResult + 1} / ${resultCount}`}
+                    </span>
+                    <div className="flex items-center gap-0.5 ml-1">
+                        <button
+                            onClick={onPrev}
+                            disabled={resultCount === 0}
+                            title="Resultado anterior (Shift+Enter)"
+                            className="w-6 h-6 rounded flex items-center justify-center text-muted/60 hover:text-electric-cyan hover:bg-electric-cyan/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        >
+                            <ChevronUp className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                            onClick={onNext}
+                            disabled={resultCount === 0}
+                            title="Resultado siguiente (Enter)"
+                            className="w-6 h-6 rounded flex items-center justify-center text-muted/60 hover:text-electric-cyan hover:bg-electric-cyan/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        >
+                            <ChevronDownIcon className="w-3.5 h-3.5" />
+                        </button>
+                    </div>
+                    <button
+                        onClick={onClear}
+                        title="Limpiar búsqueda (Esc)"
+                        className="w-6 h-6 rounded flex items-center justify-center text-muted/60 hover:text-red-glow hover:bg-red-glow/10 transition-colors ml-0.5"
+                    >
+                        <X className="w-3.5 h-3.5" />
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+};
+
+// ─── Control (main page) ─────────────────────────────────────────────────────
 const Control = () => {
     const phases = getControlPhases();
     const [expandedPhaseId, setExpandedPhaseId] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [currentResultIdx, setCurrentResultIdx] = useState(0);
+    const highlightRefs = useRef([]);
 
+    // ── Filtering ──────────────────────────────────────────────────────────
+    const filteredPhases = useMemo(() => {
+        if (!searchQuery.trim()) return phases;
+        const q = searchQuery.toLowerCase();
+        return phases.filter(phase =>
+            phase.title?.toLowerCase().includes(q) ||
+            phase.subtitle?.toLowerCase().includes(q) ||
+            phase.content?.toLowerCase().includes(q)
+        );
+    }, [phases, searchQuery]);
+
+    // ── Auto-expand filtered phases ────────────────────────────────────────
+    const [manualExpanded, setManualExpanded] = useState(null);
+
+    const expandedSet = useMemo(() => {
+        if (!searchQuery.trim()) {
+            // No search: only the manually toggled phase is open
+            return manualExpanded ? new Set([manualExpanded]) : new Set();
+        }
+        // Search active: expand all matching phases
+        return new Set(filteredPhases.map(p => p.key));
+    }, [searchQuery, filteredPhases, manualExpanded]);
+
+    // ── Count & navigate highlights ────────────────────────────────────────
+    const countHighlights = useCallback(() => {
+        return document.querySelectorAll('mark.search-highlight').length;
+    }, []);
+
+    const scrollToHighlight = useCallback((idx) => {
+        const marks = document.querySelectorAll('mark.search-highlight');
+        if (!marks.length) return;
+        const safeIdx = ((idx % marks.length) + marks.length) % marks.length;
+        marks.forEach((m, i) => {
+            m.classList.toggle('search-highlight--active', i === safeIdx);
+        });
+        marks[safeIdx]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, []);
+
+    // Reset result index when query changes
+    useEffect(() => {
+        setCurrentResultIdx(0);
+    }, [searchQuery]);
+
+    // After DOM updates, scroll to current result
+    useEffect(() => {
+        if (!searchQuery.trim()) return;
+        // Small delay to let AnimatePresence finish expanding
+        const timer = setTimeout(() => {
+            const total = countHighlights();
+            if (total > 0) scrollToHighlight(currentResultIdx);
+        }, 350);
+        return () => clearTimeout(timer);
+    }, [searchQuery, expandedSet, currentResultIdx, countHighlights, scrollToHighlight]);
+
+    const totalResults = useMemo(() => {
+        // We can't easily count DOM nodes in useMemo, so we expose a live count
+        // via a state updated after render. We use a ref-based approach instead.
+        return 0; // placeholder; real count is DOM-based, see below
+    }, []);
+
+    // Live DOM-based result count (updated after paint)
+    const [liveCount, setLiveCount] = useState(0);
+    useEffect(() => {
+        if (!searchQuery.trim()) { setLiveCount(0); return; }
+        const timer = setTimeout(() => {
+            setLiveCount(document.querySelectorAll('mark.search-highlight').length);
+        }, 400);
+        return () => clearTimeout(timer);
+    }, [searchQuery, expandedSet]);
+
+    const handleNext = useCallback(() => {
+        const total = countHighlights();
+        if (!total) return;
+        const next = (currentResultIdx + 1) % total;
+        setCurrentResultIdx(next);
+        scrollToHighlight(next);
+    }, [currentResultIdx, countHighlights, scrollToHighlight]);
+
+    const handlePrev = useCallback(() => {
+        const total = countHighlights();
+        if (!total) return;
+        const prev = (currentResultIdx - 1 + total) % total;
+        setCurrentResultIdx(prev);
+        scrollToHighlight(prev);
+    }, [currentResultIdx, countHighlights, scrollToHighlight]);
+
+    const handleClear = useCallback(() => {
+        setSearchQuery('');
+        setCurrentResultIdx(0);
+        setLiveCount(0);
+    }, []);
+
+    // ── Toggle (manual, no search) ─────────────────────────────────────────
     const handleToggle = (key) => {
-        setExpandedPhaseId(prev => prev === key ? null : key);
+        if (searchQuery.trim()) {
+            // In search mode, clicking collapses/expands individual phases
+            // We don't override search expansion; just scroll
+            const el = document.getElementById(`phase-${key}`);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+        }
+        setManualExpanded(prev => prev === key ? null : key);
     };
 
     const handleCardClick = (key) => {
-        setExpandedPhaseId(key);
+        setManualExpanded(key);
         setTimeout(() => {
             const el = document.getElementById(`phase-${key}`);
-            if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
     };
+
+    // Phases to render (filtered or all)
+    const phasesToRender = searchQuery.trim() ? filteredPhases : phases;
 
     return (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12 pb-20">
@@ -150,7 +348,7 @@ const Control = () => {
                             <PhaseCard
                                 phase={phase}
                                 index={i}
-                                isExpanded={expandedPhaseId === phase.key}
+                                isExpanded={expandedSet.has(phase.key)}
                                 onToggle={() => handleCardClick(phase.key)}
                             />
                         </div>
@@ -158,7 +356,6 @@ const Control = () => {
                 </div>
             </motion.div>
 
-            {/* Intro — what this manual is */}
             {/* Intro — what this manual is */}
             <motion.div variants={fadeUp} className="relative">
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-electric-cyan/50 to-transparent rounded-full" />
@@ -172,15 +369,52 @@ const Control = () => {
                 </div>
             </motion.div>
 
+            {/* ── Search Bar ── */}
+            <motion.div variants={fadeUp}>
+                <SearchBar
+                    value={searchQuery}
+                    onChange={setSearchQuery}
+                    onClear={handleClear}
+                    resultCount={liveCount}
+                    currentResult={currentResultIdx}
+                    onPrev={handlePrev}
+                    onNext={handleNext}
+                />
+                {/* No-results message */}
+                <AnimatePresence>
+                    {searchQuery.trim() && filteredPhases.length === 0 && (
+                        <motion.p
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            className="text-xs font-mono text-muted/50 mt-3 pl-1"
+                        >
+                            Ninguna fase contiene «{searchQuery}».
+                        </motion.p>
+                    )}
+                    {searchQuery.trim() && filteredPhases.length > 0 && (
+                        <motion.p
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            className="text-xs font-mono text-electric-cyan/50 mt-3 pl-1"
+                        >
+                            {filteredPhases.length} fase{filteredPhases.length !== 1 ? 's' : ''} encontrada{filteredPhases.length !== 1 ? 's' : ''} · {liveCount} coincidencia{liveCount !== 1 ? 's' : ''}
+                        </motion.p>
+                    )}
+                </AnimatePresence>
+            </motion.div>
+
             {/* All phases — Accordion Style */}
             <div className="space-y-4">
-                {phases.map((phase, i) => (
+                {phasesToRender.map((phase, i) => (
                     <PhaseSection
                         key={phase.key}
                         phase={phase}
-                        index={i}
-                        isExpanded={expandedPhaseId === phase.key}
+                        index={phases.indexOf(phase)}
+                        isExpanded={expandedSet.has(phase.key)}
                         onToggle={() => handleToggle(phase.key)}
+                        searchQuery={searchQuery.trim()}
                     />
                 ))}
             </div>
