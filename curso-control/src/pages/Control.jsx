@@ -5,6 +5,7 @@ import { CompleteButton } from '../components/ui/CompleteButton';
 import { MarkdownRenderer } from '../components/ui/MarkdownRenderer';
 import { getControlPhases } from '../lib/content';
 import { Crosshair, BookOpen, ChevronDown, Search, X, ChevronUp, ChevronDown as ChevronDownIcon } from 'lucide-react';
+import { PhaseCarousel } from '../components/ui/PhaseCarousel';
 
 const stagger = {
     hidden: { opacity: 0 },
@@ -194,7 +195,6 @@ const SearchBar = ({ value, onChange, onClear, resultCount, currentResult, onPre
 // ─── Control (main page) ─────────────────────────────────────────────────────
 const Control = () => {
     const phases = getControlPhases();
-    const [expandedPhaseId, setExpandedPhaseId] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [currentResultIdx, setCurrentResultIdx] = useState(0);
     const highlightRefs = useRef([]);
@@ -303,12 +303,40 @@ const Control = () => {
         setManualExpanded(prev => prev === key ? null : key);
     };
 
+    // Función auxiliar para scroll suave personalizado
+    const animateScroll = (targetY, duration = 800) => {
+        const startY = window.pageYOffset;
+        const distance = targetY - startY;
+        let startTime = null;
+
+        const easeInOutQuad = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+        const step = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const ease = easeInOutQuad(progress);
+
+            window.scrollTo(0, startY + (distance * ease));
+
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+
+        window.requestAnimationFrame(step);
+    };
+
     const handleCardClick = (key) => {
         setManualExpanded(key);
+        // Iniciamos el scroll un poco antes para que se sienta reactivo,
+        // confiando en que la animación de altura (framer-motion) fluirá con el scroll.
         setTimeout(() => {
             const el = document.getElementById(`phase-${key}`);
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+            if (el) {
+                const y = el.getBoundingClientRect().top + window.pageYOffset - 100;
+                animateScroll(y, 800);
+            }
+        }, 150); // Reducido el delay para mejorar la respuesta
     };
 
     // Phases to render (filtered or all)
@@ -338,24 +366,19 @@ const Control = () => {
                     </div>
                 </motion.div>
 
-                {/* Phase cards — quick nav */}
-                <motion.div variants={fadeUp}>
-                    <h2 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
+                {/* Phase cards — quick nav (3D Carousel) */}
+                <motion.div variants={fadeUp} className="w-full relative -mx-4 md:mx-0">
+                    <h2 className="text-lg font-bold text-ghost-white mb-2 flex items-center gap-2 px-4 md:px-0">
                         <span className="w-1.5 h-6 bg-electric-cyan rounded-full" />
                         Las 7 Fases
                     </h2>
-                    <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible snap-x snap-mandatory">
-                        {phaseData.map((phase, i) => (
-                            <div key={phase.key} className="min-w-[280px] md:min-w-0 snap-start">
-                                <PhaseCard
-                                    phase={phase}
-                                    index={i}
-                                    isExpanded={expandedSet.has(phase.key)}
-                                    onToggle={() => handleCardClick(phase.key)}
-                                />
-                            </div>
-                        ))}
-                    </div>
+
+                    {/* Reemplazo del grid por el carrusel 3D */}
+                    <PhaseCarousel
+                        phases={phaseData}
+                        expandedPhaseId={manualExpanded}
+                        onToggle={handleCardClick}
+                    />
                 </motion.div>
 
                 {/* Intro */}

@@ -77,7 +77,7 @@ export const AppLayout = () => {
                 className="min-h-screen transition-all duration-300"
                 style={{ marginLeft: isDesktop ? sidebarWidth : 0, paddingTop: isDesktop ? 0 : 56 }}
             >
-                <div className="max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-12">
+                <div className=" mx-auto px-4 md:px-8 py-8 md:py-12">
                     <Outlet />
                 </div>
             </main>
