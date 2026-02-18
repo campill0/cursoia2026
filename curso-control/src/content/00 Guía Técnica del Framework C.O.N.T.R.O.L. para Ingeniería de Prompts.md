@@ -28,7 +28,7 @@ El modelo no es un cerebro, es un motor de predicción probabilística. Funciona
   - *Context Quarantine:* Un tema = Un chat. No mezcles código con cocina.
   - *Chat Temporal:* Úsalo para pruebas "sucias" o temas que contradigan tus preferencias habituales para evitar el "Envenenamiento de Memoria".
 - **Gestión de Capacidad:**
-  - Para documentos >50 páginas, usa modelos **Thinking** (o1/GPT-5.2) que multiplican la memoria efectiva.
+  - Para documentos >50 páginas, usa modelos **Thinking** como GPT-5.2 thinking que multiplican la memoria efectiva.
   - Cuidado con el **Truncamiento Silencioso**: la interfaz borra lo antiguo sin avisar si te pasas de tokens.
 
 ---
@@ -68,7 +68,7 @@ El modelo no es un cerebro, es un motor de predicción probabilística. Funciona
 
 **Objetivo:** Obligar al modelo a procesar antes de responder.
 
-- **El Nuevo Paradigma (Modelos Razonadores):** Con o1, GPT-5.2 o Gemini 3, no micro-gestiones el proceso ("paso a paso"). Controla el **Objetivo** y los **Criterios de Calidad**, y deja que el modelo decida la ruta lógica.
+- **El Nuevo Paradigma (Modelos Razonadores):** Con GPT-5.2 Thinking o Gemini 3, no micro-gestiones el proceso ("paso a paso"). Controla el **Objetivo** y los **Criterios de Calidad**, y deja que el modelo decida la ruta lógica.
 - **Estrategias por Nivel:**
   - *Baja complejidad:* Zero-Shot ("Piensa paso a paso").
   - *Alta complejidad:* **Few-Shot CoT** (Dale ejemplos de *Problema → Razonamiento → Solución*).
@@ -92,7 +92,7 @@ El modelo no es un cerebro, es un motor de predicción probabilística. Funciona
 
 ---
 
-## FASE O(2): OUTPUT Y ORGANIZACIÓN (Vibe Coding)
+## FASE O(2): OUTPUT Y ORGANIZACIÓN (Vibe Coding/ Vibe creating)
 
 *El formato determina la utilidad.*
 

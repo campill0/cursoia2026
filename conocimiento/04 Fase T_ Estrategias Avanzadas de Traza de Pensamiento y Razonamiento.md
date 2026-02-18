@@ -29,7 +29,7 @@ Los tres modelos permiten ahora un control directo sobre su "presupuesto cogniti
 
 **1.2. Cambio de Paradigma: Gestión de Objetivos vs. Micro-gestión de Procesos**
 
-Con la llegada de los **Modelos de Razonamiento Nativo** (como o1, GPT-5.2 Thinking o Claude 3.5/Opus 4.6), la regla de oro de la Fase T ha cambiado. Antes, debíamos simular el razonamiento guiando al modelo de la mano; hoy, el modelo ya "piensa" por defecto, y guiarlo en exceso puede ser contraproducente.
+Con la llegada de los **Modelos de Razonamiento Nativo** ( GPT-5.2 Thinking o Claude 3.5/Opus 4.6), la regla de oro de la Fase T ha cambiado. Antes, debíamos simular el razonamiento guiando al modelo de la mano; hoy, el modelo ya "piensa" por defecto, y guiarlo en exceso puede ser contraproducente.
 
 **El Riesgo de la Sobreespecificación (Over-Constraining):** Si fuerzas un esquema de razonamiento rígido y lineal a un modelo que opera con un proceso de deliberación no lineal (árboles de búsqueda, backtracking), puedes **bloquear sus estrategias internas óptimas**. Es como decirle a un gran maestro de ajedrez exactamente qué peones mover en lugar de pedirle que gane la partida.
 
@@ -43,8 +43,8 @@ Con la llegada de los **Modelos de Razonamiento Nativo** (como o1, GPT-5.2 Think
 
 | Escenario | Estrategia Fase T | Por qué |
 | ----- | ----- | ----- |
-| **Modelos Estándar** (GPT-4o, Gemini Flash) | **Guía Rígida (Step-by-Step)** | No razonan nativamente; necesitan tu "andamiaje" para no perderse. |
-| **Modelos Razonadores** (o1, GPT-5.2 Thinking) | **Libertad de Proceso (Outcome-Based)** | Tienen estrategias latentes superiores a las tuyas. Define el *Output* y los *Límites*, no los pasos intermedios,. |
+| **Modelos Estándar** (GPT-5.2 Instant, Gemini Flash) | **Guía Rígida (Step-by-Step)** | No razonan nativamente; necesitan tu "andamiaje" para no perderse. |
+| **Modelos Razonadores** ( GPT-5.2 Thinking) | **Libertad de Proceso (Outcome-Based)** | Tienen estrategias latentes superiores a las tuyas. Define el *Output* y los *Límites*, no los pasos intermedios,. |
 
 **Nota de Implementación:** Solo introduce "andamios" (paso a paso explícito) en modelos razonadores si fallan en el primer intento libre, o si el proceso legal/normativo exige una secuencia inalterable.
 

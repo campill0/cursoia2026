@@ -117,7 +117,7 @@ Es vital distinguir entre la capacidad teórica del modelo y el límite real que
 
 **Matriz de Capacidad Real (Tokens de Contexto):**
 
-| Plan de Usuario | Modo Instant (GPT-4o / Estándar) | Modo Thinking (o1 / GPT-5.2 Thinking) |
+| Plan de Usuario | Modo Instant (GPT-5.2 Instant / Estándar) | Modo Thinking ( GPT-5.2 Thinking) |
 | ----- | ----- | ----- |
 | Free | 16,000 (~12k palabras) | No disponible |
 | Plus / Team | 32,000 (~24k palabras) | 196,000 (~147k palabras) |

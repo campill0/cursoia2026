@@ -24,8 +24,8 @@ Estas herramientas definen el sistema operativo de la IA antes de que escribas u
 Elegir el modelo correcto es la primera decisión táctica para evitar la pereza cognitiva.
 
 * **Selector de Modelo (Thinking vs. Standard):**  
-  * *Standard (GPT-4o):* Ideal para tareas rápidas. Tiene una ventana de contexto estándar (32k tokens en Plus).  
-  * *Reasoning (o1 / GPT-5.2 Thinking):* Modelos que "piensan" antes de responder. Son obligatorios para documentos extensos (\>50 páginas) o lógica compleja, ya que multiplican la memoria efectiva y reducen alucinaciones,.  
+  * *Standard (GPT-5.2 Instant):* Ideal para tareas rápidas. Tiene una ventana de contexto estándar (32k tokens en Plus).  
+  * *Reasoning (GPT-5.2 Thinking):* Modelos que "piensan" antes de responder. Son obligatorios para documentos extensos (\>50 páginas) o lógica compleja, ya que multiplican la memoria efectiva y reducen alucinaciones,.  
   * *Advanced Data Analysis (Clip / Subida de Archivos):* Permite subir Excel, PDF o CSV. Transforma al modelo en un procesador de datos (Grounding), obligándolo a usar *tus* datos y no su entrenamiento, eliminando alucinaciones externas,.
 
 ### **3\. Herramientas de "Intervención y Edición" (Durante el Chat)**
