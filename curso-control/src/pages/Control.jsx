@@ -159,33 +159,16 @@ const Control = () => {
             </motion.div>
 
             {/* Intro — what this manual is */}
-            <motion.div variants={fadeUp} className="grid lg:grid-cols-3 gap-8 items-start">
-                <div className="lg:col-span-2 relative">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-electric-cyan/50 to-transparent rounded-full" />
-                    <div className="pl-8 space-y-4">
-                        <p className="text-sm text-muted leading-relaxed">
-                            Este manual despliega el sistema <span className="text-ghost-white font-medium">C.O.N.T.R.O.L.</span> fase por fase. Cada sección contiene la especificación técnica completa: fundamento teórico, técnicas tácticas, tablas de decisión y listas de verificación para cerrar cada fase antes de pasar a la siguiente.
-                        </p>
-                        <p className="text-sm text-muted leading-relaxed">
-                            El contenido es denso y técnico. Haz clic en cada fase para desplegar su manual operativo correspondiente. Solo una fase puede estar activa a la vez para focalizar la atención.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="hidden lg:block">
-                    <div className="p-6 rounded-2xl border border-surface-3 bg-deep-slate/50 backdrop-blur-sm relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <Crosshair className="w-24 h-24 text-electric-cyan -rotate-12" />
-                        </div>
-                        <h4 className="text-[10px] font-mono text-electric-cyan tracking-[0.2em] mb-3 uppercase">Manual Interactivo</h4>
-                        <p className="text-xs text-ghost-white/90 leading-relaxed font-medium">
-                            8 secciones técnicas colapsables. Haz clic en las tarjetas o títulos para desplegar el contenido.
-                        </p>
-                        <div className="mt-4 flex items-center gap-2 text-muted/50">
-                            <BookOpen className="w-4 h-4" />
-                            <span className="text-[9px] font-mono tracking-wider uppercase">{phases.length} módulos cargados</span>
-                        </div>
-                    </div>
+            {/* Intro — what this manual is */}
+            <motion.div variants={fadeUp} className="relative">
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-electric-cyan/50 to-transparent rounded-full" />
+                <div className="pl-8 space-y-4">
+                    <p className="text-sm text-muted leading-relaxed max-w-5xl">
+                        Este manual despliega el framework <span className="text-ghost-white font-medium">C.O.N.T.R.O.L.</span> fase por fase. Cada sección contiene la especificación técnica completa: fundamento teórico, técnicas tácticas, tablas de decisión y listas de verificación para cerrar cada fase antes de pasar a la siguiente.
+                    </p>
+                    <p className="text-sm text-muted leading-relaxed max-w-5xl">
+                        El contenido es denso y técnico. Haz clic en cada fase para desplegar su manual operativo correspondiente. Solo una fase puede estar activa a la vez para focalizar la atención.
+                    </p>
                 </div>
             </motion.div>
 
