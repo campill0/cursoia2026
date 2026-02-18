@@ -2,7 +2,7 @@
 
 **Ingeniería de Prompts Estratégica y Gestión de Modelos de Razonamiento**
 
-## FASE 0: FUNDAMENTOS (La Física del Modelo)
+## FUNDAMENTOS (La Física del Modelo)
 
 *Antes de escribir, entiende la máquina.*
 

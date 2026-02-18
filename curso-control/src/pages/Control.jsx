@@ -1,10 +1,10 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PhaseCard, phaseData } from '../components/ui/PhaseCard';
 import { CompleteButton } from '../components/ui/CompleteButton';
 import { MarkdownRenderer } from '../components/ui/MarkdownRenderer';
 import { getControlPhases } from '../lib/content';
-import { Crosshair, BookOpen } from 'lucide-react';
+import { Crosshair, BookOpen, ChevronDown } from 'lucide-react';
 
 const stagger = {
     hidden: { opacity: 0 },
@@ -27,14 +27,17 @@ const phaseColorMap = {
     violet: { text: 'text-violet-400', bg: 'bg-violet-400/10', border: 'border-violet-400/30', accent: 'bg-violet-400', letterBg: 'bg-violet-400/10', letterText: 'text-violet-400' },
 };
 
-const PhaseSection = ({ phase, index }) => {
+const PhaseSection = ({ phase, index, isExpanded, onToggle }) => {
     const cs = phaseColorMap[phase.color] || phaseColorMap.cyan;
 
     return (
-        <motion.section variants={fadeUp} className="scroll-mt-24" id={`phase-${phase.key}`}>
-            {/* Phase Header Bar */}
-            <div className={`flex items-center gap-5 mb-6 pb-4 border-b ${cs.border}`}>
-                <div className={`w-14 h-14 rounded-2xl ${cs.letterBg} ${cs.letterText} flex items-center justify-center text-2xl font-black shrink-0 border ${cs.border}`}>
+        <motion.section variants={fadeUp} className="scroll-mt-32" id={`phase-${phase.key}`}>
+            {/* Phase Header Bar - Clickable */}
+            <div
+                onClick={onToggle}
+                className={`flex items-center gap-5 mb-0 py-4 border-b ${cs.border} cursor-pointer group hover:bg-surface-2/30 transition-colors rounded-t-xl px-2 select-none`}
+            >
+                <div className={`w-14 h-14 rounded-2xl ${cs.letterBg} ${cs.letterText} flex items-center justify-center text-2xl font-black shrink-0 border ${cs.border} transition-transform group-hover:scale-105`}>
                     {phase.letter}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -47,41 +50,71 @@ const PhaseSection = ({ phase, index }) => {
                             {String(index + 1).padStart(2, '0')}/08
                         </span>
                     </div>
-                    <h2 className="text-xl font-black text-ghost-white uppercase tracking-tight">
+                    <h2 className="text-xl font-black text-ghost-white uppercase tracking-tight group-hover:text-electric-cyan transition-colors">
                         {phase.title}
                     </h2>
                     <p className={`text-xs font-mono ${cs.text} opacity-70 mt-0.5`}>{phase.subtitle}</p>
                 </div>
-            </div>
-
-            {/* Phase Content — rendered from markdown with cyber styling */}
-            <div className={`pl-4 lg:pl-8 border-l-2 ${cs.border} ml-7`}>
-                <div className="prose-cyber prose prose-invert max-w-none prose-sm
-                    prose-headings:text-ghost-white prose-headings:font-bold prose-headings:tracking-tight
-                    prose-h2:text-lg prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-surface-3 prose-h2:pb-2
-                    prose-h3:text-base prose-h3:mt-8 prose-h3:mb-3
-                    prose-h4:text-sm prose-h4:mt-6 prose-h4:mb-2
-                    prose-p:text-ghost-white/80 prose-p:leading-relaxed prose-p:text-sm prose-p:my-3
-                    prose-li:text-ghost-white/80 prose-li:text-sm prose-li:leading-relaxed
-                    prose-strong:text-ghost-white prose-strong:font-semibold
-                    prose-em:text-ghost-white/70
-                    prose-table:rounded-xl prose-table:overflow-hidden prose-table:border prose-table:border-surface-3
-                    prose-thead:bg-surface-2
-                    prose-th:text-xs prose-th:font-mono prose-th:text-ghost-white/90 prose-th:uppercase prose-th:tracking-wider prose-th:px-4 prose-th:py-3
-                    prose-td:text-xs prose-td:text-ghost-white/75 prose-td:px-4 prose-td:py-3 prose-td:border-t prose-td:border-surface-3
-                    prose-blockquote:border-l-2 prose-blockquote:border-electric-cyan/40 prose-blockquote:bg-surface-1/50 prose-blockquote:rounded-r-xl prose-blockquote:py-1 prose-blockquote:px-4
-                    prose-code:text-electric-cyan prose-code:bg-electric-cyan/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:font-mono
-                    prose-hr:border-surface-3 prose-hr:my-8
-                ">
-                    <MarkdownRenderer content={phase.content} />
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center border ${cs.border} bg-obsidian transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
+                    <ChevronDown className={`w-4 h-4 ${cs.text}`} />
                 </div>
             </div>
+
+            {/* Collapsible Content */}
+            <AnimatePresence>
+                {isExpanded && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        className="overflow-hidden"
+                    >
+                        <div className={`pl-4 lg:pl-8 border-l-2 ${cs.border} ml-9 pt-8 pb-12`}>
+                            <div className="prose-cyber prose prose-invert max-w-none prose-sm
+                                prose-headings:text-ghost-white prose-headings:font-bold prose-headings:tracking-tight
+                                prose-h2:text-lg prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-surface-3 prose-h2:pb-2
+                                prose-h3:text-base prose-h3:mt-8 prose-h3:mb-3
+                                prose-h4:text-sm prose-h4:mt-6 prose-h4:mb-2
+                                prose-p:text-ghost-white/80 prose-p:leading-relaxed prose-p:text-sm prose-p:my-3
+                                prose-li:text-ghost-white/80 prose-li:text-sm prose-li:leading-relaxed
+                                prose-strong:text-ghost-white prose-strong:font-semibold
+                                prose-em:text-ghost-white/70
+                                prose-table:rounded-xl prose-table:overflow-hidden prose-table:border prose-table:border-surface-3
+                                prose-thead:bg-surface-2
+                                prose-th:text-xs prose-th:font-mono prose-th:text-ghost-white/90 prose-th:uppercase prose-th:tracking-wider prose-th:px-4 prose-th:py-3
+                                prose-td:text-xs prose-td:text-ghost-white/75 prose-td:px-4 prose-td:py-3 prose-td:border-t prose-td:border-surface-3
+                                prose-blockquote:border-l-2 prose-blockquote:border-electric-cyan/40 prose-blockquote:bg-surface-1/50 prose-blockquote:rounded-r-xl prose-blockquote:py-1 prose-blockquote:px-4
+                                prose-code:text-electric-cyan prose-code:bg-electric-cyan/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:font-mono
+                                prose-hr:border-surface-3 prose-hr:my-8
+                            ">
+                                <MarkdownRenderer content={phase.content} />
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.section>
     );
 };
 
 const Control = () => {
     const phases = getControlPhases();
+    const [expandedPhaseId, setExpandedPhaseId] = useState(null);
+
+    const handleToggle = (key) => {
+        setExpandedPhaseId(prev => prev === key ? null : key);
+    };
+
+    const handleCardClick = (key) => {
+        setExpandedPhaseId(key);
+        setTimeout(() => {
+            const el = document.getElementById(`phase-${key}`);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
+    };
 
     return (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12 pb-20">
@@ -117,11 +150,8 @@ const Control = () => {
                             <PhaseCard
                                 phase={phase}
                                 index={i}
-                                isExpanded={false}
-                                onToggle={() => {
-                                    const el = document.getElementById(`phase-${phase.key}`);
-                                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                }}
+                                isExpanded={expandedPhaseId === phase.key}
+                                onToggle={() => handleCardClick(phase.key)}
                             />
                         </div>
                     ))}
@@ -137,7 +167,7 @@ const Control = () => {
                             Este manual despliega el sistema <span className="text-ghost-white font-medium">C.O.N.T.R.O.L.</span> fase por fase. Cada sección contiene la especificación técnica completa: fundamento teórico, técnicas tácticas, tablas de decisión y listas de verificación para cerrar cada fase antes de pasar a la siguiente.
                         </p>
                         <p className="text-sm text-muted leading-relaxed">
-                            Todo el contenido se presenta <span className="text-ghost-white font-medium">sin sintetizar</span>. Desplázate a tu ritmo por cada fase o usa las tarjetas superiores como navegación rápida.
+                            El contenido es denso y técnico. Haz clic en cada fase para desplegar su manual operativo correspondiente. Solo una fase puede estar activa a la vez para focalizar la atención.
                         </p>
                     </div>
                 </div>
@@ -147,22 +177,28 @@ const Control = () => {
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                             <Crosshair className="w-24 h-24 text-electric-cyan -rotate-12" />
                         </div>
-                        <h4 className="text-[10px] font-mono text-electric-cyan tracking-[0.2em] mb-3 uppercase">Manual Completo</h4>
+                        <h4 className="text-[10px] font-mono text-electric-cyan tracking-[0.2em] mb-3 uppercase">Manual Interactivo</h4>
                         <p className="text-xs text-ghost-white/90 leading-relaxed font-medium">
-                            8 secciones técnicas con todo el contenido íntegro del framework. Cero resúmenes, cero recortes.
+                            8 secciones técnicas colapsables. Haz clic en las tarjetas o títulos para desplegar el contenido.
                         </p>
                         <div className="mt-4 flex items-center gap-2 text-muted/50">
                             <BookOpen className="w-4 h-4" />
-                            <span className="text-[9px] font-mono tracking-wider uppercase">{phases.length} secciones desplegadas</span>
+                            <span className="text-[9px] font-mono tracking-wider uppercase">{phases.length} módulos cargados</span>
                         </div>
                     </div>
                 </div>
             </motion.div>
 
-            {/* All phases — always visible, each with its own visual identity */}
-            <div className="space-y-16">
+            {/* All phases — Accordion Style */}
+            <div className="space-y-4">
                 {phases.map((phase, i) => (
-                    <PhaseSection key={phase.key} phase={phase} index={i} />
+                    <PhaseSection
+                        key={phase.key}
+                        phase={phase}
+                        index={i}
+                        isExpanded={expandedPhaseId === phase.key}
+                        onToggle={() => handleToggle(phase.key)}
+                    />
                 ))}
             </div>
 
