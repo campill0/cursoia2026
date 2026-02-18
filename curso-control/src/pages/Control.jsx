@@ -315,62 +315,66 @@ const Control = () => {
     const phasesToRender = searchQuery.trim() ? filteredPhases : phases;
 
     return (
-        <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12 pb-20">
+        <div className="pb-20">
 
-            {/* Header with bloom */}
-            <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
-                <img
-                    src="/images/header-framework-control.jpeg"
-                    alt="Framework C.O.N.T.R.O.L."
-                    className="w-full h-48 md:h-64 object-cover opacity-40 header-image"
-                />
-                <div className="header-bloom" />
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/70 to-transparent z-[2]" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-[3]">
-                    <p className="text-xs font-mono text-electric-cyan/60 tracking-wider mb-2 header-text-shadow">MANUAL OPERATIVO · 7 FASES + FUNDAMENTOS</p>
-                    <h1 className="text-3xl md:text-4xl font-black header-text-shadow">
-                        <span className="gradient-text-cyan">Framework </span>
-                        <span className="text-ghost-white">C.O.N.T.R.O.L.</span>
-                    </h1>
-                    <p className="text-muted mt-2 max-w-2xl header-text-shadow">Ingeniería de Prompts Estratégica y Gestión de Modelos de Razonamiento.</p>
-                </div>
+            <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12">
+
+                {/* Header with bloom */}
+                <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
+                    <img
+                        src="/images/header-framework-control.jpeg"
+                        alt="Framework C.O.N.T.R.O.L."
+                        className="w-full h-48 md:h-64 object-cover opacity-40 header-image"
+                    />
+                    <div className="header-bloom" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/70 to-transparent z-[2]" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-[3]">
+                        <p className="text-xs font-mono text-electric-cyan/60 tracking-wider mb-2 header-text-shadow">MANUAL OPERATIVO · 7 FASES + FUNDAMENTOS</p>
+                        <h1 className="text-3xl md:text-4xl font-black header-text-shadow">
+                            <span className="gradient-text-cyan">Framework </span>
+                            <span className="text-ghost-white">C.O.N.T.R.O.L.</span>
+                        </h1>
+                        <p className="text-muted mt-2 max-w-2xl header-text-shadow">Ingeniería de Prompts Estratégica y Gestión de Modelos de Razonamiento.</p>
+                    </div>
+                </motion.div>
+
+                {/* Phase cards — quick nav */}
+                <motion.div variants={fadeUp}>
+                    <h2 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
+                        <span className="w-1.5 h-6 bg-electric-cyan rounded-full" />
+                        Las 7 Fases
+                    </h2>
+                    <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible snap-x snap-mandatory">
+                        {phaseData.map((phase, i) => (
+                            <div key={phase.key} className="min-w-[280px] md:min-w-0 snap-start">
+                                <PhaseCard
+                                    phase={phase}
+                                    index={i}
+                                    isExpanded={expandedSet.has(phase.key)}
+                                    onToggle={() => handleCardClick(phase.key)}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </motion.div>
+
+                {/* Intro */}
+                <motion.div variants={fadeUp} className="relative">
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-electric-cyan/50 to-transparent rounded-full" />
+                    <div className="pl-8 space-y-4">
+                        <p className="text-sm text-muted leading-relaxed max-w-5xl">
+                            Este manual despliega el framework <span className="text-ghost-white font-medium">C.O.N.T.R.O.L.</span> fase por fase. Cada sección contiene la especificación técnica completa: fundamento teórico, técnicas tácticas, tablas de decisión y listas de verificación para cerrar cada fase antes de pasar a la siguiente.
+                        </p>
+                        <p className="text-sm text-muted leading-relaxed max-w-5xl">
+                            El contenido es denso y técnico. Haz clic en cada fase para desplegar su manual operativo correspondiente. Solo una fase puede estar activa a la vez para focalizar la atención.
+                        </p>
+                    </div>
+                </motion.div>
+
             </motion.div>
 
-            {/* Phase cards — quick nav */}
-            <motion.div variants={fadeUp}>
-                <h2 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
-                    <span className="w-1.5 h-6 bg-electric-cyan rounded-full" />
-                    Las 7 Fases
-                </h2>
-                <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible snap-x snap-mandatory">
-                    {phaseData.map((phase, i) => (
-                        <div key={phase.key} className="min-w-[280px] md:min-w-0 snap-start">
-                            <PhaseCard
-                                phase={phase}
-                                index={i}
-                                isExpanded={expandedSet.has(phase.key)}
-                                onToggle={() => handleCardClick(phase.key)}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </motion.div>
-
-            {/* Intro — what this manual is */}
-            <motion.div variants={fadeUp} className="relative">
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-electric-cyan/50 to-transparent rounded-full" />
-                <div className="pl-8 space-y-4">
-                    <p className="text-sm text-muted leading-relaxed max-w-5xl">
-                        Este manual despliega el framework <span className="text-ghost-white font-medium">C.O.N.T.R.O.L.</span> fase por fase. Cada sección contiene la especificación técnica completa: fundamento teórico, técnicas tácticas, tablas de decisión y listas de verificación para cerrar cada fase antes de pasar a la siguiente.
-                    </p>
-                    <p className="text-sm text-muted leading-relaxed max-w-5xl">
-                        El contenido es denso y técnico. Haz clic en cada fase para desplegar su manual operativo correspondiente. Solo una fase puede estar activa a la vez para focalizar la atención.
-                    </p>
-                </div>
-            </motion.div>
-
-            {/* ── Search Bar ── */}
-            <motion.div variants={fadeUp}>
+            {/* Search Bar — sticky. Hijo directo del div raíz (sin transform) para que sticky funcione. */}
+            <div className="sticky top-14 lg:top-0 z-20 mt-12 -mx-4 md:-mx-8 px-4 md:px-8 py-3 bg-obsidian/80 backdrop-blur-xl border-b border-surface-3/60">
                 <SearchBar
                     value={searchQuery}
                     onChange={setSearchQuery}
@@ -380,14 +384,13 @@ const Control = () => {
                     onPrev={handlePrev}
                     onNext={handleNext}
                 />
-                {/* No-results message */}
                 <AnimatePresence>
                     {searchQuery.trim() && filteredPhases.length === 0 && (
                         <motion.p
                             initial={{ opacity: 0, y: -6 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -6 }}
-                            className="text-xs font-mono text-muted/50 mt-3 pl-1"
+                            className="text-xs font-mono text-muted/50 mt-2 pl-1"
                         >
                             Ninguna fase contiene «{searchQuery}».
                         </motion.p>
@@ -397,16 +400,16 @@ const Control = () => {
                             initial={{ opacity: 0, y: -6 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -6 }}
-                            className="text-xs font-mono text-electric-cyan/50 mt-3 pl-1"
+                            className="text-xs font-mono text-electric-cyan/50 mt-2 pl-1"
                         >
                             {filteredPhases.length} fase{filteredPhases.length !== 1 ? 's' : ''} encontrada{filteredPhases.length !== 1 ? 's' : ''} · {liveCount} coincidencia{liveCount !== 1 ? 's' : ''}
                         </motion.p>
                     )}
                 </AnimatePresence>
-            </motion.div>
+            </div>
 
             {/* All phases — Accordion Style */}
-            <div className="space-y-4">
+            <div className="space-y-4 mt-12">
                 {phasesToRender.map((phase, i) => (
                     <PhaseSection
                         key={phase.key}
@@ -419,8 +422,11 @@ const Control = () => {
                 ))}
             </div>
 
-            <CompleteButton moduleId="control" />
-        </motion.div>
+            <div className="mt-12">
+                <CompleteButton moduleId="control" />
+            </div>
+
+        </div>
     );
 };
 
