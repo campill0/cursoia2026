@@ -134,7 +134,9 @@ const Llms = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/70 to-transparent z-[2]" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-[3]">
                     <p className="text-xs font-mono text-electric-cyan/60 tracking-wider mb-2 header-text-shadow">FASE 0 · PREREQUISITO</p>
-                    <h1 className="text-3xl md:text-4xl font-black text-ghost-white header-text-shadow">La "Física" del LLM</h1>
+                    <h1 className="text-3xl md:text-4xl font-black header-text-shadow">
+                        <span className="text-ghost-white">La "</span><span className="gradient-text-cyan">Física</span><span className="text-ghost-white">" del LLM</span>
+                    </h1>
                     <p className="text-muted mt-2 max-w-2xl header-text-shadow">Entiende la máquina antes de escribir. Fundamentos técnicos que explican cada patología.</p>
                 </div>
             </motion.div>
