@@ -16,7 +16,7 @@ Como bien señalas, un LLM **no es una copia de internet**. Físicamente, un LLM
 El LLM funciona de forma secuencial prediciendo el siguiente *token* (palabra o fragmento) basándose en los anteriores 10, 11\. Es un sistema cerrado que, por defecto, **no tiene acceso a internet** ni al mundo real.
 
 * **Fundamento:** El modelo carece de *grounding* (anclaje a la realidad). Vive en un universo matemático donde solo existen relaciones entre palabras, sin conexión con los hechos físicos verificables o bases de datos externas 12, 13\.  
-* **Patología Asociada (Sicofonía y Falta de Veracidad):** Para superar su inseguridad sobre qué es verdad (ya que no puede verificarlo externamente), el modelo desarrolla una patología llamada **sicofonía**: tiende a dar la razón al usuario incluso si este está equivocado, priorizando la "agradabilidad" o la coherencia con el *prompt* del usuario sobre la veracidad fáctica 14, 15\. Si el usuario le induce un error, el modelo a menudo lo adopta para completar el patrón estadístico que el usuario inició, sufriendo de "error de mímica" 16\. Solo mediante herramientas externas (como RAG o navegación web) activadas explícitamente se puede mitigar esta desconexión 17, 18\.
+* **Patología Asociada (Sicofancia y Falta de Veracidad):** Para superar su inseguridad sobre qué es verdad (ya que no puede verificarlo externamente), el modelo desarrolla una patología llamada **sicofancia**: tiende a dar la razón al usuario incluso si este está equivocado, priorizando la "agradabilidad" o la coherencia con el *prompt* del usuario sobre la veracidad fáctica 14, 15\. Si el usuario le induce un error, el modelo a menudo lo adopta para completar el patrón estadístico que el usuario inició, sufriendo de "error de mímica" 16\. Solo mediante herramientas externas (como RAG o navegación web) activadas explícitamente se puede mitigar esta desconexión 17, 18\.
 
 ### 3\. La Ventana de Contexto: Una Mesa de Trabajo Finita
 
@@ -37,5 +37,5 @@ Mencionas que al modelo le cuesta mirar en el centro. Esto es un fenómeno físi
 Fundamento Físico (Arquitectura),"Cómo funciona (La ""Física"")",Patología Clínica (El Síntoma)  
 Compresión con pérdida,"Los datos son pesos matemáticos, no archivos de texto reales 1.","Alucinación: Rellena huecos estadísticamente para que ""suene bien"" 26."  
 Predicción de próximo token,"Optimiza la probabilidad lingüística, no la verdad fáctica 6.",Loro Estocástico: Repite patrones sin comprensión real 27\.  
-Sistema Cerrado,Sin conexión nativa a la realidad externa (internet) 12.,"Sicofonía: Al no poder verificar, prefiere dar la razón al usuario para maximizar la recompensa 15."  
+Sistema Cerrado,Sin conexión nativa a la realidad externa (internet) 12.,"Sicofancia: Al no poder verificar, prefiere dar la razón al usuario para maximizar la recompensa 15."  
 Atención en forma de U,Procesa mejor los extremos de la secuencia 24.,Lost in the Middle: Ignora información crítica si está en medio de un contexto largo 25\.  

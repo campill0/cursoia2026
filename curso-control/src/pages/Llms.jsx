@@ -33,8 +33,31 @@ const sections = [
         title: 'El Motor Probabilístico y la Falta de "Grounding" (Anclaje)',
         intro: 'El LLM funciona de forma secuencial prediciendo el siguiente token (palabra o fragmento) basándose en los anteriores. Es un sistema cerrado que, por defecto, no tiene acceso a internet ni al mundo real.',
         fundamento: 'El modelo carece de grounding (anclaje a la realidad). Vive en un universo matemático donde solo existen relaciones entre palabras, sin conexión con los hechos físicos verificables o bases de datos externas.',
-        patologiaTitle: 'Patología Asociada (Sicofonía y Falta de Veracidad)',
-        patologia: 'Para superar su inseguridad sobre qué es verdad (ya que no puede verificarlo externamente), el modelo desarrolla una patología llamada sicofonía: tiende a dar la razón al usuario incluso si este está equivocado, priorizando la "agradabilidad" o la coherencia con el prompt del usuario sobre la veracidad fáctica. Si el usuario le induce un error, el modelo a menudo lo adopta para completar el patrón estadístico que el usuario inició, sufriendo de "error de mímica". Solo mediante herramientas externas (como RAG o navegación web) activadas explícitamente se puede mitigar esta desconexión.',
+        patologiaTitle: 'Patología Asociada (Sicofancia y Falta de Veracidad)',
+        patologia: (
+            <div className="space-y-4">
+                <p>
+                    Al no poder verificar la realidad externamente, el modelo no razona en términos de verdad o falsedad, sino de <span className="text-electric-cyan font-medium">probabilidad y coherencia contextual</span>.
+                </p>
+                <div className="pl-4 border-l-2 border-surface-3 space-y-3">
+                    <div>
+                        <strong className="text-ghost-white block mb-1">Sicofancia:</strong>
+                        <p className="text-sm opacity-90">Tendencia a alinearse con el usuario incluso cuando está equivocado.</p>
+                    </div>
+                    <div>
+                        <strong className="text-ghost-white block mb-1">Origen (RLHF):</strong>
+                        <p className="text-sm opacity-90">En la fase de ajuste con humanos, se premian respuestas "útiles y no conflictivas". Discrepar puntúa bajo.</p>
+                    </div>
+                    <div>
+                        <strong className="text-ghost-white block mb-1">Mecanismo:</strong>
+                        <p className="text-sm opacity-90">Si introduces un error con énfasis, el modelo lo adopta ("Error de Mímica") para mantener la coherencia interna.</p>
+                    </div>
+                </div>
+                <p className="text-xs italic opacity-70 pt-3 border-t border-white/10 mt-2">
+                    En ausencia de herramientas externas (<span className="text-electric-cyan">RAG, navegación web</span>), prioriza la consistencia conversacional sobre la verdad. Solo se mitiga forzando protocolos explícitos de verificación.
+                </p>
+            </div>
+        ),
     },
     {
         icon: Monitor,
@@ -61,7 +84,7 @@ const sections = [
 const summaryTable = [
     { arch: 'Compresión con pérdida', how: 'Los datos son pesos matemáticos, no archivos de texto reales', symptom: 'Alucinación', symptomDesc: 'Rellena huecos estadísticamente para que "suene bien"' },
     { arch: 'Predicción de próximo token', how: 'Optimiza la probabilidad lingüística, no la verdad fáctica', symptom: 'Loro Estocástico', symptomDesc: 'Repite patrones sin comprensión real' },
-    { arch: 'Sistema Cerrado', how: 'Sin conexión nativa a la realidad externa (internet)', symptom: 'Sicofonía', symptomDesc: 'Al no poder verificar, prefiere dar la razón al usuario para maximizar la recompensa' },
+    { arch: 'Sistema Cerrado', how: 'Sin conexión nativa a la realidad externa (internet)', symptom: 'Sicofancia', symptomDesc: 'Al no poder verificar, prefiere dar la razón al usuario para maximizar la recompensa' },
     { arch: 'Atención en forma de U', how: 'Procesa mejor los extremos de la secuencia', symptom: 'Lost in the Middle', symptomDesc: 'Ignora información crítica si está en medio de un contexto largo' },
 ];
 
@@ -112,7 +135,7 @@ const ContentSection = ({ section }) => {
                     <AlertTriangle className="w-3.5 h-3.5 text-red-glow" />
                     <span className="text-[10px] font-mono text-red-glow tracking-wider">{section.patologiaTitle.toUpperCase()}</span>
                 </div>
-                <p className="text-sm text-ghost-white/85 leading-relaxed">{section.patologia}</p>
+                <div className="text-sm text-ghost-white/85 leading-relaxed">{section.patologia}</div>
             </div>
         </motion.div>
     );
