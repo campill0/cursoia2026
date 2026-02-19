@@ -1,5 +1,5 @@
 MANUAL OPERATIVO: FRAMEWORK C.O.N.T.R.O.L.  
-**Ingeniería de Prompts Estratégica y Gestión de Modelos de Razonamiento**
+**Un marco de trabajo para superar las limitaciones de los modelos de lenguaje y entregar resultados verificables**
 
 0\. FASE 0: FUNDAMENTOS (La Física del Modelo)  
 *Antes de escribir, entiende la máquina.*  

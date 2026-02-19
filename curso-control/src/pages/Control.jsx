@@ -362,7 +362,7 @@ const Control = () => {
                             <span className="gradient-text-cyan">Framework </span>
                             <span className="text-ghost-white">C.O.N.T.R.O.L.</span>
                         </h1>
-                        <p className="text-muted mt-2 max-w-2xl header-text-shadow">Ingeniería de Prompts Estratégica y Gestión de Modelos de Razonamiento.</p>
+                        <p className="text-muted mt-2 max-w-2xl header-text-shadow">Un marco de trabajo para superar las limitaciones de los modelos de lenguaje y entregar resultados verificables</p>
                     </div>
                 </motion.div>
 
@@ -382,15 +382,61 @@ const Control = () => {
                 </motion.div>
 
                 {/* Intro */}
-                <motion.div variants={fadeUp} className="relative">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-electric-cyan/50 to-transparent rounded-full" />
-                    <div className="pl-8 space-y-4">
-                        <p className="text-sm text-muted leading-relaxed max-w-5xl">
-                            Este manual despliega el framework <span className="text-ghost-white font-medium">C.O.N.T.R.O.L.</span> fase por fase. Cada sección contiene la especificación técnica completa: fundamento teórico, técnicas tácticas, tablas de decisión y listas de verificación para cerrar cada fase antes de pasar a la siguiente.
-                        </p>
-                        <p className="text-sm text-muted leading-relaxed max-w-5xl">
-                            El contenido es denso y técnico. Haz clic en cada fase para desplegar su manual operativo correspondiente. Solo una fase puede estar activa a la vez para focalizar la atención.
-                        </p>
+                {/* Intro Re-design */}
+                <motion.div variants={fadeUp} className="w-full space-y-6">
+
+                    {/* Main Title Area */}
+                    <div className="flex flex-col md:flex-row gap-6 md:items-end justify-between border-b border-surface-3 pb-6">
+                        <div className="max-w-3xl">
+                            <div className="flex items-center gap-3 text-electric-cyan mb-2">
+                                <BookOpen className="w-5 h-5" />
+                                <span className="font-mono text-xs uppercase tracking-widest font-bold">Manual Operativo</span>
+                            </div>
+                            <h2 className="text-2xl md:text-3xl font-bold text-ghost-white leading-tight">
+                                Del uso intuitivo a la <span className="text-electric-cyan">dirección consciente</span>.
+                            </h2>
+                            <p className="text-muted mt-3 text-lg leading-relaxed">
+                                El framework <span className="text-ghost-white font-medium">C.O.N.T.R.O.L.</span> es el método sistemático para gobernar la naturaleza probabilística de los modelos de lenguaje.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Content Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                        {/* Card 1: The Context/Problem */}
+                        <div className="p-6 md:p-8 rounded-2xl bg-surface-2/30 border border-surface-3 hover:border-surface-4 transition-colors">
+                            <h3 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-red-glow animate-pulse"></span>
+                                El Fundamento
+                            </h3>
+                            <p className="text-sm text-muted leading-relaxed">
+                                Tras haber establecido que el modelo <span className="text-ghost-white/90 font-medium">no razona como un ser humano</span>, sino que predice y completa vacíos con respuestas verosímiles pero potencialmente falsas, este bloque introduce las herramientas para gobernar ese comportamiento.
+                            </p>
+                        </div>
+
+                        {/* Card 2: The Core Skills */}
+                        <div className="p-6 md:p-8 rounded-2xl bg-surface-2/30 border border-surface-3 hover:border-surface-4 transition-colors">
+                            <h3 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-electric-cyan"></span>
+                                Las Herramientas
+                            </h3>
+                            <p className="text-sm text-muted leading-relaxed">
+                                Aprenderás a diseñar y depurar el contexto, definir identidades funcionales, imponer normas que previenen errores, activar procesos de razonamiento, verificar la realidad y exigir salidas estructuradas.
+                            </p>
+                        </div>
+
+                        {/* Card 3: The Outcome */}
+                        <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-surface-2/30 to-electric-cyan/5 border border-surface-3 hover:border-electric-cyan/30 transition-colors">
+                            <h3 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-neon-magenta"></span>
+                                El Objetivo
+                            </h3>
+                            <p className="text-sm text-muted leading-relaxed">
+                                El recorrido se completa con un <span className="text-ghost-white/90 font-medium">bucle de mejora continua</span>, orientado a transformar cada interacción en un proceso más fiable, reproducible y alineado con objetivos profesionales.
+                            </p>
+                        </div>
+
                     </div>
                 </motion.div>
 

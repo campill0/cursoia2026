@@ -144,9 +144,7 @@ export const PhaseCarousel = ({ phases, expandedPhaseId, onToggle }) => {
                 <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-obsidian via-obsidian/50 to-transparent pointer-events-none z-10" />
 
                 {/* Indicador interacción */}
-                <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-xs font-mono text-muted/30 pointer-events-none animate-pulse">
-                    ⟷ Arrastra o selecciona
-                </div>
+                
             </div>
 
             {/* Navegación inferior (Bolitas) */}
