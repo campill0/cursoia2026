@@ -92,7 +92,7 @@ export const PhaseCarousel = ({ phases, expandedPhaseId, onToggle }) => {
 
             <div
                 ref={containerRef}
-                className="relative w-full h-[500px] flex items-center justify-center overflow-visible perspective-[1200px] py-10 touch-none"
+                className="relative w-full h-[300px] flex items-center justify-center overflow-visible perspective-[1200px] py-2 touch-none"
                 onPan={handlePan}
                 onPanEnd={handlePanEnd}
                 style={{ touchAction: "none" }}
@@ -144,13 +144,13 @@ export const PhaseCarousel = ({ phases, expandedPhaseId, onToggle }) => {
                 <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-obsidian via-obsidian/50 to-transparent pointer-events-none z-10" />
 
                 {/* Indicador interacción */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs font-mono text-muted/30 pointer-events-none animate-pulse">
+                <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-xs font-mono text-muted/30 pointer-events-none animate-pulse">
                     ⟷ Arrastra o selecciona
                 </div>
             </div>
 
             {/* Navegación inferior (Bolitas) */}
-            <div className="flex gap-4 mt-2 px-4 py-2 bg-surface-1/50 rounded-full border border-surface-3/50 backdrop-blur-sm z-20">
+            <div className="flex gap-4 mt-1 px-4 py-2 bg-surface-1/50 rounded-full border border-surface-3/50 backdrop-blur-sm z-20">
                 {phases.map((phase, i) => {
                     const colors = phaseColors[phase.key] || phaseColors['C'];
                     return (

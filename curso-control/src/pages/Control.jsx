@@ -368,7 +368,7 @@ const Control = () => {
 
                 {/* Phase cards — quick nav (3D Carousel) */}
                 <motion.div variants={fadeUp} className="w-full relative -mx-4 md:mx-0">
-                    <h2 className="text-lg font-bold text-ghost-white mb-2 flex items-center gap-2 px-4 md:px-0">
+                    <h2 className="text-lg font-bold text-ghost-white mb-40 flex items-center gap-2 px-4 md:px-0">
                         <span className="w-1.5 h-6 bg-electric-cyan rounded-full" />
                         Las 7 Fases
                     </h2>
