@@ -2,7 +2,19 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ContextWindowVisual } from '../components/ui/ContextWindowVisual';
 import { CompleteButton } from '../components/ui/CompleteButton';
-import { Archive, Gauge, Monitor, MapPin, FlaskConical, AlertTriangle } from 'lucide-react';
+import {
+    Binary,
+    ScanEye,
+    Database,
+    Lock,
+    UserCheck,
+    Play,
+    PanelTop,
+    Minimize,
+    Factory,
+    FlaskConical,
+    AlertTriangle
+} from 'lucide-react';
 
 const stagger = {
     hidden: { opacity: 0 },
@@ -17,75 +29,89 @@ const fadeUp = {
 /* ─── Content Sections ─── */
 const sections = [
     {
-        icon: Archive,
-        number: '01',
+        number: '0.1',
+        title: 'Texto → Tokens → Embeddings',
+        icon: Binary,
         color: 'cyan',
-        title: 'La "Física" de la Compresión: No es una Biblioteca, es un Archivo ZIP Borroso',
-        intro: 'Un LLM no es una copia de internet. Físicamente, un LLM es un archivo de parámetros (pesos numéricos) que resulta de un proceso de compresión con pérdida de una cantidad masiva de texto.',
-        fundamento: 'El modelo no almacena textos, sino probabilidades y relaciones entre fragmentos de texto (tokens) convertidos en vectores numéricos (embeddings). Durante el entrenamiento, el modelo comprime la información de internet en estos pesos, perdiendo la fuente original y los detalles exactos, quedándose solo con los patrones estadísticos.',
-        patologiaTitle: 'Patología Asociada (Alucinaciones)',
-        patologia: 'Dado que la información está comprimida y "borrosa", cuando le haces una pregunta, el modelo no "recupera" un dato, sino que lo reconstruye probabilísticamente. Si el modelo no tiene el dato exacto, rellena los huecos con lo que estadísticamente "suena bien" o es más probable, no con lo que es verdad. Esto es la ontología de la alucinación: no es un error del sistema, sino el sistema funcionando correctamente (prediciendo el siguiente token probable) sobre datos incompletos o comprimidos.',
+        causa: 'El modelo no procesa "palabras" como tú. Convierte el texto en fragmentos (tokens) y los representa como vectores numéricos (embeddings). Todo lo que hagas después (comprensión, recuperación, generación) ocurre sobre esas representaciones.',
+        sintomas: 'Sensibilidad extrema a la redacción · Ambigüedad no resuelta · Pérdida de fidelidad literal (paráfrasis que cambia matices)',
     },
     {
-        icon: Gauge,
-        number: '02',
+        number: '0.2',
+        title: 'Arquitectura Transformer: Atención',
+        icon: ScanEye,
         color: 'magenta',
-        title: 'El Motor Probabilístico y la Falta de "Grounding" (Anclaje)',
-        intro: 'El LLM funciona de forma secuencial prediciendo el siguiente token (palabra o fragmento) basándose en los anteriores. Es un sistema cerrado que, por defecto, no tiene acceso a internet ni al mundo real.',
-        fundamento: 'El modelo carece de grounding (anclaje a la realidad). Vive en un universo matemático donde solo existen relaciones entre palabras, sin conexión con los hechos físicos verificables o bases de datos externas.',
-        patologiaTitle: 'Patología Asociada (Sicofancia y Falta de Veracidad)',
-        patologia: (
-            <div className="space-y-4">
-                <p>
-                    Al no poder verificar la realidad externamente, el modelo no razona en términos de verdad o falsedad, sino de <span className="text-electric-cyan font-medium">probabilidad y coherencia contextual</span>.
-                </p>
-                <div className="pl-4 border-l-2 border-surface-3 space-y-3">
-                    <div>
-                        <strong className="text-ghost-white block mb-1">Sicofancia:</strong>
-                        <p className="text-sm opacity-90">Tendencia a alinearse con el usuario incluso cuando está equivocado.</p>
-                    </div>
-                    <div>
-                        <strong className="text-ghost-white block mb-1">Origen (RLHF):</strong>
-                        <p className="text-sm opacity-90">En la fase de ajuste con humanos, se premian respuestas "útiles y no conflictivas". Discrepar puntúa bajo.</p>
-                    </div>
-                    <div>
-                        <strong className="text-ghost-white block mb-1">Mecanismo:</strong>
-                        <p className="text-sm opacity-90">Si introduces un error con énfasis, el modelo lo adopta ("Error de Mímica") para mantener la coherencia interna.</p>
-                    </div>
-                </div>
-                <p className="text-xs italic opacity-70 pt-3 border-t border-white/10 mt-2">
-                    En ausencia de herramientas externas (<span className="text-electric-cyan">RAG, navegación web</span>), prioriza la consistencia conversacional sobre la verdad. Solo se mitiga forzando protocolos explícitos de verificación.
-                </p>
-            </div>
-        ),
+        causa: 'El núcleo es un mecanismo de atención que asigna "importancia" a partes distintas de la secuencia. No "lee" visualmente: calcula relevancia token a token dentro de una secuencia, repartiendo su foco de manera no uniforme.',
+        sintomas: 'Sesgo de posición · Recuperación irregular en prompts largos · Ceguera selectiva ante datos "enterrados"',
     },
     {
-        icon: Monitor,
-        number: '03',
+        number: '0.3',
+        title: 'Preentrenamiento: predicción del siguiente token (compresión con pérdida)',
+        icon: Database,
         color: 'emerald',
-        title: 'La Ventana de Contexto: Una Mesa de Trabajo Finita',
-        intro: 'El "espacio de trabajo" del LLM es su ventana de contexto. Todo lo que ocurre (instrucciones del sistema, tu pregunta, documentos PDF) se convierte en tokens y se coloca en esta mesa.',
-        fundamento: 'La capacidad de atención del modelo es limitada. Aunque arquitecturas recientes permiten contextos enormes, técnicamente el modelo procesa la información mediante un mecanismo de atención que asigna importancia a diferentes partes de la entrada. Cuando la mesa se llena, el modelo aplica una ventana deslizante: para meter información nueva, debe "olvidar" o ignorar la más antigua, lo que puede llevar a perder el hilo o las instrucciones iniciales.',
-        patologiaTitle: 'Patología Asociada (Olvido Catastrófico y Deriva)',
-        patologia: 'Si la conversación se alarga demasiado, el modelo puede contradecirse o ignorar reglas establecidas al principio (Prompt del Sistema) simplemente porque ya no caben en su foco de atención inmediato.',
+        causa: 'Un LLM no es una biblioteca ni una copia de internet. Es un archivo de parámetros (pesos numéricos) obtenido por un proceso de compresión con pérdida sobre cantidades masivas de texto. No almacena textos: almacena relaciones estadísticas entre tokens comprimidas en pesos.',
+        sintomas: 'Alucinación / confabulación · Falsa precisión (detalle inventado pero convincente) · Fabricación de referencias o citas',
     },
     {
-        icon: MapPin,
-        number: '04',
+        number: '0.4',
+        title: 'Sistema cerrado: falta de grounding (anclaje a realidad)',
+        icon: Lock,
         color: 'amber',
-        title: 'El Problema del "Lost in the Middle" (Perdido en el Centro)',
-        intro: 'Al modelo le cuesta mirar en el centro. Esto es un fenómeno físico real derivado de cómo funcionan los mecanismos de atención y el entrenamiento.',
-        fundamento: 'Los modelos tienen un Sesgo de Posición. Durante su entrenamiento y por la naturaleza de la arquitectura Transformer, tienden a prestar mucha atención al principio del prompt (donde suelen estar las instrucciones) y al final (lo más reciente), pero la atención se "comba" en el medio. La precisión de recuperación de información sigue una curva en forma de U: alta en los extremos, baja en el centro.',
-        patologiaTitle: 'Patología Asociada (Ceguera Selectiva)',
-        patologia: 'Si le das al modelo un documento largo (ej. un PDF) y el dato crucial está en la página 15 de 30, es estadísticamente más probable que lo ignore o alucine una respuesta, a diferencia de si el dato estuviera en la página 1 o en la 30.',
+        causa: 'Por defecto, el modelo vive en un universo de relaciones entre palabras: no tiene conexión nativa a hechos verificables ni bases de datos externas. Sin herramientas, no "comprueba": busca coherencia con el contexto disponible.',
+        sintomas: 'Errores factuales con alta confianza · Aceptación de premisas falsas · Error de mímica · Sicofancia',
     },
+    {
+        number: '0.5',
+        title: 'Post-entrenamiento: alineamiento (RLHF) y optimización social',
+        icon: UserCheck,
+        color: 'cyan',
+        causa: 'Tras el preentrenamiento, el modelo se refina para comportarse de forma "útil" y aceptable para humanos. Esto tiende a premiar respuestas fluidas, cooperativas y satisfactorias, incluso cuando el sistema no dispone de evidencia suficiente.',
+        sintomas: 'Sicofancia social · Verbosidad ("relleno útil") · Sobreconfianza en el tono aunque falte evidencia · Rechazo excesivo (prudencia rígida)',
+    },
+    {
+        number: '0.6',
+        title: 'Inferencia: generación token a token (salida secuencial)',
+        icon: Play,
+        color: 'magenta',
+        causa: 'En ejecución, el modelo genera la respuesta secuencialmente: token a token. No "recupera" un dato como una base de datos; construye una continuación probable del contexto actual, y el camino que toma condiciona el resto de la respuesta.',
+        sintomas: 'Inconsistencias entre respuestas a la misma pregunta · Respuestas plausibles en vez de correctas · Bucles o repetición en texto largo',
+    },
+    {
+        number: '0.7',
+        title: 'Ventana de contexto: mesa de trabajo finita',
+        icon: PanelTop,
+        color: 'emerald',
+        causa: 'Todo lo que ocurre (instrucciones del sistema, tu input, documentos pegados) entra como tokens en una ventana finita. Cuando la mesa se llena, se aplica una poda/ventana deslizante: para meter texto nuevo se pierde (o se ignora) parte de lo anterior.',
+        sintomas: 'Olvido de requisitos previos · Contradicciones a mitad de conversación · Truncamiento silencioso (amnesia súbita)',
+        visual: <ContextWindowVisual />
+    },
+    {
+        number: '0.8',
+        title: 'Recuperación en prompts largos: "Lost in the Middle"',
+        icon: Minimize,
+        color: 'amber',
+        causa: 'Existe un sesgo de posición: el modelo atiende mejor al principio y al final del prompt, pero la atención cae en el centro. La recuperación de información suele seguir una curva en U.',
+        sintomas: 'Lost-in-the-Middle · Ignorar datos críticos en el centro · Responder como si el dato no existiera',
+    },
+    {
+        number: '0.9',
+        title: 'Contexto en producción: señal/ruido, seguridad y evolución',
+        icon: Factory,
+        color: 'cyan',
+        causa: 'La IA procesa secuencias: si el contexto llega sucio o mezclado, baja la relación señal/ruido. Además, texto externo no confiable puede introducir instrucciones ocultas. Y el comportamiento puede variar por cambios del proveedor o actualizaciones del modelo.',
+        sintomas: 'Context rot · Alucinación inducida por ruido · Inyección de prompt indirecta · Prompt drift (deja de funcionar lo que antes funcionaba)',
+    }
 ];
 
 const summaryTable = [
-    { arch: 'Compresión con pérdida', how: 'Los datos son pesos matemáticos, no archivos de texto reales', symptom: 'Alucinación', symptomDesc: 'Rellena huecos estadísticamente para que "suene bien"' },
-    { arch: 'Predicción de próximo token', how: 'Optimiza la probabilidad lingüística, no la verdad fáctica', symptom: 'Loro Estocástico', symptomDesc: 'Repite patrones sin comprensión real' },
-    { arch: 'Sistema Cerrado', how: 'Sin conexión nativa a la realidad externa (internet)', symptom: 'Sicofancia', symptomDesc: 'Al no poder verificar, prefiere dar la razón al usuario para maximizar la recompensa' },
-    { arch: 'Atención en forma de U', how: 'Procesa mejor los extremos de la secuencia', symptom: 'Lost in the Middle', symptomDesc: 'Ignora información crítica si está en medio de un contexto largo' },
+    { stage: 'Tokens/Embeddings', symptom: 'Sensibilidad a redacción, pérdida de matiz' },
+    { stage: 'Atención (Transformer)', symptom: 'Sesgo de posición, ceguera selectiva' },
+    { stage: 'Preentrenamiento', symptom: 'Alucinación, falsa precisión' },
+    { stage: 'Sistema cerrado', symptom: 'Errores factuales, sicofancia, mímica' },
+    { stage: 'Alineamiento (RLHF)', symptom: 'Sicofancia social, verbosidad, sobreconfianza' },
+    { stage: 'Ventana de contexto', symptom: 'Olvido, contradicciones, truncamiento' },
+    { stage: 'Prompts largos', symptom: 'Lost-in-the-Middle' },
+    { stage: 'Producción', symptom: 'Context rot, prompt injection, prompt drift' },
 ];
 
 const colorMap = {
@@ -100,42 +126,50 @@ const ContentSection = ({ section }) => {
     const cs = colorMap[section.color];
 
     return (
-        <motion.div variants={fadeUp} className="space-y-4">
-            {/* Section Header */}
-            <div className="flex items-start gap-4">
-                <div className={`w-10 h-10 rounded-xl ${cs.iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
-                    <section.icon className={`w-5 h-5 ${cs.iconText}`} />
-                </div>
-                <div>
-                    <div className="flex items-center gap-2 mb-1">
-                        <span className={`text-[10px] font-mono ${cs.iconText} tracking-widest`}>{section.number}</span>
-                        <span className={`w-6 h-px ${cs.accent}`} />
+        <motion.div variants={fadeUp} className="group relative">
+            <div className="absolute -inset-0.5 bg-gradient-to-br from-surface-2 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity blur-sm" />
+
+            <div className="relative space-y-5 p-6 rounded-2xl border border-surface-2 bg-deep-slate/50 hover:bg-deep-slate/80 transition-colors">
+                {/* Section Header */}
+                <div className="flex items-start gap-4">
+                    <div className={`w-12 h-12 rounded-xl ${cs.iconBg} flex items-center justify-center shrink-0 border border-white/5 shadow-inner`}>
+                        <section.icon className={`w-6 h-6 ${cs.iconText}`} />
                     </div>
-                    <h3 className="text-lg font-bold text-ghost-white leading-snug">{section.title}</h3>
+                    <div>
+                        <div className="flex items-center gap-2 mb-1.5">
+                            <span className={`text-xs font-mono ${cs.iconText} tracking-widest`}>{section.number}</span>
+                            <span className={`w-12 h-px ${cs.accent}`} />
+                        </div>
+                        <h3 className="text-xl font-bold text-ghost-white leading-tight">{section.title}</h3>
+                    </div>
                 </div>
-            </div>
 
-            {/* Intro paragraph */}
-            <p className="text-sm text-ghost-white/80 leading-relaxed pl-14">
-                {section.intro}
-            </p>
+                <div className="space-y-4 pl-0 md:pl-16">
+                    {/* Causa (Cómo funciona) */}
+                    <div className={`p-4 rounded-xl border ${cs.border} bg-surface-1/40`}>
+                        <div className="flex items-center gap-2 mb-2">
+                            <FlaskConical className={`w-3.5 h-3.5 ${cs.iconText}`} />
+                            <span className={`text-[10px] font-mono ${cs.iconText} tracking-wider uppercase`}>Cómo funciona (Causa)</span>
+                        </div>
+                        <p className="text-sm text-ghost-white/90 leading-relaxed">{section.causa}</p>
+                    </div>
 
-            {/* Fundamento */}
-            <div className={`ml-14 p-4 rounded-xl border ${cs.border} bg-surface-1/40`}>
-                <div className="flex items-center gap-2 mb-2">
-                    <FlaskConical className={`w-3.5 h-3.5 ${cs.iconText}`} />
-                    <span className={`text-[10px] font-mono ${cs.iconText} tracking-wider`}>FUNDAMENTO</span>
+                    {/* Síntomas (Patología) */}
+                    <div className="p-4 rounded-xl border border-red-glow/20 bg-red-glow/5">
+                        <div className="flex items-center gap-2 mb-2">
+                            <AlertTriangle className="w-3.5 h-3.5 text-red-glow" />
+                            <span className="text-[10px] font-mono text-red-glow tracking-wider uppercase">Síntomas (Fallo)</span>
+                        </div>
+                        <div className="text-sm text-ghost-white/85 leading-relaxed">{section.sintomas}</div>
+                    </div>
+
+                    {/* Visual Injection (e.g. Context Window) */}
+                    {section.visual && (
+                        <div className="mt-6 pt-6 border-t border-white/5">
+                            {section.visual}
+                        </div>
+                    )}
                 </div>
-                <p className="text-sm text-ghost-white/85 leading-relaxed">{section.fundamento}</p>
-            </div>
-
-            {/* Patología */}
-            <div className="ml-14 p-4 rounded-xl border border-red-glow/20 bg-red-glow/5">
-                <div className="flex items-center gap-2 mb-2">
-                    <AlertTriangle className="w-3.5 h-3.5 text-red-glow" />
-                    <span className="text-[10px] font-mono text-red-glow tracking-wider">{section.patologiaTitle.toUpperCase()}</span>
-                </div>
-                <div className="text-sm text-ghost-white/85 leading-relaxed">{section.patologia}</div>
             </div>
         </motion.div>
     );
@@ -144,110 +178,79 @@ const ContentSection = ({ section }) => {
 /* ─── Page ─── */
 const Llms = () => {
     return (
-        <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-10">
+        <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12 pb-20">
 
             {/* Header with bloom effect */}
-            <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
+            <motion.div variants={fadeUp} className="relative rounded-3xl overflow-hidden border border-surface-3 shadow-2xl">
                 <img
                     src="/images/header-llm-architecture.jpeg"
-                    alt="LLM Architecture"
-                    className="w-full h-48 md:h-64 object-cover opacity-40 header-image"
+                    alt="LLM Physics"
+                    className="w-full h-56 md:h-72 object-cover opacity-30 header-image scale-105"
                 />
                 <div className="header-bloom" />
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/70 to-transparent z-[2]" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-[3]">
-                    <p className="text-xs font-mono text-electric-cyan/60 tracking-wider mb-2 header-text-shadow">FASE 0 · PREREQUISITO</p>
-                    <h1 className="text-3xl md:text-4xl font-black header-text-shadow">
-                        <span className="text-ghost-white">La "</span><span className="gradient-text-cyan">Física</span><span className="text-ghost-white">" del LLM</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/60 to-transparent z-[2]" />
+                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-[3]">
+                    <div className="flex items-center gap-3 mb-3">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-electric-cyan/20 text-electric-cyan border border-electric-cyan/30 tracking-wider">FASE 0</span>
+                        <span className="text-[10px] font-mono text-muted/80 tracking-widest uppercase">PREREQUISITO</span>
+                    </div>
+                    <h1 className="text-4xl md:text-5xl font-black header-text-shadow mb-4 leading-tight">
+                        <span className="text-ghost-white">La "</span><span className="text-electric-cyan">Física</span><span className="text-ghost-white">" del LLM</span>
                     </h1>
-                    <p className="text-muted mt-2 max-w-2xl header-text-shadow">Entiende la máquina antes de escribir. Fundamentos técnicos que explican cada patología.</p>
+                    <p className="text-lg text-muted max-w-2xl header-text-shadow leading-relaxed">
+                        Entiende la máquina antes de escribir. Fundamentos técnicos que explican por qué aparecen sus patologías.
+                    </p>
                 </div>
             </motion.div>
 
-            {/* Intro — 2-column layout to fill vertical/horizontal space */}
-            <motion.div variants={fadeUp} className="grid lg:grid-cols-3 gap-8 items-start">
-                <div className="lg:col-span-2 relative">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-electric-cyan/50 to-transparent rounded-full" />
-                    <div className="pl-8 space-y-4">
-                        <p className="text-sm text-muted leading-relaxed">
-                            Para comprender cómo funciona un <span className="text-ghost-white font-medium">Modelo de Lenguaje Grande (LLM)</span>, es fundamental analizar su "física" interna y los pilares de su arquitectura. A menudo tendemos a pensar que estas máquinas "saben" o comprenden la información de la misma manera que lo hace un ser humano; sin embargo, para avanzar en esta materia, debemos <span className="text-ghost-white font-medium">deconstruir esa idea</span>.
-                        </p>
-                        <p className="text-sm text-muted leading-relaxed">
-                            En realidad, el comportamiento de estas herramientas y sus posibles <span className="text-ghost-white font-medium">fallos estructurales</span> o errores no son aleatorios, sino que derivan directamente de sus fundamentos técnicos.
-                        </p>
-                        <p className="text-sm text-muted leading-relaxed">
-                            A lo largo de este material, exploraremos cómo su diseño original define la forma en que procesan los datos y por qué, debido a su propia naturaleza, surgen ciertas <span className="text-ghost-white font-medium">limitaciones o patologías</span> en sus respuestas.
-                        </p>
+            {/* Objective Intro */}
+            <motion.div variants={fadeUp} className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl border border-electric-cyan/20 bg-electric-cyan/5">
+                <div className="shrink-0 pt-1">
+                    <div className="w-10 h-10 rounded-full bg-electric-cyan/20 flex items-center justify-center text-electric-cyan">
+                        <ScanEye className="w-5 h-5" />
                     </div>
                 </div>
-
-                <div className="hidden lg:block">
-                    <div className="p-6 rounded-2xl border border-surface-3 bg-deep-slate/50 backdrop-blur-sm relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <FlaskConical className="w-24 h-24 text-electric-cyan -rotate-12" />
-                        </div>
-                        <h4 className="text-[10px] font-mono text-electric-cyan tracking-[0.2em] mb-3 uppercase">Objetivo Técnico</h4>
-                        <p className="text-xs text-ghost-white/90 leading-relaxed font-medium">
-                            Comprender la arquitectura no como una caja negra, sino como un sistema de límites físicos que determina la calidad del output.
-                        </p>
-                        <div className="mt-4 flex items-center gap-2">
-                            <div className="flex -space-x-2">
-                                {[1, 2, 3].map(i => (
-                                    <div key={i} className="w-6 h-6 rounded-full border-2 border-obsidian bg-surface-2 flex items-center justify-center text-[8px] font-bold text-muted">
-                                        {i}
-                                    </div>
-                                ))}
-                            </div>
-                            <span className="text-[9px] font-mono text-muted/60 uppercase tracking-tighter">Niveles de Análisis</span>
-                        </div>
-                    </div>
+                <div>
+                    <h3 className="text-sm font-bold text-electric-cyan uppercase tracking-wider mb-2">Objetivo Técnico</h3>
+                    <p className="text-ghost-white/90 leading-relaxed">
+                        Entender la arquitectura no como una caja negra, sino como un sistema de límites que determina la calidad del output. Sus fallos no son "caprichos"; son efectos directos de cómo está construido y optimizado.
+                    </p>
                 </div>
             </motion.div>
 
-            {/* All 4 content sections — always visible */}
-            <div className="space-y-10">
+            {/* Linea de montaje Header */}
+            <motion.div variants={fadeUp} className="flex items-center gap-4 py-4">
+                <div className="h-px flex-1 bg-surface-3" />
+                <span className="text-xs font-mono text-muted uppercase tracking-[0.2em]">Línea de Montaje (De dentro hacia fuera)</span>
+                <div className="h-px flex-1 bg-surface-3" />
+            </motion.div>
+
+            {/* Sections */}
+            <div className="space-y-8">
                 {sections.map((section) => (
                     <ContentSection key={section.number} section={section} />
                 ))}
             </div>
 
-            {/* Context Window Visual */}
-            <motion.div variants={fadeUp}>
-                <h2 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
-                    <span className="w-1.5 h-6 bg-emerald-glow rounded-full" />
-                    La Mesa de Trabajo
-                </h2>
-                <img src="/images/concept-context-window.jpeg" alt="Context Window" className="w-full rounded-xl mb-4 opacity-60 header-image" />
-                <ContextWindowVisual />
-            </motion.div>
-
             {/* Summary Table */}
-            <motion.div variants={fadeUp}>
-                <h2 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
+            <motion.div variants={fadeUp} className="mt-16 pt-10 border-t border-surface-3">
+                <h2 className="text-xl font-bold text-ghost-white mb-6 flex items-center gap-3">
                     <span className="w-1.5 h-6 bg-neon-magenta rounded-full" />
-                    Resumen: Física → Patología
+                    Resumen: Etapa → Síntomas
                 </h2>
-                <div className="overflow-x-auto">
+                <div className="overflow-hidden rounded-xl border border-surface-3 bg-surface-1/30">
                     <table className="w-full text-sm border-collapse">
                         <thead>
-                            <tr className="border-b border-surface-3">
-                                <th className="text-left py-3 px-4 text-[10px] font-mono text-electric-cyan tracking-wider">ARQUITECTURA</th>
-                                <th className="text-left py-3 px-4 text-[10px] font-mono text-muted tracking-wider">CÓMO FUNCIONA</th>
-                                <th className="text-left py-3 px-4 text-[10px] font-mono text-red-glow tracking-wider">PATOLOGÍA</th>
+                            <tr className="bg-surface-2/50 border-b border-surface-3">
+                                <th className="text-left py-4 px-6 text-[10px] font-mono text-electric-cyan tracking-wider uppercase">Etapa</th>
+                                <th className="text-left py-4 px-6 text-[10px] font-mono text-red-glow tracking-wider uppercase">Síntomas</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="divide-y divide-surface-3/50">
                             {summaryTable.map((row, i) => (
-                                <tr key={i} className="border-b border-surface-3/50 hover:bg-surface-2/30 transition-colors">
-                                    <td className="py-3 px-4 text-ghost-white font-medium">{row.arch}</td>
-                                    <td className="py-3 px-4 text-muted">{row.how}</td>
-                                    <td className="py-3 px-4">
-                                        <span className="inline-flex items-center gap-1.5 text-red-glow">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-red-glow" />
-                                            {row.symptom}
-                                        </span>
-                                        <p className="text-xs text-muted mt-0.5">{row.symptomDesc}</p>
-                                    </td>
+                                <tr key={i} className="hover:bg-surface-2/30 transition-colors">
+                                    <td className="py-4 px-6 text-ghost-white font-medium">{row.stage}</td>
+                                    <td className="py-4 px-6 text-muted/90">{row.symptom}</td>
                                 </tr>
                             ))}
                         </tbody>
