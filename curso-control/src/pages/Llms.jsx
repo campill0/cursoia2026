@@ -13,7 +13,8 @@ import {
     Minimize,
     Factory,
     FlaskConical,
-    AlertTriangle
+    AlertTriangle,
+    Blocks
 } from 'lucide-react';
 
 const stagger = {
@@ -65,8 +66,8 @@ const sections = [
         title: 'Post-entrenamiento: alineamiento (RLHF) y optimización social',
         icon: UserCheck,
         color: 'cyan',
-        causa: 'Tras el preentrenamiento, el modelo se refina para comportarse de forma "útil" y aceptable para humanos. Esto tiende a premiar respuestas fluidas, cooperativas y satisfactorias, incluso cuando el sistema no dispone de evidencia suficiente.',
-        sintomas: 'Sicofancia social · Verbosidad ("relleno útil") · Sobreconfianza en el tono aunque falte evidencia · Rechazo excesivo (prudencia rígida)',
+        causa: 'Tras el preentrenamiento, se afina al modelo con preferencias humanas (RLHF) para que sea inocuo ("harmless") y útil. Esta alineación es una tendencia estadística, no una barrera lógica, lo que desplaza su zona de seguridad.',
+        sintomas: 'Sicofancia social · Sobre-Rechazo (Overrefusal) · Susceptibilidad a Jailbreak',
     },
     {
         number: '0.6',
@@ -98,20 +99,29 @@ const sections = [
         title: 'Contexto en producción: señal/ruido, seguridad y evolución',
         icon: Factory,
         color: 'cyan',
-        causa: 'La IA procesa secuencias: si el contexto llega sucio o mezclado, baja la relación señal/ruido. Además, texto externo no confiable puede introducir instrucciones ocultas. Y el comportamiento puede variar por cambios del proveedor o actualizaciones del modelo.',
-        sintomas: 'Context rot · Alucinación inducida por ruido · Inyección de prompt indirecta · Prompt drift (deja de funcionar lo que antes funcionaba)',
+        causa: 'La IA procesa texto sin separar nativamente datos de instrucciones. Entradas de fuentes no confiables pueden secuestrar su flujo normativo. Además, el servicio detrás de un LLM puede sufrir cambios en sus pesos, alterando su sensibilidad o capacidades.',
+        sintomas: 'Inyección de prompt (Directa e Indirecta) · Regresiones por actualización (Update Regressions) · Context rot',
+    },
+    {
+        number: '0.10',
+        title: 'Agentes y Herramientas (Tool Use): de predecir texto a ejecutar acciones',
+        icon: Blocks,
+        color: 'amber',
+        causa: 'Al invocar funciones, el modelo no opera herramientas directamente; simplemente predice secuencialmente tokens que encajan en parámetros (como JSON). La falta de aislamiento entre lenguaje natural y sintaxis ejecutable degrada su fiabilidad.',
+        sintomas: 'Alucinación de herramientas (Tool-Use Hallucinations) · Inventar sintaxis o variables · Efecto de diputado confuso (Confused Deputy)',
     }
 ];
 
 const summaryTable = [
     { stage: 'Tokens/Embeddings', symptom: 'Sensibilidad a redacción, pérdida de matiz' },
     { stage: 'Atención (Transformer)', symptom: 'Sesgo de posición, ceguera selectiva' },
-    { stage: 'Preentrenamiento', symptom: 'Alucinación, falsa precisión' },
-    { stage: 'Sistema cerrado', symptom: 'Errores factuales, sicofancia, mímica' },
-    { stage: 'Alineamiento (RLHF)', symptom: 'Sicofancia social, verbosidad, sobreconfianza' },
+    { stage: 'Preentrenamiento', symptom: 'Alucinación, falsa precisión, Fabricación de citas' },
+    { stage: 'Sistema cerrado', symptom: 'Errores factuales, sicofancia, Error de mímica' },
+    { stage: 'Alineamiento (RLHF)', symptom: 'Sobre-Rechazo (Overrefusal), Jailbreaks' },
     { stage: 'Ventana de contexto', symptom: 'Olvido, contradicciones, truncamiento' },
     { stage: 'Prompts largos', symptom: 'Lost-in-the-Middle' },
-    { stage: 'Producción', symptom: 'Context rot, prompt injection, prompt drift' },
+    { stage: 'Producción', symptom: 'Inyección directa/indirecta, Regresiones' },
+    { stage: 'Uso de Herramientas (Agents)', symptom: 'Alucinación de herramientas' },
 ];
 
 const colorMap = {

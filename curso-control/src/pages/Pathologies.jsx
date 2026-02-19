@@ -56,6 +56,14 @@ const pathologyData = [
             {
                 name: 'Memoria Borrosa (Compresión)',
                 desc: 'Concepto técnico que explica que el modelo no almacena textos exactos, sino representaciones estadísticas comprimidas. Esto le obliga a "reconstruir" la información, lo que a menudo lleva a inventar detalles finos.'
+            },
+            {
+                name: 'Fabricación de citas (Citation Fabrication)',
+                desc: 'Una variante técnica de la alucinación donde el modelo genera textos con "aspecto" de referencias bibliográficas válidas (año, DOI, etc). Sin un mecanismo de verificación, estadísticamente es verosímil pero fácticamente inútil.'
+            },
+            {
+                name: 'Falsedades por imitación (Imitative Falsehoods)',
+                desc: 'El modelo produce afirmaciones falsas no porque "invente", sino porque son muy frecuentes en el texto humano. Al predecir continuaciones probables, absorbe y refleja mitos, rumores o concepciones erróneas sistémicas.'
             }
         ]
     },
@@ -86,6 +94,10 @@ const pathologyData = [
             {
                 name: 'Pereza (Laziness)',
                 desc: 'Tendencia a tomar atajos cognitivos o dar respuestas incompletas (ej. "escribe el resto del código tú") para ahorrar recursos si el prompt no le exige un estándar alto.'
+            },
+            {
+                name: 'Sobre-rechazo (Overrefusal)',
+                desc: 'Como producto del entrenamiento en seguridad (harmlessness), el modelo asume una postura conservadora con falsos positivos. Puede negarse a responder preguntas benignas o inocuas debido a ambigüedad semántica que lo acerca a áreas "prohibidas".'
             }
         ]
     },
@@ -136,12 +148,20 @@ const pathologyData = [
         description: 'Fallos relacionados con el uso continuado, la seguridad y la naturaleza cambiante de la infraestructura tecnológica.',
         items: [
             {
-                name: 'Deriva del Prompt (Prompt Drift)',
-                desc: 'Un prompt que funcionaba perfectamente deja de hacerlo inesperadamente debido a actualizaciones invisibles del modelo ("under the hood") por parte del proveedor.'
+                name: 'Regresiones por Actualización (Update Regressions/Prompt Drift)',
+                desc: 'Pérdida de capacidad resolutiva o rotura de un prompt que antes funcionaba, debido a modificaciones no visibles que los proveedores realizan sobre los pesos, políticas o parámetros internos.'
             },
             {
-                name: 'Inyección de Prompt Indirecta',
-                desc: 'Riesgo donde datos externos (emails, webs) contienen instrucciones ocultas que manipulan al modelo para que ignore las directrices del usuario original.'
+                name: 'Inyección de Prompt (Prompt Injection)',
+                desc: 'Problema crítico de seguridad donde el sistema no tiene separación estricta entre "instrucción" y "dato". Un atacante introduce instrucciones camufladas dentro del input para alterar drásticamente el flujo lógico.'
+            },
+            {
+                name: 'Bypass y Jailbreak',
+                desc: 'El modelo obedece instrucciones que no debería. A través de entradas adversariales, se rompen las barreras probabilísticas de "harmlessness", permitiendo la extracción de información sensible (como los system prompts).'
+            },
+            {
+                name: 'Alucinación de Herramientas (Tool-Use Hallucinations)',
+                desc: 'Debilidad de arquitecturas agénticas. El modelo predice tokens para hacer una llamada a una herramienta pero se inventa los nombres o los propios parámetros porque rellena "lo que estadísticamente parece JSON válido".'
             }
         ]
     }
