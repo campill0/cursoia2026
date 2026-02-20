@@ -53,8 +53,9 @@ La IA no "lee" visualmente; procesa secuencias. Ayúdale a separar los datos de 
   Etiquetas XML
   `<contexto> ... </contexto>`
   - *Ejemplo:* `Analiza el texto delimitado por triples comillas: """ [TEXTO] """`
-- **Etiquetado Semántico (Metadata Injection):** Si aportas varios documentos, etiquétalos claramente dentro del prompt. No pegues texto plano; añade cabeceras.
-   
+- **Etiquetado Semántico (Metadata Injection):** Si aportas varios documentos (ya sea pegados en el chat o como archivos adjuntos), etiquétalos claramente en el prompt para que el modelo no mezcle las fuentes. No pegues bloques de texto anónimos ni subas archivos sin referenciarlos.
+  - *Si pegas el texto:* Añade una cabecera o título descriptivo justo antes de los datos (ej: [Documento A: Política de Ventas]).
+  - *Si adjuntas archivos:* Menciona el nombre exacto del archivo en tus instrucciones (ej: Usa el archivo adjunto "Ventas2024.pdf" como contexto principal).
    *Ejemplo:* 
   ```
   [Documento A: Política de Ventas 2024]
