@@ -179,48 +179,153 @@ const Pathologies = () => {
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12 pb-20">
 
             {/* Header */}
-            <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
+            <motion.div variants={fadeUp} className="relative rounded-3xl overflow-hidden border border-surface-3 shadow-2xl">
                 <img
                     src="/images/header-pathology-atlas.jpeg"
                     alt="Pathology atlas"
-                    className="w-full h-48 md:h-64 object-cover opacity-40 header-image"
+                    className="w-full h-56 md:h-72 object-cover opacity-30 header-image scale-105"
                 />
                 <div className="header-bloom" />
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/70 to-transparent z-[2]" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-[3]">
-                    <p className="text-xs font-mono text-neon-magenta/60 tracking-wider mb-2 header-text-shadow">MÓDULO 1 · ATLAS DE FALLOS</p>
-                    <h1 className="text-3xl md:text-4xl font-black header-text-shadow">
-                        <span className="text-neon-magenta">Patologías</span><span className="text-ghost-white"> del LLM</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/60 to-transparent z-[2]" />
+                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-[3]">
+                    <div className="flex items-center gap-3 mb-3">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-neon-magenta/20 text-neon-magenta border border-neon-magenta/30 tracking-wider">MÓDULO 2</span>
+                        <span className="text-[10px] font-mono text-muted/80 tracking-widest uppercase">ATLAS DE FALLOS</span>
+                    </div>
+                    <h1 className="text-4xl md:text-5xl font-black header-text-shadow mb-4 leading-tight">
+                        <span className="text-ghost-white">Atlas de </span><span className="text-neon-magenta">Patologías</span><span className="text-ghost-white"> del LLM</span>
                     </h1>
-                    <p className="text-muted mt-2 max-w-2xl header-text-shadow">Mapa diagnóstico de comportamientos emergentes y fallos estructurales derivados de la arquitectura Transformer.</p>
+                    <p className="text-lg text-muted max-w-2xl header-text-shadow leading-relaxed">
+                        Mapa diagnóstico de comportamientos emergentes y fallos estructurales.
+                    </p>
                 </div>
             </motion.div>
 
-            {/* Intro Grid */}
-            <motion.div variants={fadeUp} className="grid lg:grid-cols-3 gap-8 items-start">
-                <div className="lg:col-span-2 relative">
+            {/* Intro: Connection to Module 1 */}
+            <motion.div variants={fadeUp} className="space-y-5">
+                <div className="relative">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-neon-magenta/50 to-transparent rounded-full" />
                     <div className="pl-8 space-y-4">
-                        <p className="text-sm text-muted leading-relaxed">
-                            Estas no son simples "errores", sino <span className="text-ghost-white font-medium">fallos estructurales y sistémicos</span> derivados de la naturaleza probabilística del modelo, su entrenamiento por refuerzo y la gestión técnica de su memoria.
+                        <p className="text-sm text-ghost-white/90 leading-relaxed">
+                            En el módulo anterior, analizamos la <strong className="text-electric-cyan">"Física del LLM"</strong>: cómo los tokens, la atención y la compresión estadística crean una maquinaria de predicción asombrosa. Pero, como en cualquier sistema complejo, donde hay una estructura, existe una <strong className="text-ghost-white">grieta potencial</strong>.
                         </p>
-                        <p className="text-sm text-muted leading-relaxed">
-                            A continuación, desglosamos el <span className="text-ghost-white font-medium">clínica completa</span> dividida en cuatro grandes áreas de impacto. Entender estos síntomas es el primer paso para diseñar técnicas de mitigación efectivas.
+                        <p className="text-sm text-ghost-white/90 leading-relaxed">
+                            Las patologías que estudiaremos a continuación no son "errores" aleatorios; son <strong className="text-ghost-white">consecuencias sistémicas</strong> de la propia naturaleza del modelo. No ocurren porque el modelo sea "tonto", sino precisamente por cómo está diseñado para funcionar. Cuando la compresión estadística falla, cuando la atención se satura o cuando el deseo de agradar al humano (<strong className="text-neon-magenta">RLHF</strong>) supera a la veracidad, surgen los síntomas que verás en este Atlas.
                         </p>
                     </div>
+                </div>
+            </motion.div>
+
+            {/* Classification Intro */}
+            <motion.div variants={fadeUp} className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl border border-neon-magenta/20 bg-neon-magenta/5">
+                <div className="shrink-0 pt-1">
+                    <div className="w-10 h-10 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta">
+                        <Brain className="w-5 h-5" />
+                    </div>
+                </div>
+                <div>
+                    <h3 className="text-sm font-bold text-neon-magenta uppercase tracking-wider mb-2">Enfoque Diagnóstico</h3>
+                    <p className="text-ghost-white/90 leading-relaxed text-sm">
+                        Para dominar el <em>Prompt Engineering</em> avanzado, debemos dejar de ver los fallos como "magia negra" y empezar a verlos como <strong className="text-ghost-white">diagnósticos clínicos</strong>. Hemos clasificado estas patologías en cuatro grandes áreas de impacto:
+                    </p>
+                </div>
+            </motion.div>
+
+            {/* 4 Category Previews */}
+            <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-6">
+                {/* 1. Epistémico */}
+                <div className="p-5 rounded-2xl border border-electric-cyan/20 bg-surface-1/40 space-y-3">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-electric-cyan/10 flex items-center justify-center border border-electric-cyan/20">
+                            <Search className="w-4 h-4 text-electric-cyan" />
+                        </div>
+                        <div>
+                            <h4 className="text-sm font-bold text-ghost-white">1. Patologías de la Verdad y el Conocimiento</h4>
+                            <span className="text-[10px] font-mono text-electric-cyan tracking-wider uppercase">Fallo Epistémico</span>
+                        </div>
+                    </div>
+                    <p className="text-xs text-muted/90 italic leading-relaxed">Surgen cuando la probabilidad estadística choca con la realidad fáctica.</p>
+                    <p className="text-xs text-ghost-white/80 leading-relaxed">
+                        Aquí es donde la <strong className="text-ghost-white">Compresión con pérdida</strong> y el <strong className="text-ghost-white">Sistema Cerrado</strong> que vimos anteriormente pasan factura. El modelo, al ser un "autocompletador" entrenado para ser fluido, prefiere inventar un dato (<strong className="text-electric-cyan">Alucinación</strong>) o fabricar una fuente (<strong className="text-electric-cyan">Fabricación de Citas</strong>) antes que romper la secuencia lógica de su discurso. Es el precio de transformar la biblioteca del mundo en una libreta de notas matemática.
+                    </p>
                 </div>
 
-                <div className="hidden lg:block">
-                    <div className="p-6 rounded-2xl border border-surface-3 bg-deep-slate/50 backdrop-blur-sm relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <ShieldAlert className="w-24 h-24 text-neon-magenta -rotate-12" />
+                {/* 2. Psicológico */}
+                <div className="p-5 rounded-2xl border border-neon-magenta/20 bg-surface-1/40 space-y-3">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-neon-magenta/10 flex items-center justify-center border border-neon-magenta/20">
+                            <UserSearch className="w-4 h-4 text-neon-magenta" />
                         </div>
-                        <h4 className="text-[10px] font-mono text-neon-magenta tracking-[0.2em] mb-3 uppercase">Visión Clínica</h4>
-                        <p className="text-xs text-ghost-white/90 leading-relaxed font-medium">
-                            No busques culpables, busca causas físicas. Cada patología tiene una solución de ingeniería asociada.
+                        <div>
+                            <h4 className="text-sm font-bold text-ghost-white">2. Patologías del Comportamiento y Alineación</h4>
+                            <span className="text-[10px] font-mono text-neon-magenta tracking-wider uppercase">Fallo Socio-Adulante</span>
+                        </div>
+                    </div>
+                    <p className="text-xs text-muted/90 italic leading-relaxed">Efectos secundarios del entrenamiento para "gustar" al humano.</p>
+                    <p className="text-xs text-ghost-white/80 leading-relaxed">
+                        Como aprendimos en el apartado de <strong className="text-ghost-white">RLHF</strong>, el modelo ha sido premiado por ser servicial. Esto genera una "personalidad" que puede derivar en la <strong className="text-neon-magenta">Sicofancia</strong> (darte la razón aunque no la tengas) o en la <strong className="text-neon-magenta">Verbosidad</strong> (relleno innecesario para parecer más útil). El modelo no intenta ser honesto; intenta ser el asistente que tú quieres que sea.
+                    </p>
+                </div>
+
+                {/* 3. Estructural */}
+                <div className="p-5 rounded-2xl border border-emerald-glow/20 bg-surface-1/40 space-y-3">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-glow/10 flex items-center justify-center border border-emerald-glow/20">
+                            <Database className="w-4 h-4 text-emerald-glow" />
+                        </div>
+                        <div>
+                            <h4 className="text-sm font-bold text-ghost-white">3. Patologías de Memoria y Contexto</h4>
+                            <span className="text-[10px] font-mono text-emerald-glow tracking-wider uppercase">Fallo Estructural</span>
+                        </div>
+                    </div>
+                    <p className="text-xs text-muted/90 italic leading-relaxed">Limitaciones físicas de la "Mesa de Trabajo" o Ventana de Contexto.</p>
+                    <p className="text-xs text-ghost-white/80 leading-relaxed">
+                        Aquí se manifiestan las grietas del <strong className="text-ghost-white">Mecanismo de Atención</strong>. Cuando la ventana se llena o la instrucción es ambigua, aparecen fenómenos como el <strong className="text-emerald-glow">Efecto "Lost-in-the-Middle"</strong> o el <strong className="text-emerald-glow">Envenenamiento de Memoria</strong>. Es el resultado directo de tener un "foco" de atención que, aunque potente, es finito y puede "olvidar" lo que tiene debajo en la pila.
+                    </p>
+                </div>
+
+                {/* 4. Sistémico */}
+                <div className="p-5 rounded-2xl border border-amber-glow/20 bg-surface-1/40 space-y-3">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-amber-glow/10 flex items-center justify-center border border-amber-glow/20">
+                            <RefreshCcw className="w-4 h-4 text-amber-glow" />
+                        </div>
+                        <div>
+                            <h4 className="text-sm font-bold text-ghost-white">4. Patologías Operativas y de Evolución</h4>
+                            <span className="text-[10px] font-mono text-amber-glow tracking-wider uppercase">Fallo Sistémico</span>
+                        </div>
+                    </div>
+                    <p className="text-xs text-muted/90 italic leading-relaxed">Fallos derivados del uso continuo y la naturaleza de la infraestructura.</p>
+                    <p className="text-xs text-ghost-white/80 leading-relaxed">
+                        Desde la <strong className="text-amber-glow">Regresión por Actualización</strong> hasta la vulnerabilidad ante <strong className="text-amber-glow">Inyecciones de Prompt</strong>, estas patologías responden a cómo el modelo interactúa con el mundo exterior y con sus propios filtros de seguridad en un entorno cambiante.
+                    </p>
+                </div>
+            </motion.div>
+
+            {/* Clinical Quote */}
+            <motion.div variants={fadeUp} className="p-6 rounded-2xl border border-surface-3 bg-deep-slate/50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                    <ShieldAlert className="w-20 h-20 text-neon-magenta -rotate-12" />
+                </div>
+                <div className="flex items-start gap-4">
+                    <div className="w-1 shrink-0 bg-neon-magenta/50 rounded-full self-stretch" />
+                    <div className="space-y-3">
+                        <p className="text-[10px] font-mono text-neon-magenta tracking-[0.2em] uppercase font-bold">Sesión Clínica</p>
+                        <p className="text-sm text-ghost-white/90 leading-relaxed">
+                            No busques culpables, busca causas físicas. Cada patología tiene una raíz en la arquitectura que acabas de estudiar y, por tanto, tiene una <strong className="text-ghost-white">solución de ingeniería</strong> asociada.
+                        </p>
+                        <p className="text-sm text-muted leading-relaxed italic">
+                            ¿Estás listo para empezar el diagnóstico? Exploremos en detalle cada una de estas categorías para aprender a mitigarlas.
                         </p>
                     </div>
                 </div>
+            </motion.div>
+
+            {/* Separator before detailed categories */}
+            <motion.div variants={fadeUp} className="flex items-center gap-4 py-4">
+                <div className="h-px flex-1 bg-surface-3" />
+                <span className="text-xs font-mono text-muted uppercase tracking-[0.2em]">Exploración Detallada</span>
+                <div className="h-px flex-1 bg-surface-3" />
             </motion.div>
 
             {/* Content Sections */}
@@ -281,9 +386,9 @@ const Pathologies = () => {
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
-                        { label: 'EPISTÉMICO', icon: Search, color: 'text-electric-cyan', desc: 'Fallo de Verdad' },
-                        { label: 'PSICOLÓGICO', icon: UserSearch, color: 'text-neon-magenta', desc: 'Fallo de Actitud' },
-                        { label: 'ESTRUCTURAL', icon: Database, color: 'text-emerald-glow', desc: 'Fallo de Memoria' },
+                        { label: 'EPISTÉMICO', icon: Search, color: 'text-electric-cyan', desc: 'Fallo de Conocimiento' },
+                        { label: 'SOCIO-ADULANTE', icon: UserSearch, color: 'text-neon-magenta', desc: 'Fallo de Alineación' },
+                        { label: 'ESTRUCTURAL', icon: Database, color: 'text-emerald-glow', desc: 'Fallo de Contexto' },
                         { label: 'SISTÉMICO', icon: RefreshCcw, color: 'text-amber-glow', desc: 'Fallo Operativo' },
                     ].map((badge, i) => (
                         <div key={i} className="flex flex-col items-center text-center p-4 rounded-xl bg-obsidian/40 border border-surface-3/30">
