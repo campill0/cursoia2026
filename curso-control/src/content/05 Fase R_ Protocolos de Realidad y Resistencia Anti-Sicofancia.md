@@ -91,6 +91,12 @@ Para la Fase R, el mayor enemigo de la "Realidad" es el **Knowledge Cutoff** (fe
 | **Conceptos Universales** (ej. Física, Historia antigua) | Memoria Interna (Entrenamiento) | Aplicar Expert Persona y Two-Model Check. |
 | **Hechos Recientes / Volátiles** (ej. Clima, Bolsa, Leyes nuevas) | **Web Search (Exclusivamente)** | **Forzar navegación**. Si el modelo responde sin buscar, rechaza la respuesta. |
 
+#### 8. Escudo contra Falsedades por Imitación (Imitative Falsehoods)
+El modelo repite información falsa (mitos, remedios pseudocientíficos, bulos) no porque "invente", sino porque es estadísticamente frecuente en su corpus de entrenamiento (internet).
+**La Táctica (Anclaje a RAG y Evidencia):**
+- **Disciplina Epistémica:** "No respondas basándote en creencias populares o afirmaciones comunes. Ancla tu respuesta ÚNICAMENTE en evidencia recuperada explícitamente [o en los documentos adjuntos]. Si no hay sustento documental, advierte de la falta de evidencia empírica."
+- **Separar Recuperación de Generación:** Cambia el flujo: primero obliga al modelo a usar herramientas para "Buscar evidencia de X", y en un segundo paso pídele "Reporta sobre X basándote SOLO en lo recuperado".
+
 ---
 
 ### Resumen de Implementación para la Fase R
@@ -105,3 +111,4 @@ Copia este bloque de seguridad en tus prompts críticos para activar la **Resist
 4. **SIN FILTRO SOCIAL:** Omite introducciones empáticas ("Entiendo que esto es difícil..."). Ve directo a la corrección técnica.
 5. **AUTO-AUDITORÍA:** Antes de entregar el output final, revisa: ¿Has validado una premisa falsa mía? Si es así, corrígela ahora.
 6. **ACTUALIDAD:** Si pregunto por algo reciente, **NAVEGA**. Prohibido adivinar desde el entrenamiento.
+7. **EVIDENCIA EMPÍRICA:** Ignora mitos comunes o folklore de internet. Toda afirmación médica, histórica o técnica debe sustentarse en referencias documentales explícitas o ser declarada como "sin consenso comprobado".

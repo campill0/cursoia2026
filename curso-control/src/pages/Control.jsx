@@ -422,7 +422,7 @@ const Control = () => {
                                 Las Herramientas
                             </h3>
                             <p className="text-sm text-muted leading-relaxed">
-                                Aprenderás a diseñar y depurar el contexto, definir identidades funcionales, imponer normas que previenen errores, activar procesos de razonamiento, verificar la realidad y exigir salidas estructuradas.
+                                Aprenderás a diseñar y depurar el contexto limitando la hinchazón (bloating), definir identidades para sortear el sobre-rechazo, imponer normas lógicas, activar razonamiento, anclar la realidad contra falsedades por imitación y exigir salidas estructuradas seguras frente a la alucinación de herramientas.
                             </p>
                         </div>
 
@@ -433,7 +433,7 @@ const Control = () => {
                                 El Objetivo
                             </h3>
                             <p className="text-sm text-muted leading-relaxed">
-                                El recorrido se completa con un <span className="text-ghost-white/90 font-medium">bucle de mejora continua</span>, orientado a transformar cada interacción en un proceso más fiable, reproducible y alineado con objetivos profesionales.
+                                El recorrido se completa con un <span className="text-ghost-white/90 font-medium">bucle de mejora continua</span>, orientado a mitigar fallos funcionales como el prompt drift (regresiones por actualización) y alinear tus interacciones con objetivos profesionales críticos y protegidos.
                             </p>
                         </div>
 

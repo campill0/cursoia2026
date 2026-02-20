@@ -98,6 +98,16 @@ Hasta ahora, la interacción con LLMs era puramente lineal: si querías corregir
 
 ---
 
+### 8. Protección contra Alucinación de Herramientas (Tool-Use Hallucinations)
+
+Al integrar LLMs con herramientas externas (APIs, agentes), el formato del Output adquiere una dimensión crítica de seguridad: el modelo no "pulsa botones", sino que **predice el texto de la llamada** (generalmente JSON). Si el modelo duda, su tendencia a complacer le llevará a adivinar parámetros o inventar funciones que no existen.
+
+- **Permisos de Mínimo Privilegio (Allowlist):** Restringe las herramientas expuestas a las estrictamente necesarias. En tu directiva de sistema, incluye:
+  - *Instrucción:* "Tus herramientas permitidas son ÚNICAMENTE las listadas. NO intentes deducir ni inventar parámetros o nombres de funciones. Si falta una variable obligatoria, OBLIGATORIAMENTE debes pedir clarificación al usuario antes de predecir o ejecutar una llamada a ciegas."
+- **Forzar Retornos Estructurados Tipados:** Al exigir JSON, instruye al modelo para que valide esquemas rígidamente antes de devolver la llamada, evitando efectos de "diputado confuso" (ej: mandar strings donde se requieren enteros).
+
+---
+
 ### 9. Artifacts y Previsualización: El Entorno de "Vibe Coding"
 
 En la ingeniería de prompts moderna, el *Output* ya no es solo texto estático o bloques de código que debes copiar y ejecutar en otro lugar. Con la llegada de los **Artifacts** (en Claude) y las **Vistas Previas Interactivas** (en ChatGPT/Gemini), el chat se convierte en un entorno de despliegue de software inmediato.
@@ -126,6 +136,6 @@ Al definir tu Output, verifica esta lista de control:
 2. [ ] **¿Es para una máquina o un humano?** (Si es máquina → JSON/XML estricto; Si es humano → Markdown/Tablas/Email listo para enviar).
 3. [ ] **¿He usado "Prefill"?** (¿He escrito yo las primeras palabras de la respuesta para forzar el formato?).
 4. [ ] **¿He eliminado el ruido?** (¿He prohibido saludos e introducciones para evitar la edición manual?).
-5. [ ] **¿Estoy aprovechando la multimodalidad y los artefactos?** (¿Podría pedir un gráfico HTML, una matriz de decisión o un archivo CSV para importar en mi CRM en lugar de solo texto?).
-6. [ ] **¿He usado Canvas para refinar?** (¿He editado quirúrgicamente los errores en lugar de regenerar todo el texto?).
-7. [ ] **¿He activado Vibe Coding?** (¿He pedido una *app* o visualización interactiva en lugar de texto plano o código muerto?).
+5. [ ] **¿Estoy aprovechando la multimodalidad?** (¿Podría pedir un gráfico HTML o CSV para importar?).
+6. [ ] **¿He impuesto un Allowlist de Herramientas?** (¿He prohibido que invente parámetros evitando alucinación de API?).
+7. [ ] **¿He activado Vibe Coding?** (¿He pedido una *app* interactiva en Artifacts en lugar de texto plano?).

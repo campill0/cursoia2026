@@ -5,6 +5,7 @@ El objetivo de esta fase es mitigar las tres grandes patologías del contexto id
 1. **Context Rot (Podredumbre del Contexto):** La degradación de la calidad de la respuesta a medida que se acumula información irrelevante o contradictoria en el historial.
 2. **Efecto "Lost-in-the-Middle":** La tendencia de los LLMs a olvidar la información situada en el medio de un prompt extenso, priorizando solo el inicio y el final.
 3. **Alucinaciones inducidas por ruido:** Cuando el exceso de datos difusos obliga al modelo a "adivinar" patrones probabilísticos en lugar de razonar sobre hechos.
+4. **Hinchazón del Prompt (Prompt Bloating):** Saturación del contexto con sobre-explicaciones densas que terminan ahogando la capacidad lógica del LLM al diluir la atención útil a los datos.
 
 ### El imperativo de la Relación Señal/Ruido
 
@@ -31,6 +32,7 @@ No subas todo el documento. Aplica un triaje previo.
 - **Distinción entre "Must-Have" y "Nice-to-Have":**
   - *Must-Have (Obligatorio):* Instrucciones "core", datos crudos específicos para la tarea y restricciones.
   - *Nice-to-Have (Opcional):* Historial de chat antiguo o ejemplos periféricos. Si el contexto se llena, sacrifica esto último primero.
+- **Economía de Tokens frente a la Hinchazón del Prompt (Prompt Bloating):** Sustituye siempre largos párrafos explicativos por listas (bullet points) o estructuras YAML. Si puedes usar un *Few-Shot Prompt* (un ejemplo de entrada/salida), elimina las instrucciones de formato. Es un "Cuchillo de Ockham": la menor cantidad de directivas para el resultado deseado.
 
 ### 2. Técnicas de Estructuración y Delimitación
 
