@@ -231,10 +231,24 @@ Adapta el contexto según la herramienta (ChatGPT, Claude, Gemini, etc.).
 
 ### Resumen de la Lista de Verificación para la Fase C
 
-Antes de pasar a la siguiente fase, verifica:
+Antes de enviar tu prompt y pasar a la Fase O (Omni-Rol), valida tu entorno de trabajo:
 
-1. [ ] ¿He eliminado saludos, firmas y texto basura? (**Poda / Anti-Rot**)
-2. [ ] ¿He usado delimitadores (""") para separar datos de instrucciones? (**Aislamiento**)
-3. [ ] ¿He pegado el documento como texto plano en lugar de adjuntarlo si cabía en el contexto? (**Anti-RAG Silencioso**)
-4. [ ] ¿Estoy en un chat limpio o arrastro basura de temas anteriores? (**Cuarentena / Anti-Clash**)
-5. [ ] ¿He colocado la instrucción crítica al final del prompt? (**Anti-Lost-in-the-Middle**)
+**Higiene del Entorno (Memoria)**
+
+1. [ ] ¿Estoy en un chat limpio o arrastrando "basura" latente de temas anteriores? (**Cuarentena / Anti-Clash**)
+2. [ ] ¿Estoy haciendo una prueba "sucia" o asumiendo un rol contrario a mis principios? Si es así, ¿he activado un Chat Temporal? (**Anti-Envenenamiento**)
+
+**Calidad de la Señal (Poda)**
+
+3. [ ] ¿He eliminado saludos, firmas, e índices irrelevantes del texto? (**Anti-Rot e Hinchazón**)
+
+**Estructura y Claridad (Delimitación)**
+
+4. [ ] ¿He usado delimitadores (""" o <etiquetas>) para encapsular los datos? (**Aislamiento / Anti-Distracción**)
+5. [ ] ¿He etiquetado semánticamente cada documento o bloque de texto aportado? (**Inyección de Metadatos**)
+6. [ ] ¿He pegado el documento como texto plano en lugar de adjuntarlo como archivo si cabía completo en la ventana? (**Anti-RAG Silencioso**)
+
+**Directivas Críticas**
+
+7. [ ] ¿He instruido explícitamente al modelo a responder "Solo según el texto"? (**Anclaje / Anti-Alucinación Epistémica**)
+8. [ ] ¿He colocado mi orden final o pregunta central en la última línea del prompt? (**Anti-Lost-in-the-Middle**)
