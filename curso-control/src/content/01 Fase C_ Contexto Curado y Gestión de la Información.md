@@ -1,11 +1,16 @@
 ## C — CONTEXTO CURADO: Especificación Técnica y Táctica
 
-El objetivo de esta fase es mitigar las tres grandes patologías del contexto identificadas en la literatura técnica actual:
+El objetivo de esta fase es aislar al modelo en un entorno de alta fidelidad para neutralizar dos frentes patológicos simultáneos:
 
-1. **Context Rot (Podredumbre del Contexto):** La degradación de la calidad de la respuesta a medida que se acumula información irrelevante o contradictoria en el historial.
-2. **Efecto "Lost-in-the-Middle":** La tendencia de los LLMs a olvidar la información situada en el medio de un prompt extenso, priorizando solo el inicio y el final.
-3. **Alucinaciones inducidas por ruido:** Cuando el exceso de datos difusos obliga al modelo a "adivinar" patrones probabilísticos en lugar de razonar sobre hechos.
-4. **Hinchazón del Prompt (Prompt Bloating):** Saturación del contexto con sobre-explicaciones densas que terminan ahogando la capacidad lógica del LLM al diluir la atención útil a los datos.
+**1. La cura directa contra 2 Patologías Epistémicas:**
+- **Búnker Temporal (Knowledge Cutoff):** Obligamos al modelo a "vivir en el presente" inyectando la verdad actualizada (Grounding) a través de documentos.
+- **Alucinaciones por Ruido:** Extirpamos la "paja" que obliga al modelo a adivinar, proporcionando solo señales limpias (Pruning).
+
+**2. La mitigación total de las 8 Patologías Estructurales de Memoria:**A lo largo de esta fase, aprenderemos a neutralizar todos los fallos físicos de la Ventana de Contexto que vimos en el diagnóstico:
+- **Sobrecargas:** Evitando la Podredumbre (Context Rot) y la Hinchazón del Prompt.
+- **Sesgos de Atención:** Venciendo la Distracción y el Efecto Lost-in-the-Middle.
+- **Amnesias de Sistema:** Esquivando el Truncamiento Silencioso (límite de tokens) y la gravísima Truncación por Recuperación Silenciosa (RAG Efímero).
+- **Contaminación Cruzada:** Evitando el Choque de Contextos (Clash) y el Envenenamiento irreversible de la Memoria Episódica.
 
 ### El imperativo de la Relación Señal/Ruido
 
@@ -226,8 +231,8 @@ Adapta el contexto según la herramienta (ChatGPT, Claude, Gemini, etc.).
 
 Antes de pasar a la siguiente fase, verifica:
 
-1. [ ] ¿He eliminado saludos, firmas y texto basura? (**Poda**)
-2. [ ] ¿He usado delimitadores (""") para separar datos de instrucciones? (**Estructura**)
-3. [ ] ¿He especificado qué documento manda en caso de contradicción? (**Jerarquía**)
-4. [ ] ¿He colocado la instrucción crítica al final del prompt? (**Posicionamiento**)
-5. [ ] ¿Estoy en un chat limpio o arrastro basura de temas anteriores? (**Cuarentena**)
+1. [ ] ¿He eliminado saludos, firmas y texto basura? (**Poda / Anti-Rot**)
+2. [ ] ¿He usado delimitadores (""") para separar datos de instrucciones? (**Aislamiento**)
+3. [ ] ¿He pegado el documento como texto plano en lugar de adjuntarlo si cabía en el contexto? (**Anti-RAG Silencioso**)
+4. [ ] ¿Estoy en un chat limpio o arrastro basura de temas anteriores? (**Cuarentena / Anti-Clash**)
+5. [ ] ¿He colocado la instrucción crítica al final del prompt? (**Anti-Lost-in-the-Middle**)
