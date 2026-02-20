@@ -136,6 +136,10 @@ const pathologyData = [
             {
                 name: 'Hinchazón del Prompt (Prompt Bloating)',
                 desc: 'Uso de prompts excesivamente largos con información no curada. Satura el contexto y, paradójicamente, reduce la "inteligencia" efectiva del modelo.'
+            },
+            {
+                name: 'Truncación por Recuperación Silenciosa (Silent Retrieval Truncation)',
+                desc: 'Pérdida de completitud causada por el RAG efímero que opera al adjuntar archivos. El sistema fragmenta el documento en chunks, indexa semánticamente y solo inserta los fragmentos que considera relevantes. Las secciones que no activan la recuperación simplemente no existen para el modelo. La respuesta parece completa, pero se basa en una versión silenciosamente amputada del documento. Se agrava con preguntas amplias y documentos con información distribuida entre secciones temáticamente distintas. Solución: si el documento cabe en la ventana de contexto (<60%), pegarlo como texto plano para eliminar el RAG intermediario por completo.'
             }
         ]
     },
