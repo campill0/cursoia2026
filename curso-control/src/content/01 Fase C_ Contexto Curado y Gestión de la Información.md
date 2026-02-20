@@ -6,7 +6,8 @@ El objetivo de esta fase es aislar al modelo en un entorno de alta fidelidad par
 - **Búnker Temporal (Knowledge Cutoff):** Obligamos al modelo a "vivir en el presente" inyectando la verdad actualizada (Grounding) a través de documentos.
 - **Alucinaciones por Ruido:** Extirpamos la "paja" que obliga al modelo a adivinar, proporcionando solo señales limpias (Pruning).
 
-**2. La mitigación total de las 8 Patologías Estructurales de Memoria:**A lo largo de esta fase, aprenderemos a neutralizar todos los fallos físicos de la Ventana de Contexto que vimos en el diagnóstico:
+**2. La mitigación total de las 8 Patologías Estructurales de Memoria:**
+A lo largo de esta fase, aprenderemos a neutralizar todos los fallos físicos de la Ventana de Contexto que vimos en el diagnóstico:
 - **Sobrecargas:** Evitando la Podredumbre (Context Rot) y la Hinchazón del Prompt.
 - **Sesgos de Atención:** Venciendo la Distracción y el Efecto Lost-in-the-Middle.
 - **Amnesias de Sistema:** Esquivando el Truncamiento Silencioso (límite de tokens) y la gravísima Truncación por Recuperación Silenciosa (RAG Efímero).
