@@ -9,7 +9,7 @@ import {
     History,
     FileText,
     Wrench,
-    User,
+    Eye,
     Zap
 } from 'lucide-react';
 
@@ -23,8 +23,13 @@ const PERSISTENT_SOURCES = [
 const DYNAMIC_SOURCES = [
     { label: 'Detalle recordado', icon: Database },
     { label: 'Recuperado de chats anteriores', icon: History },
-    { label: 'Adjuntos (chunks)', icon: FileText },
-    { label: 'Herramientas (tools)', icon: Wrench },
+];
+
+const INJECTION_PROCESSES = [
+    { label: 'Web Search', icon: Wrench, badge: 'Tool' },
+    { label: 'Code Interpreter', icon: Wrench, badge: 'Tool' },
+    { label: 'Ingesta de archivos (RAG)', icon: FileText, badge: 'Pipeline' },
+    { label: 'Vision (OCR / imágenes)', icon: Eye, badge: 'Nativo' },
 ];
 
 /* ─── Token Stream Data ─── */
@@ -35,10 +40,11 @@ const TOKENS = [
     { text: 'Memoria guardada', type: 'system', role: 'Memoria Persistente' },
     // Dynamic / retrieved context
     { text: 'Detalle recordado', type: 'context', role: 'Detalle Recordado' },
-    { text: '[Chunk PDF p.1-5]', type: 'context', role: 'Fragmento Adjunto' },
-    { text: '[Chunk PDF p.6-12]', type: 'context', role: 'Fragmento Adjunto' },
-    { text: '[Tool: Web]', type: 'context', role: 'Resultado de Herramienta' },
-    { text: '[Tool: Código]', type: 'context', role: 'Resultado de Herramienta' },
+    { text: '[Tool: Búsqueda web]', type: 'context', role: 'Tool invocable' },
+    { text: '[Tool: Code Interpreter]', type: 'context', role: 'Tool invocable' },
+    { text: '[Pipeline: Chunk PDF p.1-5]', type: 'context', role: 'Pipeline interno (RAG)' },
+    { text: '[Pipeline: Chunk PDF p.6-12]', type: 'context', role: 'Pipeline interno (RAG)' },
+    { text: '[Vision: imagen adjunta]', type: 'context', role: 'Capacidad nativa' },
     { text: '[Historial reciente (esta sesión)]', type: 'context', role: 'Historial de esta Sesión' },
     // Degradation zone (Lost in the Middle)
     { text: '···atenuado···', type: 'lost', role: 'Zona de Degradación', degradeLevel: 0.55 },
@@ -179,6 +185,23 @@ export const ContextWindowVisual = () => {
                 </div>
             </div>
 
+            {/* ─── Injection Processes ─── */}
+            <div className="mb-6 p-3 rounded-xl border border-neon-magenta/10 bg-surface-1/30">
+                <p className="text-[9px] font-mono text-muted/60 tracking-widest uppercase mb-2.5 flex items-center gap-1.5">
+                    <Zap className="w-2.5 h-2.5 text-neon-magenta/60" />
+                    Procesos que inyectan información en el contexto
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                    {INJECTION_PROCESSES.map((proc) => (
+                        <div key={proc.label} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-neon-magenta/15 bg-neon-magenta/5 text-neon-magenta/80 text-[10px] font-mono">
+                            <proc.icon className="w-3 h-3" />
+                            {proc.label}
+                            <span className="text-[8px] px-1.5 py-0.5 rounded bg-neon-magenta/10 border border-neon-magenta/20 text-neon-magenta/60 uppercase tracking-wider">{proc.badge}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
             {/* ─── Divider: Stream begins ─── */}
             <div className="flex items-center gap-3 mb-4">
                 <div className="h-px flex-1 bg-surface-3" />
@@ -266,9 +289,12 @@ export const ContextWindowVisual = () => {
             </div>
 
             {/* ─── Didactic Note ─── */}
-            <div className="mt-5 p-3 rounded-lg border border-surface-3 bg-surface-1/30">
+            <div className="mt-5 p-3 rounded-lg border border-surface-3 bg-surface-1/30 space-y-1.5">
                 <p className="text-[10px] text-muted/70 leading-relaxed">
                     <strong className="text-ghost-white/70">Todo se convierte en tokens</strong> dentro de una secuencia. Las capas persistentes siempre entran; las dinámicas se recuperan según la pregunta. No todo pesa igual: la zona central sufre degradación de atención. La respuesta se construye secuencialmente, token a token. <strong className="text-ghost-white/70">El historial reciente pertenece a esta sesión; de chats anteriores solo se recuperan detalles seleccionados.</strong>
+                </p>
+                <p className="text-[10px] text-muted/70 leading-relaxed">
+                    <strong className="text-ghost-white/70">¿Qué inyecta información?</strong> Hay 3 tipos de procesos: <strong className="text-ghost-white/70">Tools invocables</strong> (Web Search, Code Interpreter), que el modelo decide cuándo usar; <strong className="text-ghost-white/70">Pipelines internos</strong> (ingesta de archivos), que extraen texto/chunks automáticamente vía RAG; y <strong className="text-ghost-white/70">capacidades nativas</strong> (Vision), que interpretan imágenes directamente. Todos inyectan sus resultados como tokens en la ventana, ocupando espacio.
                 </p>
             </div>
 
