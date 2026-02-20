@@ -42,7 +42,23 @@ const navItems = [
             { id: 'resumen-patologias', label: 'Resumen de Diagnóstico' }
         ]
     },
-    { path: '/control', label: 'Framework', icon: ShieldCheck, moduleId: 'control' },
+    {
+        path: '/control',
+        label: 'Framework',
+        icon: ShieldCheck,
+        moduleId: 'control',
+        subItems: [
+            { id: 'intro-framework', label: '0. Introducción' },
+            { id: 'phase-F0', label: 'Bases: Fundamentos' },
+            { id: 'phase-C', label: 'Fase C: Contexto Curado' },
+            { id: 'phase-O', label: 'Fase O: Omni-Rol' },
+            { id: 'phase-N', label: 'Fase N: Normas y Negativas' },
+            { id: 'phase-T', label: 'Fase T: Traza de Pensamiento' },
+            { id: 'phase-R', label: 'Fase R: Realidad y Resistencia' },
+            { id: 'phase-O2', label: 'Fase O₂: Output y Organización' },
+            { id: 'phase-L', label: 'Fase L: Loop de Mejora' }
+        ]
+    },
     { path: '/tools', label: 'Herramienta', icon: Wrench, moduleId: null },
 ];
 
@@ -97,11 +113,16 @@ export const Sidebar = ({ collapsed, onToggleCollapse, onClose, isMobile }) => {
     }, [location.pathname, activeSection]);
 
     const scrollToSection = (id) => {
+        // Dispatch global event for components that need to react (e.g. accordion expansion in Control.jsx)
+        window.dispatchEvent(new CustomEvent('toc-navigate', { detail: { id } }));
+
         const element = document.getElementById(id);
         if (element) {
-            // Offset for sticky headers if any, or just aesthetic padding
-            const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
-            window.scrollTo({ top: y, behavior: 'smooth' });
+            // Wait slightly for potential layout changes (e.g. accordion expansions in Control)
+            setTimeout(() => {
+                const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }, 150);
         }
         if (isMobile) {
             onClose?.();

@@ -269,6 +269,19 @@ const Control = () => {
         return () => clearTimeout(timer);
     }, [searchQuery, expandedSet]);
 
+    // ── TOC Navigation Sync ───────────────────────────────────────────────
+    useEffect(() => {
+        const handleTocNavigate = (e) => {
+            const { id } = e.detail;
+            if (id && id.startsWith('phase-')) {
+                const key = id.replace('phase-', '');
+                setManualExpanded(key);
+            }
+        };
+        window.addEventListener('toc-navigate', handleTocNavigate);
+        return () => window.removeEventListener('toc-navigate', handleTocNavigate);
+    }, []);
+
     const handleNext = useCallback(() => {
         const total = countHighlights();
         if (!total) return;
@@ -347,98 +360,103 @@ const Control = () => {
 
             <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12">
 
-                {/* Header with bloom */}
-                <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
-                    <img
-                        src="/images/header-framework-control.jpeg"
-                        alt="Framework C.O.N.T.R.O.L."
-                        className="w-full h-48 md:h-64 object-cover opacity-40 header-image"
-                    />
-                    <div className="header-bloom" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/70 to-transparent z-[2]" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-[3]">
-                        <p className="text-xs font-mono text-electric-cyan/60 tracking-wider mb-2 header-text-shadow">MANUAL OPERATIVO · 7 FASES + FUNDAMENTOS</p>
-                        <h1 className="text-3xl md:text-4xl font-black header-text-shadow">
-                            <span className="gradient-text-cyan">Framework </span>
-                            <span className="text-ghost-white">C.O.N.T.R.O.L.</span>
-                        </h1>
-                        <p className="text-muted mt-2 max-w-2xl header-text-shadow">Un marco de trabajo para superar las limitaciones de los modelos de lenguaje y entregar resultados verificables</p>
-                    </div>
-                </motion.div>
+                {/* Intro Section Wrapper for TOC */}
+                <motion.section id="intro-framework" className="scroll-mt-32 space-y-12 pb-12">
 
-                {/* Phase cards — quick nav (3D Carousel) */}
-                <motion.div variants={fadeUp} className="w-full relative -mx-4 md:mx-0">
-                    <h2 className="text-lg font-bold text-ghost-white mb-40 flex items-center gap-2 px-4 md:px-0">
-                        <span className="w-1.5 h-6 bg-electric-cyan rounded-full" />
-                        Las 7 Fases
-                    </h2>
+                    {/* Header with bloom */}
+                    <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
+                        <img
+                            src="/images/header-framework-control.jpeg"
+                            alt="Framework C.O.N.T.R.O.L."
+                            className="w-full h-48 md:h-64 object-cover opacity-40 header-image"
+                        />
+                        <div className="header-bloom" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/70 to-transparent z-[2]" />
+                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-[3]">
+                            <p className="text-xs font-mono text-electric-cyan/60 tracking-wider mb-2 header-text-shadow">MANUAL OPERATIVO · 7 FASES + FUNDAMENTOS</p>
+                            <h1 className="text-3xl md:text-4xl font-black header-text-shadow">
+                                <span className="gradient-text-cyan">Framework </span>
+                                <span className="text-ghost-white">C.O.N.T.R.O.L.</span>
+                            </h1>
+                            <p className="text-muted mt-2 max-w-2xl header-text-shadow">Un marco de trabajo para superar las limitaciones de los modelos de lenguaje y entregar resultados verificables</p>
+                        </div>
+                    </motion.div>
 
-                    {/* Reemplazo del grid por el carrusel 3D */}
-                    <PhaseCarousel
-                        phases={phaseData}
-                        expandedPhaseId={manualExpanded}
-                        onToggle={handleCardClick}
-                    />
-                </motion.div>
+                    {/* Phase cards — quick nav (3D Carousel) */}
+                    <motion.div variants={fadeUp} className="w-full relative -mx-4 md:mx-0">
+                        <h2 className="text-lg font-bold text-ghost-white mb-40 flex items-center gap-2 px-4 md:px-0">
+                            <span className="w-1.5 h-6 bg-electric-cyan rounded-full" />
+                            Las 7 Fases
+                        </h2>
 
-                {/* Intro */}
-                {/* Intro Re-design */}
-                <motion.div variants={fadeUp} className="w-full space-y-6">
+                        {/* Reemplazo del grid por el carrusel 3D */}
+                        <PhaseCarousel
+                            phases={phaseData}
+                            expandedPhaseId={manualExpanded}
+                            onToggle={handleCardClick}
+                        />
+                    </motion.div>
 
-                    {/* Main Title Area */}
-                    <div className="flex flex-col md:flex-row gap-6 md:items-end justify-between border-b border-surface-3 pb-6">
-                        <div className="max-w-3xl">
-                            <div className="flex items-center gap-3 text-electric-cyan mb-2">
-                                <BookOpen className="w-5 h-5" />
-                                <span className="font-mono text-xs uppercase tracking-widest font-bold">Manual Operativo</span>
+                    {/* Intro */}
+                    {/* Intro Re-design */}
+                    <motion.div variants={fadeUp} className="w-full space-y-6">
+
+                        {/* Main Title Area */}
+                        <div className="flex flex-col md:flex-row gap-6 md:items-end justify-between border-b border-surface-3 pb-6">
+                            <div className="max-w-3xl">
+                                <div className="flex items-center gap-3 text-electric-cyan mb-2">
+                                    <BookOpen className="w-5 h-5" />
+                                    <span className="font-mono text-xs uppercase tracking-widest font-bold">Manual Operativo</span>
+                                </div>
+                                <h2 className="text-2xl md:text-3xl font-bold text-ghost-white leading-tight">
+                                    Del uso intuitivo a la <span className="text-electric-cyan">dirección consciente</span>.
+                                </h2>
+                                <p className="text-muted mt-3 text-lg leading-relaxed">
+                                    El framework <span className="text-ghost-white font-medium">C.O.N.T.R.O.L.</span> es el método sistemático para gobernar la naturaleza probabilística de los modelos de lenguaje.
+                                </p>
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold text-ghost-white leading-tight">
-                                Del uso intuitivo a la <span className="text-electric-cyan">dirección consciente</span>.
-                            </h2>
-                            <p className="text-muted mt-3 text-lg leading-relaxed">
-                                El framework <span className="text-ghost-white font-medium">C.O.N.T.R.O.L.</span> es el método sistemático para gobernar la naturaleza probabilística de los modelos de lenguaje.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Content Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                        {/* Card 1: The Context/Problem */}
-                        <div className="p-6 md:p-8 rounded-2xl bg-surface-2/30 border border-surface-3 hover:border-surface-4 transition-colors">
-                            <h3 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-red-glow animate-pulse"></span>
-                                El Fundamento
-                            </h3>
-                            <p className="text-sm text-muted leading-relaxed">
-                                Tras haber establecido que el modelo <span className="text-ghost-white/90 font-medium">no razona como un ser humano</span>, sino que predice y completa vacíos con respuestas verosímiles pero potencialmente falsas, este bloque introduce las herramientas para gobernar ese comportamiento.
-                            </p>
                         </div>
 
-                        {/* Card 2: The Core Skills */}
-                        <div className="p-6 md:p-8 rounded-2xl bg-surface-2/30 border border-surface-3 hover:border-surface-4 transition-colors">
-                            <h3 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-electric-cyan"></span>
-                                Las Herramientas
-                            </h3>
-                            <p className="text-sm text-muted leading-relaxed">
-                                Aprenderás a diseñar y depurar el contexto limitando la hinchazón (bloating), definir identidades para sortear el sobre-rechazo, imponer normas lógicas, activar razonamiento, anclar la realidad contra falsedades por imitación y exigir salidas estructuradas seguras frente a la alucinación de herramientas.
-                            </p>
-                        </div>
+                        {/* Content Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                        {/* Card 3: The Outcome */}
-                        <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-surface-2/30 to-electric-cyan/5 border border-surface-3 hover:border-electric-cyan/30 transition-colors">
-                            <h3 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-neon-magenta"></span>
-                                El Objetivo
-                            </h3>
-                            <p className="text-sm text-muted leading-relaxed">
-                                El recorrido se completa con un <span className="text-ghost-white/90 font-medium">bucle de mejora continua</span>, orientado a mitigar fallos funcionales como el prompt drift (regresiones por actualización) y alinear tus interacciones con objetivos profesionales críticos y protegidos.
-                            </p>
-                        </div>
+                            {/* Card 1: The Context/Problem */}
+                            <div className="p-6 md:p-8 rounded-2xl bg-surface-2/30 border border-surface-3 hover:border-surface-4 transition-colors">
+                                <h3 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-red-glow animate-pulse"></span>
+                                    El Diagnóstico
+                                </h3>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    Hemos visto que el LLM <span className="text-ghost-white/90 font-medium">no piensa, solo predice</span> (Fundamentos), y que su entrenamiento para agradarnos genera <span className="text-ghost-white/90 font-medium">sicofancia y alucinaciones</span> (Patologías). Si le pedimos las cosas "por favor", el modelo actuará como un complaciente, no como un experto.
+                                </p>
+                            </div>
 
-                    </div>
-                </motion.div>
+                            {/* Card 2: The Core Skills */}
+                            <div className="p-6 md:p-8 rounded-2xl bg-surface-2/30 border border-surface-3 hover:border-surface-4 transition-colors">
+                                <h3 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-amber-glow"></span>
+                                    El Cambio de Paradigma
+                                </h3>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    Para obtener trabajo verificable, debemos dejar de "hablar" con la IA y empezar a <span className="text-ghost-white/90 font-medium">programar su espacio latente</span>. Necesitamos pasar de la intuición conversacional a la ingeniería semántica, acotando su margen de error probabilístico.
+                                </p>
+                            </div>
+
+                            {/* Card 3: The Outcome */}
+                            <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-surface-2/30 to-electric-cyan/5 border border-surface-3 hover:border-electric-cyan/30 transition-colors">
+                                <h3 className="text-lg font-bold text-ghost-white mb-4 flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-electric-cyan"></span>
+                                    La Solución: C.O.N.T.R.O.L.
+                                </h3>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    Un sistema de 7 fases diseñado para <span className="text-ghost-white/90 font-medium">neutralizar las patologías estructurales</span>. Desde la inyección de contexto puro hasta la imposición de normas restrictivas y la exigencia de razonamiento antes de responder.
+                                </p>
+                            </div>
+
+                        </div>
+                    </motion.div>
+
+                </motion.section>
 
             </motion.div>
 
