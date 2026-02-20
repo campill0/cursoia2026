@@ -21,8 +21,8 @@ const PERSISTENT_SOURCES = [
 ];
 
 const DYNAMIC_SOURCES = [
-    { label: 'Memoria recuperada', icon: Database },
-    { label: 'Historial de chats', icon: History },
+    { label: 'Detalle recordado', icon: Database },
+    { label: 'Recuperado de chats anteriores', icon: History },
     { label: 'Adjuntos (chunks)', icon: FileText },
     { label: 'Herramientas (tools)', icon: Wrench },
 ];
@@ -34,12 +34,12 @@ const TOKENS = [
     { text: 'Instrucciones personalizadas', type: 'system', role: 'Custom Instructions' },
     { text: 'Memoria guardada', type: 'system', role: 'Memoria Persistente' },
     // Dynamic / retrieved context
-    { text: 'Memoria recuperada', type: 'context', role: 'Contexto Recuperado' },
+    { text: 'Detalle recordado', type: 'context', role: 'Detalle Recordado' },
     { text: '[Chunk PDF p.1-5]', type: 'context', role: 'Fragmento Adjunto' },
     { text: '[Chunk PDF p.6-12]', type: 'context', role: 'Fragmento Adjunto' },
     { text: '[Tool: Web]', type: 'context', role: 'Resultado de Herramienta' },
     { text: '[Tool: Código]', type: 'context', role: 'Resultado de Herramienta' },
-    { text: '[Historial reciente]', type: 'context', role: 'Historial Reciente' },
+    { text: '[Historial reciente (esta sesión)]', type: 'context', role: 'Historial de esta Sesión' },
     // Degradation zone (Lost in the Middle)
     { text: '···atenuado···', type: 'lost', role: 'Zona de Degradación', degradeLevel: 0.55 },
     { text: '···menor peso···', type: 'lost', role: 'Zona de Degradación', degradeLevel: 0.35 },
@@ -268,7 +268,7 @@ export const ContextWindowVisual = () => {
             {/* ─── Didactic Note ─── */}
             <div className="mt-5 p-3 rounded-lg border border-surface-3 bg-surface-1/30">
                 <p className="text-[10px] text-muted/70 leading-relaxed">
-                    <strong className="text-ghost-white/70">Todo se convierte en tokens</strong> dentro de una secuencia. Las capas persistentes siempre entran; las dinámicas se recuperan según la pregunta. No todo pesa igual: la zona central sufre degradación de atención. La respuesta se construye secuencialmente, token a token.
+                    <strong className="text-ghost-white/70">Todo se convierte en tokens</strong> dentro de una secuencia. Las capas persistentes siempre entran; las dinámicas se recuperan según la pregunta. No todo pesa igual: la zona central sufre degradación de atención. La respuesta se construye secuencialmente, token a token. <strong className="text-ghost-white/70">El historial reciente pertenece a esta sesión; de chats anteriores solo se recuperan detalles seleccionados.</strong>
                 </p>
             </div>
 
