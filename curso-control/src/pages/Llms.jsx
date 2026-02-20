@@ -113,7 +113,7 @@ const ContentSection = ({ section }) => {
     const cs = colorMap[section.color];
 
     return (
-        <motion.div variants={fadeUp} className="group relative">
+        <motion.div variants={fadeUp} className="group relative" id={`section-${section.number}`}>
             <div className="absolute -inset-0.5 bg-gradient-to-br from-surface-2 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity blur-sm" />
 
             <div className="relative space-y-5 p-6 rounded-2xl border border-surface-2 bg-deep-slate/50 hover:bg-deep-slate/80 transition-colors">
@@ -186,7 +186,7 @@ const ContentSection = ({ section }) => {
 
                     {/* Visual Injection (e.g. Context Window) */}
                     {section.visual && (
-                        <div className="mt-6 pt-6 border-t border-white/5">
+                        <div className="mt-6 pt-6 border-t border-white/5" id={section.number === '05' ? 'mesa-de-trabajo' : undefined}>
                             {section.visual}
                         </div>
                     )}
@@ -254,7 +254,7 @@ const Llms = () => {
             </div>
 
             {/* Summary Table */}
-            <motion.div variants={fadeUp} className="mt-16 pt-10 border-t border-surface-3">
+            <motion.div variants={fadeUp} className="mt-16 pt-10 border-t border-surface-3" id="resumen-diseno">
                 <h2 className="text-xl font-bold text-ghost-white mb-6 flex items-center gap-3">
                     <span className="w-1.5 h-6 bg-neon-magenta rounded-full" />
                     Resumen de Diseño: Flujo → Consecuencia
