@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CompleteButton } from '../components/ui/CompleteButton';
 import {
@@ -11,8 +11,77 @@ import {
     Database,
     RefreshCcw,
     AlertCircle,
-    Info
+    Info,
+    Repeat
 } from 'lucide-react';
+
+const PathologyCard = ({ item, cs, isFlashGlobal }) => {
+    const [localFlip, setLocalFlip] = React.useState(false);
+
+    // Reset local flip when global state changes
+    React.useEffect(() => {
+        setLocalFlip(false);
+    }, [isFlashGlobal]);
+
+    const showingFlash = isFlashGlobal ? !localFlip : false;
+
+    return (
+        <div
+            className="relative h-full cursor-pointer group"
+            style={{ perspective: '1000px' }}
+            onClick={() => {
+                if (isFlashGlobal) setLocalFlip(!localFlip);
+            }}
+        >
+            <motion.div
+                className="w-full h-full relative"
+                style={{ transformStyle: 'preserve-3d' }}
+                animate={{ rotateY: showingFlash ? 180 : 0 }}
+                transition={{ duration: 0.6, type: "spring", stiffness: 200, damping: 20 }}
+            >
+                {/* FRONT: Detailed */}
+                <div
+                    className="w-full h-full p-5 rounded-2xl border border-surface-3 bg-surface-1/40 group-hover:bg-surface-2 transition-colors"
+                    style={{ backfaceVisibility: 'hidden' }}
+                >
+                    <div className="flex items-start gap-3 mb-2">
+                        <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${cs.accent} shrink-0 group-hover:scale-125 transition-transform`} />
+                        <h3 className="text-sm font-bold text-ghost-white group-hover:text-white transition-colors">
+                            {item.name}
+                        </h3>
+                    </div>
+                    <p className="text-xs text-muted leading-relaxed pl-4">
+                        {item.desc}
+                    </p>
+                    {isFlashGlobal && localFlip && (
+                        <div className="absolute top-4 right-4 text-muted/40 group-hover:text-muted/80 transition-colors">
+                            <Repeat className="w-4 h-4" />
+                        </div>
+                    )}
+                </div>
+
+                {/* BACK: Flash */}
+                <div
+                    className={`absolute inset-0 w-full h-full p-5 rounded-2xl border border-${cs.accent.replace('bg-', '')}/30 bg-surface-1/20 flex flex-col justify-center items-center text-center shadow-[0_0_15px_rgba(0,0,0,0.2)]`}
+                    style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                >
+                    <h3 className="text-[10px] font-mono text-muted uppercase tracking-wider mb-2 opacity-70">
+                        {item.name.split(' (')[0]}
+                    </h3>
+                    <p className={`text-xl font-black ${cs.text} leading-tight`}>
+                        {item.flashDesc}
+                    </p>
+
+                    {/* Hover hint */}
+                    <div className="absolute bottom-4 text-[9px] font-mono text-muted/30 uppercase tracking-widest flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Repeat className="w-3 h-3" />
+                        Click para ver detalle
+                    </div>
+                </div>
+            </motion.div>
+        </div>
+    );
+};
 
 const stagger = {
     hidden: { opacity: 0 },
@@ -35,34 +104,42 @@ const pathologyData = [
         items: [
             {
                 name: 'Fluidez Engañosa (Deceptive Fluency)',
+                flashDesc: 'Suena bien, está mal',
                 desc: 'Es el riesgo más crítico. El modelo genera respuestas gramaticalmente perfectas, con tono profesional y total confianza, pero factualmente falsas. Ocurre porque el modelo optimiza la verosimilitud (que suene bien) sobre la veracidad (que sea cierto), bajando la guardia del usuario.'
             },
             {
                 name: 'Ilusión de Fluidez',
+                flashDesc: 'Ceguera del usuario',
                 desc: 'Fenómeno complementario a la fluidez engañosa, referido específicamente a la incapacidad del usuario para detectar el error o auditar una respuesta crítica (salud, legal, código) debido a la alta calidad de la redacción y la seguridad aparente del modelo.'
             },
             {
                 name: 'Colapso Epistémico',
+                flashDesc: 'Te da la razón aunque sea falso',
                 desc: 'Es la ruptura de la lógica interna del modelo ante la presión del usuario. Si el usuario afirma algo falso con seguridad, el modelo abandona sus datos de entrenamiento correctos para validar la premisa falsa, perdiendo su "agarre" a la verdad para complacer al interlocutor.'
             },
             {
                 name: 'Alucinación (Inducida por ruido)',
+                flashDesc: 'Se lo inventa',
                 desc: 'Invención de información presentada como cierta. Cuando hay un exceso de datos irrelevantes ("paja") que debilita la señal, o cuando faltan datos concretos, el modelo inventa patrones probabilísticos para llenar los vacíos lógicos.'
             },
             {
                 name: 'Búnker Temporal (Knowledge Cutoff)',
+                flashDesc: 'Vive en el pasado',
                 desc: 'El modelo vive en un pasado congelado. Al no tener noción del tiempo presente ni acceso a herramientas externas, si se le pregunta por hechos recientes, inventará datos basándose en probabilidades históricas.'
             },
             {
                 name: 'Memoria Borrosa (Compresión)',
+                flashDesc: 'Teléfono escacharrado',
                 desc: 'Concepto técnico que explica que el modelo no almacena textos exactos, sino representaciones estadísticas comprimidas. Esto le obliga a "reconstruir" la información, lo que a menudo lleva a inventar detalles finos.'
             },
             {
                 name: 'Fabricación de citas (Citation Fabrication)',
+                flashDesc: 'Fuentes falsas',
                 desc: 'Una variante técnica de la alucinación donde el modelo genera textos con "aspecto" de referencias bibliográficas válidas (año, DOI, etc). Sin un mecanismo de verificación, estadísticamente es verosímil pero fácticamente inútil.'
             },
             {
                 name: 'Falsedades por imitación (Imitative Falsehoods)',
+                flashDesc: 'Repite mitos',
                 desc: 'El modelo produce afirmaciones falsas no porque "invente", sino porque son muy frecuentes en el texto humano. Al predecir continuaciones probables, absorbe y refleja mitos, rumores o concepciones erróneas sistémicas.'
             }
         ]
@@ -77,26 +154,32 @@ const pathologyData = [
         items: [
             {
                 name: 'Sicofancia (El "Síndrome del Adulador")',
+                flashDesc: 'Pelota',
                 desc: 'La tendencia del modelo a confirmar los sesgos del usuario, validar errores o darle la razón para maximizar la satisfacción. Actúa como un espejo complaciente en lugar de un auditor honesto.'
             },
             {
                 name: 'Sicofancia Social',
+                flashDesc: 'Exceso de cortesía',
                 desc: 'Variante donde el modelo utiliza excesivo lenguaje indirecto o validación emocional ("Entiendo tu punto...", "Excelente pregunta") para proteger la imagen del usuario, diluyendo la calidad técnica.'
             },
             {
                 name: 'Ruido Teatral (Theatrical Noise)',
+                flashDesc: 'Pierde el foco actuando',
                 desc: 'Ocurre cuando se fuerza un "Rol" innecesaria en tareas lógicas. El modelo gasta recursos en mantener el personaje en detrimento de la capacidad de cálculo, provocando errores en lógica pura.'
             },
             {
                 name: 'Verbosidad (Yapping)',
+                flashDesc: 'No se calla',
                 desc: 'Tendencia a ser excesivamente "educado" y hablador, añadiendo introducciones, conclusiones morales y rellenos innecesarios que ensucian el resultado final.'
             },
             {
                 name: 'Pereza (Laziness)',
+                flashDesc: 'Vago',
                 desc: 'Tendencia a tomar atajos cognitivos o dar respuestas incompletas (ej. "escribe el resto del código tú") para ahorrar recursos si el prompt no le exige un estándar alto.'
             },
             {
                 name: 'Sobre-rechazo (Overrefusal)',
+                flashDesc: 'Miedica',
                 desc: 'Como producto del entrenamiento en seguridad (harmlessness), el modelo asume una postura conservadora con falsos positivos. Puede negarse a responder preguntas benignas o inocuas debido a ambigüedad semántica que lo acerca a áreas "prohibidas".'
             }
         ]
@@ -111,34 +194,42 @@ const pathologyData = [
         items: [
             {
                 name: 'Podredumbre del Contexto (Context Rot)',
+                flashDesc: 'Basura acumulada',
                 desc: 'La degradación progresiva de la calidad de la respuesta a medida que se acumula información irrelevante, firmas de correo o datos antiguos en el historial.'
             },
             {
                 name: 'Efecto "Lost-in-the-Middle"',
+                flashDesc: 'Olvida el centro',
                 desc: 'Incapacidad del modelo para recuperar información situada en el centro de un prompt extenso. El modelo tiene un sesgo de atención en forma de "U": recuerda bien el inicio y el final.'
             },
             {
                 name: 'Distracción de Contexto',
+                flashDesc: 'Se come la paja',
                 desc: 'Cuando la señal de las instrucciones es débil, el modelo prioriza patrones irrelevantes del texto adjunto ("paja") sobre su propio razonamiento lógico.'
             },
             {
                 name: 'Choque de Contexto (Context Clash)',
+                flashDesc: 'Cruza cables',
                 desc: 'Confusión generada cuando se mezclan temas incompatibles en un mismo chat. El "residuo" latente de la tarea anterior sesga la interpretación de la nueva.'
             },
             {
                 name: 'Truncamiento Silencioso',
+                flashDesc: 'Amnesia repentina',
                 desc: 'Cuando se supera el límite de tokens, la interfaz elimina mensajes antiguos sin avisar. Esto borra datos clave del cerebro activo, provocando amnesia inmediata.'
             },
             {
                 name: 'Envenenamiento de Memoria',
+                flashDesc: 'Recuerdos falsos',
                 desc: 'Afecta a la Memoria Episódica. Ocurre cuando el modelo guarda como "hechos" preferencias falsas o datos de pruebas sucias, contaminando futuros chats.'
             },
             {
                 name: 'Hinchazón del Prompt (Prompt Bloating)',
+                flashDesc: 'Infoxicación',
                 desc: 'Uso de prompts excesivamente largos con información no curada. Satura el contexto y, paradójicamente, reduce la "inteligencia" efectiva del modelo.'
             },
             {
                 name: 'Truncación por Recuperación Silenciosa (Silent Retrieval Truncation)',
+                flashDesc: 'Lee a trozos',
                 desc: 'Pérdida de completitud causada por el RAG efímero que opera al adjuntar archivos. El sistema fragmenta el documento en chunks, indexa semánticamente y solo inserta los fragmentos que considera relevantes. Las secciones que no activan la recuperación simplemente no existen para el modelo. La respuesta parece completa, pero se basa en una versión silenciosamente amputada del documento. Se agrava con preguntas amplias y documentos con información distribuida entre secciones temáticamente distintas. Solución: si el documento cabe en la ventana de contexto (<60%), pegarlo como texto plano para eliminar el RAG intermediario por completo.'
             }
         ]
@@ -153,18 +244,22 @@ const pathologyData = [
         items: [
             {
                 name: 'Regresiones por Actualización (Update Regressions/Prompt Drift)',
+                flashDesc: 'Se rompe solo',
                 desc: 'Pérdida de capacidad resolutiva o rotura de un prompt que antes funcionaba, debido a modificaciones no visibles que los proveedores realizan sobre los pesos, políticas o parámetros internos.'
             },
             {
                 name: 'Inyección de Prompt (Prompt Injection)',
+                flashDesc: 'Secuestro mental',
                 desc: 'Problema crítico de seguridad donde el sistema no tiene separación estricta entre "instrucción" y "dato". Un atacante introduce instrucciones camufladas dentro del input para alterar drásticamente el flujo lógico.'
             },
             {
                 name: 'Bypass y Jailbreak',
+                flashDesc: 'Se salta las reglas',
                 desc: 'El modelo obedece instrucciones que no debería. A través de entradas adversariales, se rompen las barreras probabilísticas de "harmlessness", permitiendo la extracción de información sensible (como los system prompts).'
             },
             {
                 name: 'Alucinación de Herramientas (Tool-Use Hallucinations)',
+                flashDesc: 'Tool inventada',
                 desc: 'Debilidad de arquitecturas agénticas. El modelo predice tokens para hacer una llamada a una herramienta pero se inventa los nombres o los propios parámetros porque rellena "lo que estadísticamente parece JSON válido".'
             }
         ]
@@ -179,6 +274,8 @@ const colorMap = {
 };
 
 const Pathologies = () => {
+    const [isFlashGlobal, setIsFlashGlobal] = useState(false);
+
     return (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12 pb-20">
 
@@ -325,10 +422,21 @@ const Pathologies = () => {
                 </div>
             </motion.div>
 
-            {/* Separator before detailed categories */}
-            <motion.div variants={fadeUp} className="flex items-center gap-4 py-4">
-                <div className="h-px flex-1 bg-surface-3" />
-                <span className="text-xs font-mono text-muted uppercase tracking-[0.2em]">Exploración Detallada</span>
+            {/* Separator before detailed categories with GLOBAL FLASH TOGGLE */}
+            <motion.div variants={fadeUp} className="flex flex-col md:flex-row items-center gap-4 py-8">
+                <div className="h-px flex-1 bg-surface-3 hidden md:block" />
+                <div className="flex items-center gap-4">
+                    <span className="text-xs font-mono text-muted uppercase tracking-[0.2em]">Exploración Detallada</span>
+
+                    {/* GLOBAL FLASH TOGGLE */}
+                    <button
+                        onClick={() => setIsFlashGlobal(!isFlashGlobal)}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-full border text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${isFlashGlobal ? 'bg-neon-magenta/10 text-neon-magenta border-neon-magenta shadow-[0_0_15px_rgba(255,0,255,0.15)]' : 'bg-surface-2 text-muted border-surface-3 hover:text-ghost-white hover:border-surface-4'}`}
+                    >
+                        <Zap className={`w-4 h-4 ${isFlashGlobal ? 'animate-pulse' : ''}`} />
+                        Modo Resumen Flash {isFlashGlobal ? 'ON' : 'OFF'}
+                    </button>
+                </div>
                 <div className="h-px flex-1 bg-surface-3" />
             </motion.div>
 
@@ -339,19 +447,23 @@ const Pathologies = () => {
                     return (
                         <motion.section key={category.id} variants={fadeUp} className="space-y-6">
                             {/* Category Header */}
-                            <div className="flex items-center gap-4">
-                                <div className={`w-12 h-12 rounded-2xl ${cs.bg} flex items-center justify-center border ${cs.border} shrink-0`}>
-                                    <category.icon className={`w-6 h-6 ${cs.text}`} />
-                                </div>
-                                <div>
-                                    <h2 className="text-xl font-black text-ghost-white tracking-tight leading-none mb-1 uppercase">
-                                        {category.title}
-                                    </h2>
-                                    <div className="flex items-center gap-2">
-                                        <span className={`text-[10px] font-mono ${cs.text} tracking-[0.2em] uppercase font-bold`}>{category.subtitle}</span>
-                                        <span className={`flex-1 h-px ${cs.accent} opacity-20`} />
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div className="flex items-center gap-4 flex-1">
+                                    <div className={`w-12 h-12 rounded-2xl ${cs.bg} flex items-center justify-center border ${cs.border} shrink-0`}>
+                                        <category.icon className={`w-6 h-6 ${cs.text}`} />
+                                    </div>
+                                    <div className="flex-1">
+                                        <h2 className="text-xl font-black text-ghost-white tracking-tight leading-none mb-1 uppercase">
+                                            {category.title}
+                                        </h2>
+                                        <div className="flex items-center gap-2">
+                                            <span className={`text-[10px] font-mono ${cs.text} tracking-[0.2em] uppercase font-bold whitespace-nowrap`}>{category.subtitle}</span>
+                                            <span className={`flex-1 h-px ${cs.accent} opacity-20 hidden md:block`} />
+                                        </div>
                                     </div>
                                 </div>
+
+                                {/* Removed individual category flash toggle as per instructions */}
                             </div>
 
                             <p className="text-sm text-muted max-w-3xl pl-16">
@@ -361,20 +473,7 @@ const Pathologies = () => {
                             {/* Items Grid */}
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pl-16">
                                 {category.items.map((item, idx) => (
-                                    <div
-                                        key={idx}
-                                        className="p-5 rounded-2xl border border-surface-3 bg-surface-1/40 hover:bg-surface-2 transition-all hover:border-surface-4 group"
-                                    >
-                                        <div className="flex items-start gap-3 mb-2">
-                                            <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${cs.accent} shrink-0 group-hover:scale-125 transition-transform`} />
-                                            <h3 className="text-sm font-bold text-ghost-white group-hover:text-white transition-colors">
-                                                {item.name}
-                                            </h3>
-                                        </div>
-                                        <p className="text-xs text-muted leading-relaxed pl-4 line-clamp-4 group-hover:line-clamp-none transition-all">
-                                            {item.desc}
-                                        </p>
-                                    </div>
+                                    <PathologyCard key={idx} item={item} cs={cs} isFlashGlobal={isFlashGlobal} />
                                 ))}
                             </div>
                         </motion.section>

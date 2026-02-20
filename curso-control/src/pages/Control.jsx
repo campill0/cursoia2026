@@ -65,7 +65,7 @@ const PhaseSection = ({ phase, index, isExpanded, onToggle, searchQuery }) => {
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-1">
                         <span className={`text-[10px] font-mono ${cs.text} tracking-[0.2em] uppercase font-bold`}>
-                            FASE {phase.letter}
+                            {phase.key === 'F0' ? 'BASES' : `FASE ${phase.letter}`}
                         </span>
                         <span className={`flex-1 h-px ${cs.accent} opacity-20`} />
                         <span className="text-[10px] font-mono text-muted/40 tabular-nums">

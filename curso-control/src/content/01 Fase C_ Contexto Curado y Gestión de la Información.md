@@ -122,6 +122,7 @@ Es vital distinguir entre la capacidad teórica del modelo y el límite real que
 | Plan de Usuario | Modo Instant (GPT-5.2 Instant / Estándar) | Modo Thinking ( GPT-5.2 Thinking) |
 | ----- | ----- | ----- |
 | Free | 16,000 (~12k palabras) | No disponible |
+| Go | 32,000 (~24k palabras) | 196,000 (~147k palabras) |
 | Plus / Team | 32,000 (~24k palabras) | 196,000 (~147k palabras) |
 | Pro / Enterprise | 128,000 (~96k palabras) | 196,000 (~147k palabras) |
 
@@ -135,6 +136,41 @@ Cuando tu conversación supera estos límites, la interfaz ejecuta una "poda aut
 - **Posicionamiento Estratégico (Primacy & Recency):** Debido al efecto *Lost-in-the-Middle*, coloca la información más crítica (instrucciones de formato, reglas de seguridad) al **principio** (System Prompt) o al **final** del prompt (justo antes de pedir la respuesta). Evita dejar lo importante en el medio de un bloque de texto masivo.
 - **Truncamiento Estratégico de Historial:** No basta con resumir. Si estás en un chat largo (por ejemplo, depurando código), **elimina o edita** los mensajes antiguos del usuario y del asistente que contenían errores o rutas fallidas antes de pedir la conclusión final.
   - *Por qué:* Aunque resumas, si los tokens de los "errores anteriores" siguen en la ventana, actúan como un ancla negativa que puede volver a confundir al modelo.
+
+#### 3.4 Truncación por Recuperación Silenciosa (Silent Retrieval Truncation)
+
+Existe un **segundo tipo de amputación silenciosa** que no tiene que ver con el historial, sino con **cómo entran los documentos adjuntos** en la ventana de contexto.
+
+Cuando adjuntas un archivo (PDF, DOCX, imagen…) a un chat, el sistema **no le da el documento completo al modelo**. En su lugar, ejecuta un proceso de RAG (Retrieval-Augmented Generation) efímero:
+
+1. Convierte el archivo a texto plano (con posibles pérdidas de OCR).
+2. Lo trocea en fragmentos (chunks).
+3. Indexa esos chunks semánticamente.
+4. Ante cada consulta, recupera **solo** los chunks más cercanos semánticamente a tu pregunta.
+5. Solo esos fragmentos se insertan en el contexto real del modelo.
+6. El modelo responde **sin saber —ni indicar— qué partes del documento quedaron fuera**.
+
+**El peligro no está en la pérdida, sino en la opacidad:** la respuesta parece completa y bien fundamentada, pero el modelo ha respondido sobre una versión silenciosamente amputada del documento. No miente; simplemente no sabe lo que no le han dejado ver.
+
+**Síntomas típicos:**
+
+- Respuestas que cubren bien los conceptos más obvios pero omiten secciones relevantes menos centrales.
+- Resultados inconsistentes ante el mismo documento según cómo formules la pregunta (cada formulación activa chunks distintos).
+- Preguntas genéricas ("explícame todo sobre X") más vulnerables que las específicas, porque la señal semántica de recuperación es más débil.
+
+**Solución de Ingeniería — La Regla del Umbral de Contexto:**
+
+Calcula el tamaño del documento en tokens **antes** de decidir el canal de entrada. Si cabe directamente en el contexto disponible, pégalo como texto plano. Al hacerlo, eliminas el RAG efímero por completo: el modelo ve el documento íntegro.
+
+| Situación | Recomendación |
+| ----- | ----- |
+| Documento < 60% del contexto disponible | **Pegar como texto plano siempre** |
+| Documento > 70% del contexto disponible | Adjuntar como archivo o fragmentar manualmente |
+| Tarea transversal que requiere visión completa | Texto plano si cabe, o fragmentar con preguntas dirigidas |
+| Documento legal / técnico / de precisión crítica | **Texto plano obligatorio si cabe** |
+| Tarea puntual sobre sección conocida del documento | Adjuntar como archivo es aceptable |
+
+> **Principio de fondo:** Cuando adjuntas un archivo, no le das el documento al modelo. Le das al **sistema** la decisión de qué partes del documento merece ver el modelo. Esa delegación es silenciosa, opaca y puede costarte exactamente las secciones que más necesitabas.
 
 #### 3.5 Distinción Técnica de Memoria: Procedimental vs. Episódica
 

@@ -42,7 +42,7 @@ export const getControlContent = () => {
 };
 
 const phasesMeta = [
-    { prefix: '00 ', letter: '0', key: 'F0', title: 'Fundamentos', subtitle: 'La Física del Modelo', color: 'slate' },
+    { prefix: '00 ', letter: 'B', key: 'F0', title: 'Fundamentos', subtitle: 'La Física del Modelo', color: 'slate' },
     { prefix: '01 ', letter: 'C', key: 'C', title: 'Contexto Curado', subtitle: 'Signal-to-Noise Ratio', color: 'cyan' },
     { prefix: '02 ', letter: 'O', key: 'O', title: 'Omni-Rol', subtitle: 'Ingeniería de Identidad', color: 'magenta' },
     { prefix: '03 ', letter: 'N', key: 'N', title: 'Normas y Negativas', subtitle: 'Muro de Contención', color: 'red' },
