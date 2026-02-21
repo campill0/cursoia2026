@@ -57,6 +57,29 @@ export const PhaseCarousel = ({ phases, expandedPhaseId, onToggle }) => {
         return Math.abs(diff) < 20; // Margen de error de 20 grados
     };
 
+    // Sincronizar rotación cuando cambia la fase expandida desde fuera (ej. TOC)
+    useEffect(() => {
+        if (expandedPhaseId && expandedPhaseId !== 'F0') {
+            const index = phases.findIndex(p => p.key === expandedPhaseId);
+            if (index !== -1) {
+                const targetAngle = -index * anglePerCard;
+                const currentRotation = rotation.get();
+                const cycle = Math.round(currentRotation / 360);
+                let adjustedTarget = targetAngle + (cycle * 360);
+
+                if (Math.abs(adjustedTarget - currentRotation) > 180) {
+                    adjustedTarget -= Math.sign(adjustedTarget - currentRotation) * 360;
+                }
+
+                animate(rotation, adjustedTarget, {
+                    type: "spring",
+                    stiffness: 60,
+                    damping: 20
+                });
+            }
+        }
+    }, [expandedPhaseId, phases, anglePerCard, rotation]);
+
     // Al hacer click en una tarjeta
     const handleCardClick = (index, phaseKey) => {
         // 1. Calcular rotación requerida
@@ -144,7 +167,7 @@ export const PhaseCarousel = ({ phases, expandedPhaseId, onToggle }) => {
                 <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-obsidian via-obsidian/50 to-transparent pointer-events-none z-10" />
 
                 {/* Indicador interacción */}
-                
+
             </div>
 
             {/* Navegación inferior (Bolitas) */}

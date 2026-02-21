@@ -1,11 +1,17 @@
 ## C — CONTEXTO CURADO: Especificación Técnica y Táctica
 
-El objetivo de esta fase es mitigar las tres grandes patologías del contexto identificadas en la literatura técnica actual:
+El objetivo de esta fase es aislar al modelo en un entorno de alta fidelidad para neutralizar dos frentes patológicos simultáneos:
 
-1. **Context Rot (Podredumbre del Contexto):** La degradación de la calidad de la respuesta a medida que se acumula información irrelevante o contradictoria en el historial.
-2. **Efecto "Lost-in-the-Middle":** La tendencia de los LLMs a olvidar la información situada en el medio de un prompt extenso, priorizando solo el inicio y el final.
-3. **Alucinaciones inducidas por ruido:** Cuando el exceso de datos difusos obliga al modelo a "adivinar" patrones probabilísticos en lugar de razonar sobre hechos.
-4. **Hinchazón del Prompt (Prompt Bloating):** Saturación del contexto con sobre-explicaciones densas que terminan ahogando la capacidad lógica del LLM al diluir la atención útil a los datos.
+**1. La cura directa contra 2 Patologías Epistémicas:**
+- **Búnker Temporal (Knowledge Cutoff):** Obligamos al modelo a "vivir en el presente" inyectando la verdad actualizada (Grounding) a través de documentos.
+- **Alucinaciones por Ruido:** Extirpamos la "paja" que obliga al modelo a adivinar, proporcionando solo señales limpias (Pruning).
+
+**2. La mitigación total de las 8 Patologías Estructurales de Memoria:**
+A lo largo de esta fase, aprenderemos a neutralizar todos los fallos físicos de la Ventana de Contexto que vimos en el diagnóstico:
+- **Sobrecargas:** Evitando la Podredumbre (Context Rot) y la Hinchazón del Prompt.
+- **Sesgos de Atención:** Venciendo la Distracción y el Efecto Lost-in-the-Middle.
+- **Amnesias de Sistema:** Esquivando el Truncamiento Silencioso (límite de tokens) y la gravísima Truncación por Recuperación Silenciosa (RAG Efímero).
+- **Contaminación Cruzada:** Evitando el Choque de Contextos (Clash) y el Envenenamiento irreversible de la Memoria Episódica.
 
 ### El imperativo de la Relación Señal/Ruido
 
@@ -47,8 +53,9 @@ La IA no "lee" visualmente; procesa secuencias. Ayúdale a separar los datos de 
   Etiquetas XML
   `<contexto> ... </contexto>`
   - *Ejemplo:* `Analiza el texto delimitado por triples comillas: """ [TEXTO] """`
-- **Etiquetado Semántico (Metadata Injection):** Si aportas varios documentos, etiquétalos claramente dentro del prompt. No pegues texto plano; añade cabeceras.
-   
+- **Etiquetado Semántico (Metadata Injection):** Si aportas varios documentos (ya sea pegados en el chat o como archivos adjuntos), etiquétalos claramente en el prompt para que el modelo no mezcle las fuentes. No pegues bloques de texto anónimos ni subas archivos sin referenciarlos.
+  - *Si pegas el texto:* Añade una cabecera o título descriptivo justo antes de los datos (ej: [Documento A: Política de Ventas]).
+  - *Si adjuntas archivos:* Menciona el nombre exacto del archivo en tus instrucciones (ej: Usa el archivo adjunto "Ventas2024.pdf" como contexto principal).
    *Ejemplo:* 
   ```
   [Documento A: Política de Ventas 2024]
@@ -122,6 +129,7 @@ Es vital distinguir entre la capacidad teórica del modelo y el límite real que
 | Plan de Usuario | Modo Instant (GPT-5.2 Instant / Estándar) | Modo Thinking ( GPT-5.2 Thinking) |
 | ----- | ----- | ----- |
 | Free | 16,000 (~12k palabras) | No disponible |
+| Go | 32,000 (~24k palabras) | 196,000 (~147k palabras) |
 | Plus / Team | 32,000 (~24k palabras) | 196,000 (~147k palabras) |
 | Pro / Enterprise | 128,000 (~96k palabras) | 196,000 (~147k palabras) |
 
@@ -135,6 +143,41 @@ Cuando tu conversación supera estos límites, la interfaz ejecuta una "poda aut
 - **Posicionamiento Estratégico (Primacy & Recency):** Debido al efecto *Lost-in-the-Middle*, coloca la información más crítica (instrucciones de formato, reglas de seguridad) al **principio** (System Prompt) o al **final** del prompt (justo antes de pedir la respuesta). Evita dejar lo importante en el medio de un bloque de texto masivo.
 - **Truncamiento Estratégico de Historial:** No basta con resumir. Si estás en un chat largo (por ejemplo, depurando código), **elimina o edita** los mensajes antiguos del usuario y del asistente que contenían errores o rutas fallidas antes de pedir la conclusión final.
   - *Por qué:* Aunque resumas, si los tokens de los "errores anteriores" siguen en la ventana, actúan como un ancla negativa que puede volver a confundir al modelo.
+
+#### 3.4 Truncación por Recuperación Silenciosa (Silent Retrieval Truncation)
+
+Existe un **segundo tipo de amputación silenciosa** que no tiene que ver con el historial, sino con **cómo entran los documentos adjuntos** en la ventana de contexto.
+
+Cuando adjuntas un archivo (PDF, DOCX, imagen…) a un chat, el sistema **no le da el documento completo al modelo**. En su lugar, ejecuta un proceso de RAG (Retrieval-Augmented Generation) efímero:
+
+1. Convierte el archivo a texto plano (con posibles pérdidas de OCR).
+2. Lo trocea en fragmentos (chunks).
+3. Indexa esos chunks semánticamente.
+4. Ante cada consulta, recupera **solo** los chunks más cercanos semánticamente a tu pregunta.
+5. Solo esos fragmentos se insertan en el contexto real del modelo.
+6. El modelo responde **sin saber —ni indicar— qué partes del documento quedaron fuera**.
+
+**El peligro no está en la pérdida, sino en la opacidad:** la respuesta parece completa y bien fundamentada, pero el modelo ha respondido sobre una versión silenciosamente amputada del documento. No miente; simplemente no sabe lo que no le han dejado ver.
+
+**Síntomas típicos:**
+
+- Respuestas que cubren bien los conceptos más obvios pero omiten secciones relevantes menos centrales.
+- Resultados inconsistentes ante el mismo documento según cómo formules la pregunta (cada formulación activa chunks distintos).
+- Preguntas genéricas ("explícame todo sobre X") más vulnerables que las específicas, porque la señal semántica de recuperación es más débil.
+
+**Solución de Ingeniería — La Regla del Umbral de Contexto:**
+
+Calcula el tamaño del documento en tokens **antes** de decidir el canal de entrada. Si cabe directamente en el contexto disponible, pégalo como texto plano. Al hacerlo, eliminas el RAG efímero por completo: el modelo ve el documento íntegro.
+
+| Situación | Recomendación |
+| ----- | ----- |
+| Documento < 60% del contexto disponible | **Pegar como texto plano siempre** |
+| Documento > 70% del contexto disponible | Adjuntar como archivo o fragmentar manualmente |
+| Tarea transversal que requiere visión completa | Texto plano si cabe, o fragmentar con preguntas dirigidas |
+| Documento legal / técnico / de precisión crítica | **Texto plano obligatorio si cabe** |
+| Tarea puntual sobre sección conocida del documento | Adjuntar como archivo es aceptable |
+
+> **Principio de fondo:** Cuando adjuntas un archivo, no le das el documento al modelo. Le das al **sistema** la decisión de qué partes del documento merece ver el modelo. Esa delegación es silenciosa, opaca y puede costarte exactamente las secciones que más necesitabas.
 
 #### 3.5 Distinción Técnica de Memoria: Procedimental vs. Episódica
 
@@ -188,10 +231,24 @@ Adapta el contexto según la herramienta (ChatGPT, Claude, Gemini, etc.).
 
 ### Resumen de la Lista de Verificación para la Fase C
 
-Antes de pasar a la siguiente fase, verifica:
+Antes de enviar tu prompt y pasar a la Fase O (Omni-Rol), valida tu entorno de trabajo:
 
-1. [ ] ¿He eliminado saludos, firmas y texto basura? (**Poda**)
-2. [ ] ¿He usado delimitadores (""") para separar datos de instrucciones? (**Estructura**)
-3. [ ] ¿He especificado qué documento manda en caso de contradicción? (**Jerarquía**)
-4. [ ] ¿He colocado la instrucción crítica al final del prompt? (**Posicionamiento**)
-5. [ ] ¿Estoy en un chat limpio o arrastro basura de temas anteriores? (**Cuarentena**)
+**Higiene del Entorno (Memoria)**
+
+1. [ ] ¿Estoy en un chat limpio o arrastrando "basura" latente de temas anteriores? (**Cuarentena / Anti-Clash**)
+2. [ ] ¿Estoy haciendo una prueba "sucia" o asumiendo un rol contrario a mis principios? Si es así, ¿he activado un Chat Temporal? (**Anti-Envenenamiento**)
+
+**Calidad de la Señal (Poda)**
+
+3. [ ] ¿He eliminado saludos, firmas, e índices irrelevantes del texto? (**Anti-Rot e Hinchazón**)
+
+**Estructura y Claridad (Delimitación)**
+
+4. [ ] ¿He usado delimitadores (""" o <etiquetas>) para encapsular los datos? (**Aislamiento / Anti-Distracción**)
+5. [ ] ¿He etiquetado semánticamente cada documento o bloque de texto aportado? (**Inyección de Metadatos**)
+6. [ ] ¿He pegado el documento como texto plano en lugar de adjuntarlo como archivo si cabía completo en la ventana? (**Anti-RAG Silencioso**)
+
+**Directivas Críticas**
+
+7. [ ] ¿He instruido explícitamente al modelo a responder "Solo según el texto"? (**Anclaje / Anti-Alucinación Epistémica**)
+8. [ ] ¿He colocado mi orden final o pregunta central en la última línea del prompt? (**Anti-Lost-in-the-Middle**)

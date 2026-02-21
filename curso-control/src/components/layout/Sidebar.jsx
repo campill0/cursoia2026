@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useRef, useState, useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db/db';
 import {
@@ -12,9 +13,52 @@ import { Modal } from '../ui/Modal';
 
 const navItems = [
     { path: '/', label: 'Inicio', icon: Home, moduleId: null },
-    { path: '/llms', label: 'Fundamentos LLM', icon: Brain, moduleId: 'llms' },
-    { path: '/pathologies', label: 'Patologías', icon: AlertTriangle, moduleId: 'pathologies' },
-    { path: '/control', label: 'Framework', icon: ShieldCheck, moduleId: 'control' },
+    {
+        path: '/llms',
+        label: 'Fundamentos LLM',
+        icon: Brain,
+        moduleId: 'llms',
+        subItems: [
+            { id: 'section-01', label: '01 El Mapa del Lenguaje: Tokens y Embeddings' },
+            { id: 'section-02', label: '02 El Motor: Arquitectura Transformer y Atención' },
+            { id: 'section-03', label: '03 El Aprendizaje: Pre-entrenamiento' },
+            { id: 'section-04', label: '04 El Refinamiento: Post-entrenamiento' },
+            { id: 'section-05', label: '05 El Momento de la Verdad: Inferencia y Ventana de Contexto' },
+            { id: 'mesa-de-trabajo', label: 'Mesa de Trabajo', isChild: true },
+            { id: 'resumen-diseno', label: 'Resumen de Diseño: Flujo → Consecuencia' }
+        ]
+    },
+    {
+        path: '/pathologies',
+        label: 'Patologías',
+        icon: AlertTriangle,
+        moduleId: 'pathologies',
+        subItems: [
+            { id: 'intro-diagnostica', label: '0. Introducción Diagnóstica' },
+            { id: 'epistemic', label: '1. Verdad y Conocimiento' },
+            { id: 'psychological', label: '2. Comportamiento y Alineación' },
+            { id: 'structural', label: '3. Memoria y Contexto' },
+            { id: 'evolutionary', label: '4. Operativas y Evolución' },
+            { id: 'resumen-patologias', label: 'Resumen de Diagnóstico' }
+        ]
+    },
+    {
+        path: '/control',
+        label: 'Framework',
+        icon: ShieldCheck,
+        moduleId: 'control',
+        subItems: [
+            { id: 'intro-framework', label: '0. Introducción' },
+            { id: 'phase-F0', label: 'Bases: Fundamentos' },
+            { id: 'phase-C', label: 'Fase C: Contexto Curado' },
+            { id: 'phase-O', label: 'Fase O: Omni-Rol' },
+            { id: 'phase-N', label: 'Fase N: Normas y Negativas' },
+            { id: 'phase-T', label: 'Fase T: Traza de Pensamiento' },
+            { id: 'phase-R', label: 'Fase R: Realidad y Resistencia' },
+            { id: 'phase-O2', label: 'Fase O₂: Output y Organización' },
+            { id: 'phase-L', label: 'Fase L: Loop de Mejora' }
+        ]
+    },
     { path: '/tools', label: 'Herramienta', icon: Wrench, moduleId: null },
 ];
 
@@ -30,6 +74,60 @@ export const Sidebar = ({ collapsed, onToggleCollapse, onClose, isMobile }) => {
     const totalModules = navItems.filter(i => i.moduleId).length;
     const completedCount = completedIds.length;
     const progressPct = totalModules > 0 ? (completedCount / totalModules) * 100 : 0;
+
+    const location = useLocation();
+    const [activeSection, setActiveSection] = useState(null);
+
+    // Scroll spy logic for TOC
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentPath = location.pathname;
+            const currentItem = navItems.find(i => i.path === currentPath);
+            if (!currentItem || !currentItem.subItems) return;
+
+            // Find the active section based on scroll position
+            let currentActive = null;
+            // Add a small offset so it triggers slightly before hitting the exact top
+            const offset = 150;
+
+            for (const sub of currentItem.subItems) {
+                const element = document.getElementById(sub.id);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= offset) {
+                        currentActive = sub.id;
+                    }
+                }
+            }
+
+            if (currentActive !== activeSection) {
+                setActiveSection(currentActive);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        // Initial check
+        handleScroll();
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [location.pathname, activeSection]);
+
+    const scrollToSection = (id) => {
+        // Dispatch global event for components that need to react (e.g. accordion expansion in Control.jsx)
+        window.dispatchEvent(new CustomEvent('toc-navigate', { detail: { id } }));
+
+        const element = document.getElementById(id);
+        if (element) {
+            // Wait slightly for potential layout changes (e.g. accordion expansions in Control)
+            setTimeout(() => {
+                const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }, 150);
+        }
+        if (isMobile) {
+            onClose?.();
+        }
+    };
 
     const handleExport = async () => {
         try {
@@ -141,30 +239,60 @@ export const Sidebar = ({ collapsed, onToggleCollapse, onClose, isMobile }) => {
                     {navItems.map((item) => {
                         const isCompleted = item.moduleId && completedIds.includes(item.moduleId);
                         return (
-                            <NavLink
-                                key={item.path}
-                                to={item.path}
-                                onClick={() => isMobile && onClose?.()}
-                                className={({ isActive }) => cn(
-                                    "tap-target group flex items-center rounded-xl text-sm font-medium transition-all duration-200 relative",
-                                    collapsed ? "justify-center p-3" : "gap-3 px-3 py-2.5",
-                                    isActive
-                                        ? "bg-electric-cyan/10 text-electric-cyan"
-                                        : "text-muted hover:text-ghost-white hover:bg-surface-2"
+                            <div key={item.path} className="flex flex-col">
+                                <NavLink
+                                    to={item.path}
+                                    onClick={() => isMobile && onClose?.()}
+                                    className={({ isActive }) => cn(
+                                        "tap-target group flex items-center rounded-xl text-sm font-medium transition-all duration-200 relative",
+                                        collapsed ? "justify-center p-3" : "gap-3 px-3 py-2.5",
+                                        isActive
+                                            ? "bg-electric-cyan/10 text-electric-cyan"
+                                            : "text-muted hover:text-ghost-white hover:bg-surface-2"
+                                    )}
+                                >
+                                    <item.icon className={cn("w-4 h-4 shrink-0", isCompleted && "text-emerald-glow")} />
+                                    {!collapsed && (
+                                        <>
+                                            <span className="flex-1 truncate">{item.label}</span>
+                                            {isCompleted && (
+                                                <div className="w-4 h-4 rounded-full bg-emerald-glow/20 text-emerald-glow flex items-center justify-center">
+                                                    <Check className="w-2.5 h-2.5" strokeWidth={3} />
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+                                </NavLink>
+
+                                {/* Table of Contents (SubItems) */}
+                                {!collapsed && item.subItems && location.pathname === item.path && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="mt-1 mb-2 ml-[19px] border-l-2 border-surface-3 pl-3 space-y-1 overflow-hidden"
+                                    >
+                                        {item.subItems.map((sub) => {
+                                            const isSubActive = activeSection === sub.id;
+                                            return (
+                                                <button
+                                                    key={sub.id}
+                                                    onClick={() => scrollToSection(sub.id)}
+                                                    className={cn(
+                                                        "w-full text-left text-xs py-1.5 transition-colors duration-200 line-clamp-2",
+                                                        sub.isChild ? "pl-4" : "",
+                                                        isSubActive
+                                                            ? "text-electric-cyan font-semibold"
+                                                            : "text-muted/70 hover:text-ghost-white"
+                                                    )}
+                                                >
+                                                    {sub.label}
+                                                </button>
+                                            );
+                                        })}
+                                    </motion.div>
                                 )}
-                            >
-                                <item.icon className={cn("w-4 h-4 shrink-0", isCompleted && "text-emerald-glow")} />
-                                {!collapsed && (
-                                    <>
-                                        <span className="flex-1 truncate">{item.label}</span>
-                                        {isCompleted && (
-                                            <div className="w-4 h-4 rounded-full bg-emerald-glow/20 text-emerald-glow flex items-center justify-center">
-                                                <Check className="w-2.5 h-2.5" strokeWidth={3} />
-                                            </div>
-                                        )}
-                                    </>
-                                )}
-                            </NavLink>
+                            </div>
                         );
                     })}
                 </nav>
