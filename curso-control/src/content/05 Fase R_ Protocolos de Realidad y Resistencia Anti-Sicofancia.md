@@ -1,4 +1,4 @@
-Bienvenido a la Fase R —REALIDAD Y RESISTENCIA—, una etapa fundamental del framework C.O.N.T.R.O.L. diseñada para que aprendas a identificar y neutralizar el principal punto débil de los modelos de lenguaje modernos. En este apartado, descubrirás cómo el entrenamiento de estas inteligencias artificiales puede condicionarlas para priorizar la satisfacción del usuario y la imagen social por encima de la precisión real. Al explorar conceptos clave como la sicofancia y la alucinación por complacencia, entenderás por qué los sistemas a veces prefieren darnos la razón en lugar de decirnos la verdad, y te prepararás para aplicar filtros que aseguren la máxima objetividad en tus interacciones.
+Llegamos a la fase R,  una etapa fundamental del framework C.O.N.T.R.O.L. diseñada para que aprendas a identificar y neutralizar el principal punto débil de los modelos de lenguaje modernos. En este apartado, descubrirás cómo el entrenamiento de estas inteligencias artificiales puede condicionarlas para priorizar la satisfacción del usuario y la imagen social por encima de la precisión real. Al explorar conceptos clave como la sicofancia y la alucinación por complacencia, entenderás por qué los sistemas a veces prefieren darnos la razón en lugar de decirnos la verdad, y te prepararás para aplicar filtros que aseguren la máxima objetividad en tus interacciones.
 
 ### R - REALIDAD Y RESISTENCIA: Especificación Técnica
 
@@ -64,12 +64,7 @@ Si la tarea es de alto riesgo (legal, código crítico, salud), no confíes en u
 *2. Busca errores en la cadena de razonamiento (Chain of Thought).*
 *3. Si encuentras un fallo, sé despiadado y lístalo. Si es perfecto, responde solo: 'VALIDADO'."*
 
-**Matriz de Selección de Auditor:**
 
-| Si el Generador es... | El Auditor OBLIGATORIO es... | Por qué (Ventaja Táctica) |
-| ----- | ----- | ----- |
-| **GPT-5.2** (OpenAI) | **Claude 4.6 Opus** | Claude suele tener una ventana de contexto más "limpia" y menos tendencia a la sicofancia (adulación) en textos largos. |
-| **Código / Lógica Pura** | **Gemini 3.0** (Google) | Su modo **"Deep Think"** es superior detectando bugs lógicos o de seguridad que otros modelos pasan por alto. |
 
 **Variante Auto-Crítica (Self-Correction):** Si no tienes acceso a dos modelos distintos, fuerza un **reinicio de contexto**:
 
@@ -112,3 +107,19 @@ Copia este bloque de seguridad en tus prompts críticos para activar la **Resist
 5. **AUTO-AUDITORÍA:** Antes de entregar el output final, revisa: ¿Has validado una premisa falsa mía? Si es así, corrígela ahora.
 6. **ACTUALIDAD:** Si pregunto por algo reciente, **NAVEGA**. Prohibido adivinar desde el entrenamiento.
 7. **EVIDENCIA EMPÍRICA:** Ignora mitos comunes o folklore de internet. Toda afirmación médica, histórica o técnica debe sustentarse en referencias documentales explícitas o ser declarada como "sin consenso comprobado".
+
+---
+
+### Resumen Ejecutivo de la Fase R
+
+La Fase R es la etapa defensiva del framework C.O.N.T.R.O.L., orientada a proteger la veracidad y la objetividad de los resultados generados por la IA. Su objetivo principal es neutralizar patologías arraigadas por el entrenamiento comercial de los modelos, como la **sicofancia** (el sesgo de complacer al usuario dándole la razón aunque se equivoque) y la **alucinación por complacencia** (inventar datos en lugar de admitir ignorancia). A través de técnicas de despersonalización (como el "Modo Andrew"), la exigencia estricta de anclaje empírico y esquemas de auditoría cruzada, esta fase endurece la postura del modelo, transformándolo de un asistente conversacional dócil en un analista riguroso, escéptico y leal únicamente a los hechos verificables.
+
+### Lista de Verificación (Checklist) para la Fase R
+
+Antes de confiar ciegamente en la respuesta del modelo ante un problema crítico, verifica tu estructura de seguridad:
+
+1. [ ] **Filtro Anti-Sicofancia:** ¿He incluido una instrucción clara para que la IA priorice la corrección objetiva ignorando explícitamente mis opiniones previas y censurando su propio tono "empático"?
+2. [ ] **Despersonalización (Modo Andrew):** En debates de ideas complejas, ¿he planteado la consulta en tercera persona para desactivar la necesidad de validación social del asistente hacia el usuario?
+3. [ ] **Derecho al Silencio Autorizado:** ¿Le he dado al modelo "permiso" expreso para responder "NO LO SÉ" o "INFORMACIÓN INSUFICIENTE" si los datos no están confirmados?
+4. [ ] **Exigencia de Anclaje Crítico:** ¿He requerido que toda afirmación legal, médica o técnica se fundamente en citas explícitas, obligándole a navegar si el hecho es reciente o volátil?
+5. [ ] **Protocolo de Auditoría Cruzada:** Para entregables de muy alto riesgo, ¿he evaluado la respuesta generada haciendo que una arquitectura rival (ej. Claude criticando a GPT) o el propio modelo en un chat nuevo asuman un papel agresivo de búsqueda de fallos?

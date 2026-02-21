@@ -20,7 +20,21 @@ const glossaryTerms = [
     "heurísticas",
     "deducción abductiva",
     "arquitectura cognitiva",
-    "domain priming"
+    "domain priming",
+    "sicofancia",
+    "sycophancy",
+    "rlhf",
+    "ilusión de fluidez",
+    "fluidez engañosa",
+    "deceptive fluency",
+    "alucinación por complacencia",
+    "rag",
+    "knowledge cutoff",
+    "prompt injection",
+    "overrefusal",
+    "sobre-rechazo",
+    "factual",
+    "scratchpad"
 ]; // Add more lowercased terms here as needed
 
 function processTextNode(text, query) {
@@ -29,7 +43,14 @@ function processTextNode(text, query) {
     // 1. First split by glossary terms
     glossaryTerms.forEach(term => {
         const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const termRegex = new RegExp(`(?<=\\b|\\s)(${escapedTerm})(?=\\b|\\s|s\\b)`, 'gi'); // matches term including plurals/spaces
+        let regexStr = `(?<=\\b|\\s)(${escapedTerm})(?=\\b|\\s|s\\b)`;
+
+        // Excepción: no vincular "sicofancia" o "sycophancy" cuando va seguido de " social"
+        if (term === "sicofancia" || term === "sycophancy") {
+            regexStr = `(?<=\\b|\\s)(${escapedTerm})(?!\\s+social\\b)(?=\\b|\\s|s\\b)`;
+        }
+
+        const termRegex = new RegExp(regexStr, 'gi'); // matches term including plurals/spaces
 
         const newResult = [];
         result.forEach(part => {

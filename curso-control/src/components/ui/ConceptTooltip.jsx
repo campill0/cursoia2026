@@ -39,7 +39,21 @@ const glossary = {
     "heurísticas": "Reglas mentales o atajos prácticos que usa un profesional para resolver problemas del día a día en su sector.",
     "deducción abductiva": "Llegar a la conclusión más probable a partir de una observación incompleta (ej. deducir dónde estuvo alguien fijándote en el barro de un zapato).",
     "arquitectura cognitiva": "La 'forma de pensar' que le obligamos a usar al modelo, activando sus redes neuronales técnicas en lugar de su lado charlatán conversacional.",
-    "domain priming": "Preparar mentalmente al modelo dándole el 'campo de conocimiento' exacto en el prompt de sistema, sin pedirle que actúe o dramatice como una persona concreta."
+    "domain priming": "Preparar mentalmente al modelo dándole el 'campo de conocimiento' exacto en el prompt de sistema, sin pedirle que actúe o dramatice como una persona concreta.",
+    "sicofancia": "Tendencia de la IA a darte la razón ('adular' al usuario) validando premisas falsas para no llevar la contraria y maximizar tu satisfacción superficial.",
+    "sycophancy": "Tendencia de la IA a darte la razón ('adular' al usuario) validando premisas falsas para no llevar la contraria y maximizar tu satisfacción superficial.",
+    "rlhf": "Entrenamiento por recompensa humana (Reinforcement Learning from Human Feedback). Causa que la IA prefiera sonar 'agradable' antes que ser exacta.",
+    "ilusión de fluidez": "La asombrosa capacidad del LLM de presentar información completamente inventada (falsa) con una redacción tan segura y perfecta que engaña al cerebro humano.",
+    "deceptive fluency": "La asombrosa capacidad del LLM de presentar información completamente inventada (falsa) con una redacción tan segura y perfecta que engaña al cerebro humano.",
+    "fluidez engañosa": "La asombrosa capacidad del LLM de presentar información completamente inventada (falsa) con una redacción tan segura y perfecta que engaña al cerebro humano.",
+    "alucinación por complacencia": "Mentira generada no por un fallo técnico grave, sino porque la IA prefiere inventarse datos que 'suenen bien' antes que frustrarte admitiendo ignorancia.",
+    "rag": "Generación Aumentada por Recuperación (Retrieval-Augmented Generation). Inyectar tus propios documentos como contexto. Ojo: por sí sola no impide que la IA use su memoria general; debes prohibírselo explícitamente.",
+    "knowledge cutoff": "Fecha de 'corte de conocimiento'. El día en que el LLM dejó de aprender. Cualquier evento posterior debe ser proporcionado en el prompt o buscado en internet.",
+    "prompt injection": "Ataque donde textos externos inofensivos (ej. un correo analizado) esconden comandos ocultos que ordenan a la IA ignorar tus normas de seguridad previas.",
+    "overrefusal": "Sobre-rechazo. Bloqueo exagerado de los filtros de seguridad, haciendo que la IA se niegue a realizar tareas inofensivas solo porque el tema le 'suena' peligroso o no ético.",
+    "sobre-rechazo": "Bloqueo exagerado de los filtros de seguridad corporativos, haciendo que la IA se niegue a realizar tareas benignas porque asocia la semántica a riesgos.",
+    "factual": "Que está basado estrictamente en hechos objetivos, demostrables y reales (datos puros), en contraposición a suposiciones, opiniones o invenciones generadas por la IA.",
+    "scratchpad": "Un 'bloc de notas' mental o espacio de memoria temporal (a menudo oculto) donde los modelos modernos escriben, ordenan y borran sus propios procesos lógicos antes de generar la respuesta final visible."
 }
 
 export const ConceptTooltip = ({ term, children }) => {
