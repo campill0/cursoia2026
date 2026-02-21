@@ -302,131 +302,118 @@ const Pathologies = () => {
                 </div>
             </motion.div>
 
-<<<<<<< HEAD
-    {/* Intro Grid */ }
-    <motion.div variants={fadeUp} className="grid lg:grid-cols-3 gap-8 items-start">
-        <div className="lg:col-span-2 relative">
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-neon-magenta/50 to-transparent rounded-full" />
-            <div className="pl-8 space-y-5">
-                <p className="text-[1.05rem] text-ghost-white/90 leading-[1.8]">
-                    Estas no son simples "errores", sino <span className="text-electric-cyan font-semibold bg-[rgba(0,229,255,0.15)] px-1.5 py-0.5 rounded">fallos estructurales y sistémicos</span> derivados de la naturaleza probabilística del modelo, su entrenamiento por refuerzo y la gestión técnica de su memoria.
-                </p>
-                <p className="text-[1.05rem] text-ghost-white/90 leading-[1.8]">
-                    A continuación, desglosamos la <span className="text-electric-cyan font-semibold bg-[rgba(0,229,255,0.15)] px-1.5 py-0.5 rounded">clínica completa</span> dividida en cuatro grandes áreas de impacto. Entender estos síntomas es el primer paso para diseñar técnicas de mitigación efectivas.
-=======
             {/* Intro Section Wrapper for TOC */}
-                    <motion.section id="intro-diagnostica" variants={fadeUp} className="space-y-12">
+            <motion.section id="intro-diagnostica" variants={fadeUp} className="space-y-12">
 
-                        {/* Intro: Connection to Module 1 */}
-                        <motion.div variants={fadeUp} className="space-y-5">
-                            <div className="relative">
-                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-neon-magenta/50 to-transparent rounded-full" />
-                                <div className="pl-8 space-y-4">
-                                    <p className="text-sm text-ghost-white/90 leading-relaxed">
-                                        En el módulo anterior, analizamos la <strong className="text-electric-cyan">"Física del LLM"</strong>: cómo los tokens, la atención y la compresión estadística crean una maquinaria de predicción asombrosa. Pero, como en cualquier sistema complejo, donde hay una estructura, existe una <strong className="text-ghost-white">grieta potencial</strong>.
-                                    </p>
-                                    <p className="text-sm text-ghost-white/90 leading-relaxed">
-                                        Las patologías que estudiaremos a continuación no son "errores" aleatorios; son <strong className="text-ghost-white">consecuencias sistémicas</strong> de la propia naturaleza del modelo. No ocurren porque el modelo sea "tonto", sino precisamente por cómo está diseñado para funcionar. Cuando la compresión estadística falla, cuando la atención se satura o cuando el deseo de agradar al humano (<strong className="text-neon-magenta">RLHF</strong>) supera a la veracidad, surgen los síntomas que verás en este Atlas.
-                                    </p>
-                                </div>
-                            </div>
-                        </motion.div>
+                {/* Intro: Connection to Module 1 */}
+                <motion.div variants={fadeUp} className="space-y-5">
+                    <div className="relative">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-neon-magenta/50 to-transparent rounded-full" />
+                        <div className="pl-8 space-y-4">
+                            <p className="text-[1.05rem] text-ghost-white/90 leading-[1.8]">
+                                Estas no son simples "errores", sino <span className="text-electric-cyan font-semibold bg-[rgba(0,229,255,0.15)] px-1.5 py-0.5 rounded">fallos estructurales y sistémicos</span> derivados de la naturaleza probabilística del modelo, su entrenamiento por refuerzo y la gestión técnica de su memoria.
+                            </p>
+                            <p className="text-[1.05rem] text-ghost-white/90 leading-[1.8]">
+                                A continuación, desglosamos la <span className="text-electric-cyan font-semibold bg-[rgba(0,229,255,0.15)] px-1.5 py-0.5 rounded">clínica completa</span> dividida en cuatro grandes áreas de impacto. Entender estos síntomas es el primer paso para diseñar técnicas de mitigación efectivas.
+                            </p>
+                            <p className="text-sm text-ghost-white/90 leading-relaxed mt-4">
+                                En el módulo anterior, analizamos la <strong className="text-electric-cyan">"Física del LLM"</strong>: cómo los tokens, la atención y la compresión estadística crean una maquinaria de predicción asombrosa. Pero, como en cualquier sistema complejo, donde hay una estructura, existe una <strong className="text-ghost-white">grieta potencial</strong>.
+                            </p>
+                            <p className="text-sm text-ghost-white/90 leading-relaxed">
+                                Las patologías que estudiaremos a continuación no son "errores" aleatorios; son <strong className="text-ghost-white">consecuencias sistémicas</strong> de la propia naturaleza del modelo. No ocurren porque el modelo sea "tonto", sino precisamente por cómo está diseñado para funcionar. Cuando la compresión estadística falla, cuando la atención se satura o cuando el deseo de agradar al humano (<strong className="text-neon-magenta">RLHF</strong>) supera a la veracidad, surgen los síntomas que verás en este Atlas.
+                            </p>
+                        </div>
+                    </div>
+                </motion.div>
 
-                        {/* Classification Intro */}
-                        <motion.div variants={fadeUp} className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl border border-neon-magenta/20 bg-neon-magenta/5">
-                            <div className="shrink-0 pt-1">
-                                <div className="w-10 h-10 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta">
-                                    <Brain className="w-5 h-5" />
-                                </div>
+                {/* Classification Intro */}
+                <motion.div variants={fadeUp} className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl border border-neon-magenta/20 bg-neon-magenta/5">
+                    <div className="shrink-0 pt-1">
+                        <div className="w-10 h-10 rounded-full bg-neon-magenta/20 flex items-center justify-center text-neon-magenta">
+                            <Brain className="w-5 h-5" />
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className="text-sm font-bold text-neon-magenta uppercase tracking-wider mb-2">Enfoque Diagnóstico</h3>
+                        <p className="text-ghost-white/90 leading-relaxed text-sm">
+                            Para dominar el <em>Prompt Engineering</em> avanzado, debemos dejar de ver los fallos como "magia negra" y empezar a verlos como <strong className="text-ghost-white">diagnósticos clínicos</strong>. Hemos clasificado estas patologías en cuatro grandes áreas de impacto:
+                        </p>
+                    </div>
+                </motion.div>
+
+                {/* 4 Category Previews */}
+                <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-6">
+                    {/* 1. Epistémico */}
+                    <div className="p-5 rounded-2xl border border-electric-cyan/20 bg-surface-1/40 space-y-3">
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-electric-cyan/10 flex items-center justify-center border border-electric-cyan/20">
+                                <Search className="w-4 h-4 text-electric-cyan" />
                             </div>
                             <div>
-                                <h3 className="text-sm font-bold text-neon-magenta uppercase tracking-wider mb-2">Enfoque Diagnóstico</h3>
-                                <p className="text-ghost-white/90 leading-relaxed text-sm">
-                                    Para dominar el <em>Prompt Engineering</em> avanzado, debemos dejar de ver los fallos como "magia negra" y empezar a verlos como <strong className="text-ghost-white">diagnósticos clínicos</strong>. Hemos clasificado estas patologías en cuatro grandes áreas de impacto:
-                                </p>
+                                <h4 className="text-sm font-bold text-ghost-white">1. Patologías de la Verdad y el Conocimiento</h4>
+                                <span className="text-[10px] font-mono text-electric-cyan tracking-wider uppercase">Fallo Epistémico</span>
                             </div>
-                        </motion.div>
+                        </div>
+                        <p className="text-xs text-muted/90 italic leading-relaxed">Surgen cuando la probabilidad estadística choca con la realidad fáctica.</p>
+                        <p className="text-xs text-ghost-white/80 leading-relaxed">
+                            Aquí es donde la <strong className="text-ghost-white">Compresión con pérdida</strong> y el <strong className="text-ghost-white">Sistema Cerrado</strong> que vimos anteriormente pasan factura. El modelo, al ser un "autocompletador" entrenado para ser fluido, prefiere inventar un dato (<strong className="text-electric-cyan">Alucinación</strong>) o fabricar una fuente (<strong className="text-electric-cyan">Fabricación de Citas</strong>) antes que romper la secuencia lógica de su discurso. Es el precio de transformar la biblioteca del mundo en una libreta de notas matemática.
+                        </p>
+                    </div>
 
-                        {/* 4 Category Previews */}
-                        <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-6">
-                            {/* 1. Epistémico */}
-                            <div className="p-5 rounded-2xl border border-electric-cyan/20 bg-surface-1/40 space-y-3">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-electric-cyan/10 flex items-center justify-center border border-electric-cyan/20">
-                                        <Search className="w-4 h-4 text-electric-cyan" />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-sm font-bold text-ghost-white">1. Patologías de la Verdad y el Conocimiento</h4>
-                                        <span className="text-[10px] font-mono text-electric-cyan tracking-wider uppercase">Fallo Epistémico</span>
-                                    </div>
-                                </div>
-                                <p className="text-xs text-muted/90 italic leading-relaxed">Surgen cuando la probabilidad estadística choca con la realidad fáctica.</p>
-                                <p className="text-xs text-ghost-white/80 leading-relaxed">
-                                    Aquí es donde la <strong className="text-ghost-white">Compresión con pérdida</strong> y el <strong className="text-ghost-white">Sistema Cerrado</strong> que vimos anteriormente pasan factura. El modelo, al ser un "autocompletador" entrenado para ser fluido, prefiere inventar un dato (<strong className="text-electric-cyan">Alucinación</strong>) o fabricar una fuente (<strong className="text-electric-cyan">Fabricación de Citas</strong>) antes que romper la secuencia lógica de su discurso. Es el precio de transformar la biblioteca del mundo en una libreta de notas matemática.
-                                </p>
+                    {/* 2. Psicológico */}
+                    <div className="p-5 rounded-2xl border border-neon-magenta/20 bg-surface-1/40 space-y-3">
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-neon-magenta/10 flex items-center justify-center border border-neon-magenta/20">
+                                <UserSearch className="w-4 h-4 text-neon-magenta" />
                             </div>
-
-                            {/* 2. Psicológico */}
-                            <div className="p-5 rounded-2xl border border-neon-magenta/20 bg-surface-1/40 space-y-3">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-neon-magenta/10 flex items-center justify-center border border-neon-magenta/20">
-                                        <UserSearch className="w-4 h-4 text-neon-magenta" />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-sm font-bold text-ghost-white">2. Patologías del Comportamiento y Alineación</h4>
-                                        <span className="text-[10px] font-mono text-neon-magenta tracking-wider uppercase">Fallo Socio-Adulante</span>
-                                    </div>
-                                </div>
-                                <p className="text-xs text-muted/90 italic leading-relaxed">Efectos secundarios del entrenamiento para "gustar" al humano.</p>
-                                <p className="text-xs text-ghost-white/80 leading-relaxed">
-                                    Como aprendimos en el apartado de <strong className="text-ghost-white">RLHF</strong>, el modelo ha sido premiado por ser servicial. Esto genera una "personalidad" que puede derivar en la <strong className="text-neon-magenta">Sicofancia</strong> (darte la razón aunque no la tengas) o en la <strong className="text-neon-magenta">Verbosidad</strong> (relleno innecesario para parecer más útil). El modelo no intenta ser honesto; intenta ser el asistente que tú quieres que sea.
->>>>>>> 152ecd42b623f057a3f542ae17ff6eca765724bf
-                                </p>
+                            <div>
+                                <h4 className="text-sm font-bold text-ghost-white">2. Patologías del Comportamiento y Alineación</h4>
+                                <span className="text-[10px] font-mono text-neon-magenta tracking-wider uppercase">Fallo Socio-Adulante</span>
                             </div>
+                        </div>
+                        <p className="text-xs text-muted/90 italic leading-relaxed">Efectos secundarios del entrenamiento para "gustar" al humano.</p>
+                        <p className="text-xs text-ghost-white/80 leading-relaxed">
+                            Como aprendimos en el apartado de <strong className="text-ghost-white">RLHF</strong>, el modelo ha sido premiado por ser servicial. Esto genera una "personalidad" que puede derivar en la <strong className="text-neon-magenta">Sicofancia</strong> (darte la razón aunque no la tengas) o en la <strong className="text-neon-magenta">Verbosidad</strong> (relleno innecesario para parecer más útil). El modelo no intenta ser honesto; intenta ser el asistente que tú quieres que sea.
+                        </p>
+                    </div>
 
-                            {/* 3. Estructural */}
-                            <div className="p-5 rounded-2xl border border-emerald-glow/20 bg-surface-1/40 space-y-3">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-emerald-glow/10 flex items-center justify-center border border-emerald-glow/20">
-                                        <Database className="w-4 h-4 text-emerald-glow" />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-sm font-bold text-ghost-white">3. Patologías de Memoria y Contexto</h4>
-                                        <span className="text-[10px] font-mono text-emerald-glow tracking-wider uppercase">Fallo Estructural</span>
-                                    </div>
-                                </div>
-                                <p className="text-xs text-muted/90 italic leading-relaxed">Limitaciones físicas de la "Mesa de Trabajo" o Ventana de Contexto.</p>
-                                <p className="text-xs text-ghost-white/80 leading-relaxed">
-                                    Aquí se manifiestan las grietas del <strong className="text-ghost-white">Mecanismo de Atención</strong>. Cuando la ventana se llena o la instrucción es ambigua, aparecen fenómenos como el <strong className="text-emerald-glow">Efecto "Lost-in-the-Middle"</strong> o el <strong className="text-emerald-glow">Envenenamiento de Memoria</strong>. Es el resultado directo de tener un "foco" de atención que, aunque potente, es finito y puede "olvidar" lo que tiene debajo en la pila.
-                                </p>
+                    {/* 3. Estructural */}
+                    <div className="p-5 rounded-2xl border border-emerald-glow/20 bg-surface-1/40 space-y-3">
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-emerald-glow/10 flex items-center justify-center border border-emerald-glow/20">
+                                <Database className="w-4 h-4 text-emerald-glow" />
                             </div>
+                            <div>
+                                <h4 className="text-sm font-bold text-ghost-white">3. Patologías de Memoria y Contexto</h4>
+                                <span className="text-[10px] font-mono text-emerald-glow tracking-wider uppercase">Fallo Estructural</span>
+                            </div>
+                        </div>
+                        <p className="text-xs text-muted/90 italic leading-relaxed">Limitaciones físicas de la "Mesa de Trabajo" o Ventana de Contexto.</p>
+                        <p className="text-xs text-ghost-white/80 leading-relaxed">
+                            Aquí se manifiestan las grietas del <strong className="text-ghost-white">Mecanismo de Atención</strong>. Cuando la ventana se llena o la instrucción es ambigua, aparecen fenómenos como el <strong className="text-emerald-glow">Efecto "Lost-in-the-Middle"</strong> o el <strong className="text-emerald-glow">Envenenamiento de Memoria</strong>.
+                        </p>
+                    </div>
 
-                            {/* 4. Sistémico */}
-                            <div className="p-5 rounded-2xl border border-amber-glow/20 bg-surface-1/40 space-y-3">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-lg bg-amber-glow/10 flex items-center justify-center border border-amber-glow/20">
-                                        <RefreshCcw className="w-4 h-4 text-amber-glow" />
-                                    </div>
-                                    <div>
-                                        <h4 className="text-sm font-bold text-ghost-white">4. Patologías Operativas y de Evolución</h4>
-                                        <span className="text-[10px] font-mono text-amber-glow tracking-wider uppercase">Fallo Sistémico</span>
-                                    </div>
-                                </div>
-<<<<<<< HEAD
-                        <h4 className="text-[10px] font-mono text-neon-magenta tracking-[0.2em] mb-3 uppercase">Visión Clínica</h4>
-                        <p className="text-sm text-ghost-white/90 leading-[1.7] font-medium">
-                            No busques culpables, busca causas físicas. Cada patología tiene una solución de ingeniería asociada.
-=======
+                    {/* 4. Sistémico */}
+                    <div className="p-5 rounded-2xl border border-amber-glow/20 bg-surface-1/40 space-y-3">
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-amber-glow/10 flex items-center justify-center border border-amber-glow/20">
+                                <RefreshCcw className="w-4 h-4 text-amber-glow" />
+                            </div>
+                            <div>
+                                <h4 className="text-sm font-bold text-ghost-white">4. Patologías Operativas y de Evolución</h4>
+                                <span className="text-[10px] font-mono text-amber-glow tracking-wider uppercase">Fallo Sistémico</span>
+                            </div>
+                        </div>
                         <p className="text-xs text-muted/90 italic leading-relaxed">Fallos derivados del uso continuo y la naturaleza de la infraestructura.</p>
-            <p className="text-xs text-ghost-white/80 leading-relaxed">
-                Desde la <strong className="text-amber-glow">Regresión por Actualización</strong> hasta la vulnerabilidad ante <strong className="text-amber-glow">Inyecciones de Prompt</strong>, estas patologías responden a cómo el modelo interactúa con el mundo exterior y con sus propios filtros de seguridad en un entorno cambiante.
->>>>>>> 152ecd42b623f057a3f542ae17ff6eca765724bf
-            </p>
-        </div>
-                </motion.div >
+                        <p className="text-xs text-ghost-white/80 leading-relaxed">
+                            Desde la <strong className="text-amber-glow">Regresión por Actualización</strong> hasta la vulnerabilidad ante <strong className="text-amber-glow">Inyecciones de Prompt</strong>, estas patologías responden a cómo el modelo interactúa con el mundo exterior y con sus propios filtros de seguridad.
+                        </p>
+                    </div>
+                </motion.div>
 
-    {/* Clinical Quote */ }
-    < motion.div variants = { fadeUp } className = "p-6 rounded-2xl border border-surface-3 bg-deep-slate/50 relative overflow-hidden" >
+                {/* Clinical Quote */}
+                <motion.div variants={fadeUp} className="p-6 rounded-2xl border border-surface-3 bg-deep-slate/50 relative overflow-hidden">
                     <div className="absolute top-0 right-0 p-4 opacity-10">
                         <ShieldAlert className="w-20 h-20 text-neon-magenta -rotate-12" />
                     </div>
@@ -442,11 +429,11 @@ const Pathologies = () => {
                             </p>
                         </div>
                     </div>
-                </motion.div >
-            </motion.section >
+                </motion.div>
+            </motion.section>
 
-    {/* Separator before detailed categories with GLOBAL FLASH TOGGLE */ }
-    < motion.div variants = { fadeUp } className = "flex flex-col md:flex-row items-center gap-4 py-8" >
+            {/* Separator before detailed categories with GLOBAL FLASH TOGGLE */}
+            <motion.div variants={fadeUp} className="flex flex-col md:flex-row items-center gap-4 py-8">
                 <div className="h-px flex-1 bg-surface-3 hidden md:block" />
                 <div className="flex items-center gap-4">
                     <span className="text-xs font-mono text-muted uppercase tracking-[0.2em]">Exploración Detallada</span>
@@ -461,70 +448,54 @@ const Pathologies = () => {
                     </button>
                 </div>
                 <div className="h-px flex-1 bg-surface-3" />
-            </motion.div >
+            </motion.div>
 
-    {/* Content Sections */ }
-    < div className = "space-y-16" >
-    {
-        pathologyData.map((category) => {
-            const cs = colorMap[category.color];
-            return (
-                <motion.section key={category.id} id={category.id} variants={fadeUp} className="space-y-6">
-                    {/* Category Header */}
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex items-center gap-4 flex-1">
-                            <div className={`w-12 h-12 rounded-2xl ${cs.bg} flex items-center justify-center border ${cs.border} shrink-0`}>
-                                <category.icon className={`w-6 h-6 ${cs.text}`} />
-                            </div>
-                            <div className="flex-1">
-                                <h2 className="text-xl font-black text-ghost-white tracking-tight leading-none mb-1 uppercase">
-                                    {category.title}
-                                </h2>
-                                <div className="flex items-center gap-2">
-                                    <span className={`text-[10px] font-mono ${cs.text} tracking-[0.2em] uppercase font-bold whitespace-nowrap`}>{category.subtitle}</span>
-                                    <span className={`flex-1 h-px ${cs.accent} opacity-20 hidden md:block`} />
+            {/* Content Sections */}
+            <div className="space-y-16">
+                {
+                    pathologyData.map((category) => {
+                        const cs = colorMap[category.color];
+                        return (
+                            <motion.section key={category.id} id={category.id} variants={fadeUp} className="space-y-6">
+                                {/* Category Header */}
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                    <div className="flex items-center gap-4 flex-1">
+                                        <div className={`w-12 h-12 rounded-2xl ${cs.bg} flex items-center justify-center border ${cs.border} shrink-0`}>
+                                            <category.icon className={`w-6 h-6 ${cs.text}`} />
+                                        </div>
+                                        <div className="flex-1">
+                                            <h2 className="text-xl font-black text-ghost-white tracking-tight leading-none mb-1 uppercase">
+                                                {category.title}
+                                            </h2>
+                                            <div className="flex items-center gap-2">
+                                                <span className={`text-[10px] font-mono ${cs.text} tracking-[0.2em] uppercase font-bold whitespace-nowrap`}>{category.subtitle}</span>
+                                                <span className={`flex-1 h-px ${cs.accent} opacity-20 hidden md:block`} />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Removed individual category flash toggle as per instructions */}
                                 </div>
-                            </div>
-                        </div>
 
-                        {/* Removed individual category flash toggle as per instructions */}
-                    </div>
-
-                    <p className={`text-[1.05rem] text-ghost-white/80 leading-[1.7] max-w-3xl pl-16 [&>strong]:font-semibold [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded ${cs.strongModifier}`}>
-                        {category.description}
-                    </p>
-
-                    {/* Items Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pl-16">
-                        {category.items.map((item, idx) => (
-<<<<<<< HEAD
-                            <div
-                                key={idx}
-                                className="p-5 rounded-2xl border border-surface-3 bg-surface-1/40 hover:bg-surface-2 transition-all hover:border-surface-4 group"
-                            >
-                                <div className="flex items-start gap-3 mb-2">
-                                    <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${cs.accent} shrink-0 group-hover:scale-125 transition-transform`} />
-                                    <h3 className="text-base font-bold text-ghost-white group-hover:text-white transition-colors">
-                                        {item.name}
-                                    </h3>
-                                </div>
-                                <p className={`text-[0.95rem] text-ghost-white/80 leading-[1.7] pl-4 line-clamp-4 group-hover:line-clamp-none transition-all mt-1 [&>strong]:font-semibold [&>strong]:px-1 [&>strong]:py-0.5 [&>strong]:rounded ${cs.strongModifier}`}>
-                                    {item.desc}
+                                <p className={`text-[1.05rem] text-ghost-white/80 leading-[1.7] max-w-3xl pl-16 [&>strong]:font-semibold [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded ${cs.strongModifier}`}>
+                                    {category.description}
                                 </p>
-                            </div>
-=======
-                                    <PathologyCard key={idx} item={item} cs={cs} isFlashGlobal={isFlashGlobal} />
->>>>>>> 152ecd42b623f057a3f542ae17ff6eca765724bf
-                        ))}
-                    </div>
-                </motion.section>
-            );
-        })
-    }
-            </div >
 
-    {/* Quick Summary / Cheat Sheet Footer */ }
-    < motion.div id = "resumen-patologias" variants = { fadeUp } className = "p-8 rounded-3xl bg-gradient-to-br from-surface-2 to-deep-slate border border-surface-3" >
+                                {/* Items Grid */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {category.items.map((item, idx) => (
+                                        <div key={idx} className="h-full">
+                                            <PathologyCard item={item} cs={cs} isFlashGlobal={isFlashGlobal} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.section>
+                        );
+                    })}
+            </div>
+
+            {/* Quick Summary / Cheat Sheet Footer */}
+            <motion.div id="resumen-patologias" variants={fadeUp} className="p-8 rounded-3xl bg-gradient-to-br from-surface-2 to-deep-slate border border-surface-3">
                 <div className="flex items-center gap-3 mb-6">
                     <Activity className="w-5 h-5 text-electric-cyan" />
                     <h2 className="text-lg font-bold text-ghost-white">Resumen de Diagnóstico</h2>
@@ -543,10 +514,10 @@ const Pathologies = () => {
                         </div>
                     ))}
                 </div>
-            </motion.div >
+            </motion.div>
 
-    <CompleteButton moduleId="pathologies" />
-        </motion.div >
+            <CompleteButton moduleId="pathologies" />
+        </motion.div>
     );
 };
 
