@@ -14,7 +14,13 @@ const glossaryTerms = [
     "omni-rol",
     "clústeres específicos de procesamiento",
     "trade-offs",
-    "síndrome del impostor"
+    "síndrome del impostor",
+    "espacio de búsqueda del modelo",
+    "clústeres latentes",
+    "heurísticas",
+    "deducción abductiva",
+    "arquitectura cognitiva",
+    "domain priming"
 ]; // Add more lowercased terms here as needed
 
 function processTextNode(text, query) {
