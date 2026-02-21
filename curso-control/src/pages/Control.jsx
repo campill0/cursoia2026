@@ -95,21 +95,20 @@ const PhaseSection = ({ phase, index, isExpanded, onToggle, searchQuery }) => {
                         className="overflow-hidden"
                     >
                         <div className={`pl-4 lg:pl-8 border-l-2 ${cs.border} ml-9 pt-8 pb-12`}>
-                            <div className="prose-cyber prose prose-invert max-w-none prose-sm
+                            <div className="prose-cyber prose prose-invert max-w-none
                                 prose-headings:text-ghost-white prose-headings:font-bold prose-headings:tracking-tight
-                                prose-h2:text-lg prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-surface-3 prose-h2:pb-2
-                                prose-h3:text-base prose-h3:mt-8 prose-h3:mb-3
-                                prose-h4:text-sm prose-h4:mt-6 prose-h4:mb-2
-                                prose-p:text-ghost-white/80 prose-p:leading-relaxed prose-p:text-sm prose-p:my-3
-                                prose-li:text-ghost-white/80 prose-li:text-sm prose-li:leading-relaxed
-                                prose-strong:text-ghost-white prose-strong:font-semibold
-                                prose-em:text-ghost-white/70
+                                prose-h2:text-xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-surface-3 prose-h2:pb-3
+                                prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-4
+                                prose-h4:text-base prose-h4:mt-6 prose-h4:mb-3
+                                prose-p:text-ghost-white/95 prose-p:leading-[1.8] prose-p:text-[1.05rem] prose-p:my-5
+                                prose-li:text-ghost-white/95 prose-li:text-[1.05rem] prose-li:leading-[1.8]
+                                prose-em:text-ghost-white/80
                                 prose-table:rounded-xl prose-table:overflow-hidden prose-table:border prose-table:border-surface-3
                                 prose-thead:bg-surface-2
-                                prose-th:text-xs prose-th:font-mono prose-th:text-ghost-white/90 prose-th:uppercase prose-th:tracking-wider prose-th:px-4 prose-th:py-3
-                                prose-td:text-xs prose-td:text-ghost-white/75 prose-td:px-4 prose-td:py-3 prose-td:border-t prose-td:border-surface-3
-                                prose-blockquote:border-l-2 prose-blockquote:border-electric-cyan/40 prose-blockquote:bg-surface-1/50 prose-blockquote:rounded-r-xl prose-blockquote:py-1 prose-blockquote:px-4
-                                prose-code:text-electric-cyan prose-code:bg-electric-cyan/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:font-mono
+                                prose-th:text-sm prose-th:font-mono prose-th:text-ghost-white/90 prose-th:uppercase prose-th:tracking-wider prose-th:px-4 prose-th:py-3
+                                prose-td:text-sm prose-td:text-ghost-white/85 prose-td:px-4 prose-td:py-3 prose-td:border-t prose-td:border-surface-3
+                                prose-blockquote:border-l-2 prose-blockquote:border-electric-cyan/40 prose-blockquote:bg-surface-1/50 prose-blockquote:rounded-r-xl prose-blockquote:py-2 prose-blockquote:px-5 prose-blockquote:text-[1.05rem]
+                                prose-code:text-electric-cyan prose-code:bg-electric-cyan/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[0.9rem] prose-code:font-mono
                                 prose-hr:border-surface-3 prose-hr:my-8
                             ">
                                 <MarkdownRenderer content={phase.content} searchQuery={searchQuery} />
@@ -410,8 +409,8 @@ const Control = () => {
                                 <span className="w-2 h-2 rounded-full bg-red-glow animate-pulse"></span>
                                 El Fundamento
                             </h3>
-                            <p className="text-sm text-muted leading-relaxed">
-                                Tras haber establecido que el modelo <span className="text-ghost-white/90 font-medium">no razona como un ser humano</span>, sino que predice y completa vacíos con respuestas verosímiles pero potencialmente falsas, este bloque introduce las herramientas para gobernar ese comportamiento.
+                            <p className="text-[1.05rem] text-ghost-white/80 leading-[1.8] [&>strong]:text-red-glow [&>strong]:font-semibold [&>strong]:bg-red-glow/10 [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded">
+                                Tras haber establecido que el modelo <strong>no razona como un ser humano</strong>, sino que predice y completa vacíos con respuestas verosímiles pero potencialmente falsas, este bloque introduce las <strong>herramientas para gobernar</strong> ese comportamiento.
                             </p>
                         </div>
 
@@ -421,8 +420,8 @@ const Control = () => {
                                 <span className="w-2 h-2 rounded-full bg-electric-cyan"></span>
                                 Las Herramientas
                             </h3>
-                            <p className="text-sm text-muted leading-relaxed">
-                                Aprenderás a diseñar y depurar el contexto limitando la hinchazón (bloating), definir identidades para sortear el sobre-rechazo, imponer normas lógicas, activar razonamiento, anclar la realidad contra falsedades por imitación y exigir salidas estructuradas seguras frente a la alucinación de herramientas.
+                            <p className="text-[1.05rem] text-ghost-white/80 leading-[1.8] [&>strong]:text-electric-cyan [&>strong]:font-semibold [&>strong]:bg-electric-cyan/10 [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded">
+                                Aprenderás a diseñar y depurar el contexto limitando la <strong>hinchazón (bloating)</strong>, definir <strong>identidades</strong> para sortear el sobre-rechazo, imponer <strong>normas lógicas</strong>, activar <strong>razonamiento</strong>, anclar la <strong>realidad</strong> contra falsedades por imitación y exigir <strong>salidas estructuradas</strong> seguras frente a la alucinación de herramientas.
                             </p>
                         </div>
 
@@ -432,8 +431,8 @@ const Control = () => {
                                 <span className="w-2 h-2 rounded-full bg-neon-magenta"></span>
                                 El Objetivo
                             </h3>
-                            <p className="text-sm text-muted leading-relaxed">
-                                El recorrido se completa con un <span className="text-ghost-white/90 font-medium">bucle de mejora continua</span>, orientado a mitigar fallos funcionales como el prompt drift (regresiones por actualización) y alinear tus interacciones con objetivos profesionales críticos y protegidos.
+                            <p className="text-[1.05rem] text-ghost-white/80 leading-[1.8] [&>strong]:text-neon-magenta [&>strong]:font-semibold [&>strong]:bg-neon-magenta/10 [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded">
+                                El recorrido se completa con un <strong>bucle de mejora continua</strong>, orientado a mitigar fallos funcionales como el <strong>prompt drift</strong> (regresiones por actualización) y alinear tus interacciones con <strong>objetivos profesionales</strong> críticos y protegidos.
                             </p>
                         </div>
 

@@ -2,28 +2,82 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cn } from '../../lib/utils';
+import { ConceptTooltip } from './ConceptTooltip';
 
-// ─── Highlight helper ────────────────────────────────────────────────────────
+// ─── Highlight & Glossary helper ─────────────────────────────────────────────
 /**
- * Recursively walks React children and wraps text nodes that contain
- * `query` with a <mark> element so the search highlight works inside
- * any markdown element (p, li, h1…).
+ * Recursively walks React children and wraps:
+ * 1. Search queries with <mark>
+ * 2. Glossary terms with <ConceptTooltip>
  */
-function highlightChildren(children, query) {
-    if (!query) return children;
-    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const splitRegex = new RegExp(`(${escaped})`, 'gi');
-    const lowerQuery = query.toLowerCase();
+const glossaryTerms = [
+    "omni-rol",
+    "clústeres específicos de procesamiento",
+    "trade-offs",
+    "síndrome del impostor"
+]; // Add more lowercased terms here as needed
 
+function processTextNode(text, query) {
+    let result = [text];
+
+    // 1. First split by glossary terms
+    glossaryTerms.forEach(term => {
+        const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const termRegex = new RegExp(`(?<=\\b|\\s)(${escapedTerm})(?=\\b|\\s|s\\b)`, 'gi'); // matches term including plurals/spaces
+
+        const newResult = [];
+        result.forEach(part => {
+            if (typeof part !== 'string') {
+                newResult.push(part);
+                return;
+            }
+            const parts = part.split(termRegex);
+            parts.forEach(p => {
+                if (p === undefined) return;
+                if (p.toLowerCase().startsWith(term.toLowerCase())) {
+                    // It's a glossary term. Wrap it.
+                    newResult.push(
+                        <ConceptTooltip key={Math.random()} term={term}>{p}</ConceptTooltip>
+                    );
+                } else if (p) {
+                    newResult.push(p);
+                }
+            });
+        });
+        result = newResult;
+    });
+
+    // 2. Then split by search query if exists
+    if (query) {
+        const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const queryRegex = new RegExp(`(${escapedQuery})`, 'gi');
+        const lowerQuery = query.toLowerCase();
+
+        const finalResult = [];
+        result.forEach(part => {
+            if (typeof part !== 'string') {
+                finalResult.push(part);
+                return;
+            }
+            const parts = part.split(queryRegex);
+            parts.forEach(p => {
+                if (p.toLowerCase() === lowerQuery) {
+                    finalResult.push(<mark key={Math.random()} className="search-highlight">{p}</mark>);
+                } else if (p) {
+                    finalResult.push(p);
+                }
+            });
+        });
+        result = finalResult;
+    }
+
+    return result;
+}
+
+function highlightChildren(children, query) {
     return React.Children.map(children, child => {
         if (typeof child === 'string') {
-            const parts = child.split(splitRegex);
-            if (parts.length === 1) return child;
-            return parts.map((part, i) =>
-                part.toLowerCase() === lowerQuery
-                    ? <mark key={i} className="search-highlight">{part}</mark>
-                    : part
-            );
+            return processTextNode(child, query);
         }
         if (React.isValidElement(child) && child.props.children) {
             return React.cloneElement(child, {

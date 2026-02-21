@@ -2,6 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 /* ── Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @font-face {
   font-family: 'Satoshi';
   src: url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
@@ -30,9 +32,9 @@
   --color-surface-3: #1e2740;
 
   /* Typography */
-  --font-display: 'Satoshi', 'Inter', system-ui, sans-serif;
+  --font-display: 'Satoshi', system-ui, sans-serif;
   --font-mono: 'Geist Mono', 'JetBrains Mono', 'Fira Code', monospace;
-  --font-sans: 'Satoshi', 'Inter', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
 }
 
 /* ── Base ── */
@@ -177,10 +179,10 @@
 /* ── Prose Overrides ── */
 .prose-cyber {
   --tw-prose-body: var(--color-ghost-white);
-  --tw-prose-headings: var(--color-electric-cyan);
+  --tw-prose-headings: var(--color-ghost-white);
   --tw-prose-links: var(--color-electric-cyan);
-  --tw-prose-bold: var(--color-ghost-white);
-  --tw-prose-code: var(--color-neon-magenta);
+  --tw-prose-bold: #ffffff;
+  --tw-prose-code: var(--color-electric-cyan-dim);
   --tw-prose-pre-bg: var(--color-surface-1);
   --tw-prose-hr: var(--color-surface-3);
   --tw-prose-quotes: var(--color-muted);
@@ -198,10 +200,11 @@
 
 .prose-cyber code {
   font-family: var(--font-mono);
-  font-size: 0.85em;
-  padding: 2px 6px;
+  font-size: 0.9em;
+  padding: 2px 4px;
   border-radius: 4px;
   background: var(--color-surface-2);
+  color: #e2e8f0;
   border: 1px solid var(--color-surface-3);
 }
 
@@ -219,7 +222,10 @@
 
 .prose-cyber strong {
   color: var(--color-electric-cyan);
-  font-weight: 700;
+  font-weight: 600;
+  background: var(--color-electric-cyan-dim);
+  padding: 0px 4px;
+  border-radius: 4px;
 }
 
 .prose-cyber a {

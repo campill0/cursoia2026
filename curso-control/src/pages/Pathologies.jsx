@@ -31,39 +31,39 @@ const pathologyData = [
         subtitle: 'Fallo Epistémico',
         icon: Search,
         color: 'cyan',
-        description: 'Afectan la relación del modelo con la realidad, la facticidad y la lógica. Surgen porque el modelo prioriza la probabilidad estadística y la completitud del patrón sobre la verdad fáctica.',
+        description: <>Afectan la relación del modelo con la <strong>realidad, la facticidad y la lógica</strong>. Surgen porque el modelo prioriza la <strong>probabilidad estadística</strong> y la completitud del patrón sobre la verdad fáctica.</>,
         items: [
             {
                 name: 'Fluidez Engañosa (Deceptive Fluency)',
-                desc: 'Es el riesgo más crítico. El modelo genera respuestas gramaticalmente perfectas, con tono profesional y total confianza, pero factualmente falsas. Ocurre porque el modelo optimiza la verosimilitud (que suene bien) sobre la veracidad (que sea cierto), bajando la guardia del usuario.'
+                desc: <>Es el <strong>riesgo más crítico</strong>. El modelo genera respuestas gramaticalmente perfectas, con tono profesional y total confianza, pero <strong>factualmente falsas</strong>. Ocurre porque optimiza la <strong>verosimilitud</strong> (que suene bien) sobre la <strong>veracidad</strong> (que sea cierto), bajando la guardia del usuario.</>
             },
             {
                 name: 'Ilusión de Fluidez',
-                desc: 'Fenómeno complementario a la fluidez engañosa, referido específicamente a la incapacidad del usuario para detectar el error o auditar una respuesta crítica (salud, legal, código) debido a la alta calidad de la redacción y la seguridad aparente del modelo.'
+                desc: <>Fenómeno complementario, referido específicamente a la <strong>incapacidad del usuario</strong> para detectar el error o auditar una respuesta crítica (salud, legal, código) debido a la <strong>alta calidad de la redacción</strong> y la seguridad aparente del modelo.</>
             },
             {
                 name: 'Colapso Epistémico',
-                desc: 'Es la ruptura de la lógica interna del modelo ante la presión del usuario. Si el usuario afirma algo falso con seguridad, el modelo abandona sus datos de entrenamiento correctos para validar la premisa falsa, perdiendo su "agarre" a la verdad para complacer al interlocutor.'
+                desc: <>Es la ruptura de la <strong>lógica interna</strong> del modelo. Si el usuario afirma algo falso con seguridad, el modelo abandona sus datos correctos para <strong>validar la premisa falsa</strong>, perdiendo su "agarre" a la verdad para complacer al interlocutor.</>
             },
             {
                 name: 'Alucinación (Inducida por ruido)',
-                desc: 'Invención de información presentada como cierta. Cuando hay un exceso de datos irrelevantes ("paja") que debilita la señal, o cuando faltan datos concretos, el modelo inventa patrones probabilísticos para llenar los vacíos lógicos.'
+                desc: <>Invención de información presentada como cierta. Cuando hay un <strong>exceso de datos irrelevantes</strong> que debilita la señal, o cuando faltan datos, el modelo <strong>inventa patrones</strong> para llenar los vacíos lógicos.</>
             },
             {
                 name: 'Búnker Temporal (Knowledge Cutoff)',
-                desc: 'El modelo vive en un pasado congelado. Al no tener noción del tiempo presente ni acceso a herramientas externas, si se le pregunta por hechos recientes, inventará datos basándose en probabilidades históricas.'
+                desc: <>El modelo vive en un <strong>pasado congelado</strong>. Al no tener noción del tiempo presente ni acceso a red, si se le pregunta por hechos recientes, <strong>inventará datos</strong> basándose en probabilidades históricas.</>
             },
             {
                 name: 'Memoria Borrosa (Compresión)',
-                desc: 'Concepto técnico que explica que el modelo no almacena textos exactos, sino representaciones estadísticas comprimidas. Esto le obliga a "reconstruir" la información, lo que a menudo lleva a inventar detalles finos.'
+                desc: <>El modelo no almacena textos exactos, sino <strong>representaciones estadísticas comprimidas</strong>. Esto le obliga a <strong>"reconstruir"</strong> la información, lo que a menudo lleva a inventar detalles finos.</>
             },
             {
                 name: 'Fabricación de citas (Citation Fabrication)',
-                desc: 'Una variante técnica de la alucinación donde el modelo genera textos con "aspecto" de referencias bibliográficas válidas (año, DOI, etc). Sin un mecanismo de verificación, estadísticamente es verosímil pero fácticamente inútil.'
+                desc: <>Variante técnica donde genera textos con "aspecto" de <strong>referencias bibliográficas válidas</strong> (año, DOI). Estadísticamente es verosímil pero <strong>fácticamente inútil</strong> sin verificación externa.</>
             },
             {
                 name: 'Falsedades por imitación (Imitative Falsehoods)',
-                desc: 'El modelo produce afirmaciones falsas no porque "invente", sino porque son muy frecuentes en el texto humano. Al predecir continuaciones probables, absorbe y refleja mitos, rumores o concepciones erróneas sistémicas.'
+                desc: <>Produce afirmaciones falsas porque son <strong>muy frecuentes en textos humanos</strong>. Al predecir continuaciones, absorbe y refleja <strong>mitos, rumores o concepciones erróneas sistémicas</strong>.</>
             }
         ]
     },
@@ -73,31 +73,31 @@ const pathologyData = [
         subtitle: 'Fallo Psicológico',
         icon: UserSearch,
         color: 'magenta',
-        description: 'Defectos en la "personalidad" o actitud del modelo, derivados principalmente de su entrenamiento con retroalimentación humana (RLHF).',
+        description: <>Defectos en la <strong>"personalidad" o actitud</strong> del modelo, derivados principalmente de su entrenamiento con retroalimentación humana (<strong>RLHF</strong>).</>,
         items: [
             {
                 name: 'Sicofancia (El "Síndrome del Adulador")',
-                desc: 'La tendencia del modelo a confirmar los sesgos del usuario, validar errores o darle la razón para maximizar la satisfacción. Actúa como un espejo complaciente en lugar de un auditor honesto.'
+                desc: <>La tendencia del modelo a <strong>confirmar los sesgos</strong> del usuario, validar errores o darle la razón para <strong>maximizar la satisfacción</strong>. Actúa como un espejo complaciente.</>
             },
             {
                 name: 'Sicofancia Social',
-                desc: 'Variante donde el modelo utiliza excesivo lenguaje indirecto o validación emocional ("Entiendo tu punto...", "Excelente pregunta") para proteger la imagen del usuario, diluyendo la calidad técnica.'
+                desc: <>Variante donde el modelo utiliza excesivo lenguaje indirecto o <strong>validación emocional</strong> para proteger la imagen del usuario, <strong>diluyendo la calidad técnica</strong>.</>
             },
             {
                 name: 'Ruido Teatral (Theatrical Noise)',
-                desc: 'Ocurre cuando se fuerza un "Rol" innecesaria en tareas lógicas. El modelo gasta recursos en mantener el personaje en detrimento de la capacidad de cálculo, provocando errores en lógica pura.'
+                desc: <>Ocurre cuando se fuerza un <strong>"Rol" innecesario</strong>. El modelo gasta recursos en <strong>mantener el personaje</strong> en detrimento de la capacidad de cálculo, provocando errores en lógica pura.</>
             },
             {
                 name: 'Verbosidad (Yapping)',
-                desc: 'Tendencia a ser excesivamente "educado" y hablador, añadiendo introducciones, conclusiones morales y rellenos innecesarios que ensucian el resultado final.'
+                desc: <>Tendencia a ser <strong>excesivamente "educado" y hablador</strong>, añadiendo introducciones, conclusiones morales y <strong>rellenos innecesarios</strong> que ensucian el resultado final.</>
             },
             {
                 name: 'Pereza (Laziness)',
-                desc: 'Tendencia a tomar atajos cognitivos o dar respuestas incompletas (ej. "escribe el resto del código tú") para ahorrar recursos si el prompt no le exige un estándar alto.'
+                desc: <>Tendencia a tomar <strong>atajos cognitivos</strong> o dar respuestas incompletas (ej. "escribe el resto tú") para <strong>ahorrar recursos</strong> si el prompt no le exige un estándar alto.</>
             },
             {
                 name: 'Sobre-rechazo (Overrefusal)',
-                desc: 'Como producto del entrenamiento en seguridad (harmlessness), el modelo asume una postura conservadora con falsos positivos. Puede negarse a responder preguntas benignas o inocuas debido a ambigüedad semántica que lo acerca a áreas "prohibidas".'
+                desc: <>El modelo asume una postura conservadora con <strong>falsos positivos</strong>. Puede <strong>negarse a responder</strong> preguntas benignas inocuas debido a ambigüedad semántica con áreas "prohibidas".</>
             }
         ]
     },
@@ -107,35 +107,35 @@ const pathologyData = [
         subtitle: 'Fallo Estructural',
         icon: Database,
         color: 'emerald',
-        description: 'Problemas físicos relacionados con la "Ventana de Contexto" (el espacio de trabajo) y cómo se procesa o almacena la información.',
+        description: <>Problemas físicos relacionados con la <strong>"Ventana de Contexto"</strong> (espacio de trabajo) y cómo se <strong>procesa o almacena</strong> la información.</>,
         items: [
             {
                 name: 'Podredumbre del Contexto (Context Rot)',
-                desc: 'La degradación progresiva de la calidad de la respuesta a medida que se acumula información irrelevante, firmas de correo o datos antiguos en el historial.'
+                desc: <>La <strong>degradación progresiva</strong> de la respuesta a medida que se acumula información irrelevante, firmas antiguas o <strong>datos obsoletos</strong> en el historial de chat.</>
             },
             {
                 name: 'Efecto "Lost-in-the-Middle"',
-                desc: 'Incapacidad del modelo para recuperar información situada en el centro de un prompt extenso. El modelo tiene un sesgo de atención en forma de "U": recuerda bien el inicio y el final.'
+                desc: <>Incapacidad para recuperar información situada <strong>en el centro</strong> de un prompt extenso. El modelo tiene un sesgo de atención: <strong>recuerda bien el inicio y el final</strong>.</>
             },
             {
                 name: 'Distracción de Contexto',
-                desc: 'Cuando la señal de las instrucciones es débil, el modelo prioriza patrones irrelevantes del texto adjunto ("paja") sobre su propio razonamiento lógico.'
+                desc: <>Cuando la instrucción es débil, el modelo prioriza <strong>patrones irrelevantes del texto adjunto ("paja")</strong> sobre su propio razonamiento lógico real.</>
             },
             {
                 name: 'Choque de Contexto (Context Clash)',
-                desc: 'Confusión generada cuando se mezclan temas incompatibles en un mismo chat. El "residuo" latente de la tarea anterior sesga la interpretación de la nueva.'
+                desc: <>Confusión generada al mezclar <strong>temas incompatibles</strong> en un mismo chat. El <strong>"residuo" latente</strong> de la tarea anterior sesga la interpretación de la nueva.</>
             },
             {
                 name: 'Truncamiento Silencioso',
-                desc: 'Cuando se supera el límite de tokens, la interfaz elimina mensajes antiguos sin avisar. Esto borra datos clave del cerebro activo, provocando amnesia inmediata.'
+                desc: <>Cuando se supera el límite de tokens, la interfaz <strong>elimina mensajes antiguos sin avisar</strong>. Esto borra datos clave del cerebro, provocando <strong>amnesia inmediata</strong>.</>
             },
             {
                 name: 'Envenenamiento de Memoria',
-                desc: 'Afecta a la Memoria Episódica. Ocurre cuando el modelo guarda como "hechos" preferencias falsas o datos de pruebas sucias, contaminando futuros chats.'
+                desc: <>Afecta a Memorias de Largo Plazo. Ocurre cuando el modelo guarda como "hechos" reales tus <strong>preferencias falsas o datos puramente de prueba</strong>, contaminando el futuro.</>
             },
             {
                 name: 'Hinchazón del Prompt (Prompt Bloating)',
-                desc: 'Uso de prompts excesivamente largos con información no curada. Satura el contexto y, paradójicamente, reduce la "inteligencia" efectiva del modelo.'
+                desc: <>Uso de prompts excesivamente largos <strong>sin curar</strong>. Esto satura el contexto y, paradójicamente, <strong>reduce la "inteligencia"</strong> efectiva de la inferencia del modelo.</>
             }
         ]
     },
@@ -145,33 +145,33 @@ const pathologyData = [
         subtitle: 'Fallo Sistémico',
         icon: RefreshCcw,
         color: 'amber',
-        description: 'Fallos relacionados con el uso continuado, la seguridad y la naturaleza cambiante de la infraestructura tecnológica.',
+        description: <>Fallos relacionados con el uso continuado, la seguridad sistémica y la naturaleza <strong>invisiblemente cambiante</strong> de la infraestructura tecnológica detrás.</>,
         items: [
             {
-                name: 'Regresiones por Actualización (Update Regressions/Prompt Drift)',
-                desc: 'Pérdida de capacidad resolutiva o rotura de un prompt que antes funcionaba, debido a modificaciones no visibles que los proveedores realizan sobre los pesos, políticas o parámetros internos.'
+                name: 'Regresiones por Actualización (Prompt Drift)',
+                desc: <>Pérdida de capacidad resolutiva o rotura de un prompt debido a <strong>modificaciones técnicas invisibles</strong> que los proveedores realizan sobre la arquitectura misma.</>
             },
             {
                 name: 'Inyección de Prompt (Prompt Injection)',
-                desc: 'Problema crítico de seguridad donde el sistema no tiene separación estricta entre "instrucción" y "dato". Un atacante introduce instrucciones camufladas dentro del input para alterar drásticamente el flujo lógico.'
+                desc: <>Problema de seguridad donde se introducen <strong>instrucciones agresivas camufladas</strong> dentro del input original para alterar por completo el <strong>flujo lógico predefinido</strong>.</>
             },
             {
                 name: 'Bypass y Jailbreak',
-                desc: 'El modelo obedece instrucciones que no debería. A través de entradas adversariales, se rompen las barreras probabilísticas de "harmlessness", permitiendo la extracción de información sensible (como los system prompts).'
+                desc: <>A través de entradas adversariales rebuscadas, se rompen las <strong>barreras éticas de seguridad</strong>, permitiendo forzar el volcado de datos prohibidos o "system prompts".</>
             },
             {
                 name: 'Alucinación de Herramientas (Tool-Use Hallucinations)',
-                desc: 'Debilidad de arquitecturas agénticas. El modelo predice tokens para hacer una llamada a una herramienta pero se inventa los nombres o los propios parámetros porque rellena "lo que estadísticamente parece JSON válido".'
+                desc: <>El modelo predice falsamente requerir llamar a una herramienta y <strong>se inventa llamadas o parámetros técnicos JSON</strong> que jamás existieron ni fueron solicitados estáticamente.</>
             }
         ]
     }
 ];
 
 const colorMap = {
-    cyan: { text: 'text-electric-cyan', bg: 'bg-electric-cyan/10', border: 'border-electric-cyan/30', accent: 'bg-electric-cyan' },
-    magenta: { text: 'text-neon-magenta', bg: 'bg-neon-magenta/10', border: 'border-neon-magenta/30', accent: 'bg-neon-magenta' },
-    emerald: { text: 'text-emerald-glow', bg: 'bg-emerald-glow/10', border: 'border-emerald-glow/30', accent: 'bg-emerald-glow' },
-    amber: { text: 'text-amber-glow', bg: 'bg-amber-glow/10', border: 'border-amber-glow/30', accent: 'bg-amber-glow' },
+    cyan: { text: 'text-electric-cyan', bg: 'bg-electric-cyan/10', border: 'border-electric-cyan/30', accent: 'bg-electric-cyan', strongModifier: '[&>strong]:text-electric-cyan [&>strong]:bg-electric-cyan/10' },
+    magenta: { text: 'text-neon-magenta', bg: 'bg-neon-magenta/10', border: 'border-neon-magenta/30', accent: 'bg-neon-magenta', strongModifier: '[&>strong]:text-neon-magenta [&>strong]:bg-neon-magenta/10' },
+    emerald: { text: 'text-emerald-glow', bg: 'bg-emerald-glow/10', border: 'border-emerald-glow/30', accent: 'bg-emerald-glow', strongModifier: '[&>strong]:text-emerald-glow [&>strong]:bg-emerald-glow/10' },
+    amber: { text: 'text-amber-glow', bg: 'bg-amber-glow/10', border: 'border-amber-glow/30', accent: 'bg-amber-glow', strongModifier: '[&>strong]:text-amber-glow [&>strong]:bg-amber-glow/10' },
 };
 
 const Pathologies = () => {
@@ -200,12 +200,12 @@ const Pathologies = () => {
             <motion.div variants={fadeUp} className="grid lg:grid-cols-3 gap-8 items-start">
                 <div className="lg:col-span-2 relative">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-neon-magenta/50 to-transparent rounded-full" />
-                    <div className="pl-8 space-y-4">
-                        <p className="text-sm text-muted leading-relaxed">
-                            Estas no son simples "errores", sino <span className="text-ghost-white font-medium">fallos estructurales y sistémicos</span> derivados de la naturaleza probabilística del modelo, su entrenamiento por refuerzo y la gestión técnica de su memoria.
+                    <div className="pl-8 space-y-5">
+                        <p className="text-[1.05rem] text-ghost-white/90 leading-[1.8]">
+                            Estas no son simples "errores", sino <span className="text-electric-cyan font-semibold bg-[rgba(0,229,255,0.15)] px-1.5 py-0.5 rounded">fallos estructurales y sistémicos</span> derivados de la naturaleza probabilística del modelo, su entrenamiento por refuerzo y la gestión técnica de su memoria.
                         </p>
-                        <p className="text-sm text-muted leading-relaxed">
-                            A continuación, desglosamos el <span className="text-ghost-white font-medium">clínica completa</span> dividida en cuatro grandes áreas de impacto. Entender estos síntomas es el primer paso para diseñar técnicas de mitigación efectivas.
+                        <p className="text-[1.05rem] text-ghost-white/90 leading-[1.8]">
+                            A continuación, desglosamos la <span className="text-electric-cyan font-semibold bg-[rgba(0,229,255,0.15)] px-1.5 py-0.5 rounded">clínica completa</span> dividida en cuatro grandes áreas de impacto. Entender estos síntomas es el primer paso para diseñar técnicas de mitigación efectivas.
                         </p>
                     </div>
                 </div>
@@ -216,7 +216,7 @@ const Pathologies = () => {
                             <ShieldAlert className="w-24 h-24 text-neon-magenta -rotate-12" />
                         </div>
                         <h4 className="text-[10px] font-mono text-neon-magenta tracking-[0.2em] mb-3 uppercase">Visión Clínica</h4>
-                        <p className="text-xs text-ghost-white/90 leading-relaxed font-medium">
+                        <p className="text-sm text-ghost-white/90 leading-[1.7] font-medium">
                             No busques culpables, busca causas físicas. Cada patología tiene una solución de ingeniería asociada.
                         </p>
                     </div>
@@ -245,7 +245,7 @@ const Pathologies = () => {
                                 </div>
                             </div>
 
-                            <p className="text-sm text-muted max-w-3xl pl-16">
+                            <p className={`text-[1.05rem] text-ghost-white/80 leading-[1.7] max-w-3xl pl-16 [&>strong]:font-semibold [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded ${cs.strongModifier}`}>
                                 {category.description}
                             </p>
 
@@ -258,11 +258,11 @@ const Pathologies = () => {
                                     >
                                         <div className="flex items-start gap-3 mb-2">
                                             <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${cs.accent} shrink-0 group-hover:scale-125 transition-transform`} />
-                                            <h3 className="text-sm font-bold text-ghost-white group-hover:text-white transition-colors">
+                                            <h3 className="text-base font-bold text-ghost-white group-hover:text-white transition-colors">
                                                 {item.name}
                                             </h3>
                                         </div>
-                                        <p className="text-xs text-muted leading-relaxed pl-4 line-clamp-4 group-hover:line-clamp-none transition-all">
+                                        <p className={`text-[0.95rem] text-ghost-white/80 leading-[1.7] pl-4 line-clamp-4 group-hover:line-clamp-none transition-all mt-1 [&>strong]:font-semibold [&>strong]:px-1 [&>strong]:py-0.5 [&>strong]:rounded ${cs.strongModifier}`}>
                                             {item.desc}
                                         </p>
                                     </div>

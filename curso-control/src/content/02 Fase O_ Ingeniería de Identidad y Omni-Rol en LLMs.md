@@ -62,6 +62,8 @@ Más allá de definir rasgos con V.O.C.E.S., la ingeniería de prompts avanzada 
 
 Existen tres patrones fundamentales que debes dominar:
 
+> **El secreto de las etiquetas en inglés:** Las IA han sido entrenadas leyendo miles de artículos científicos sobre programación de prompts. Si usas etiquetas literales (como 'Expert Persona' o 'Constraint-Driven'), el modelo reconoce el comando técnico y no lo trata como un simple juego. Funciona como una "contraseña" para acceder a su comportamiento más avanzado.
+
 **A. Expert Persona Pattern (Patrón de Experto de Dominio)**
 
 Es la arquitectura estándar para maximizar la precisión técnica.
@@ -69,6 +71,8 @@ Es la arquitectura estándar para maximizar la precisión técnica.
 - **Función:** Activa terminología específica, heurísticas profesionales y marcos mentales de un sector.
 - **Cuándo usarlo:** Cuando la precisión y la profundidad técnica superan a la empatía o la pedagogía.
 - **Sintaxis Táctica:** *"Adopta la 'Expert Persona' de un Físico Cuántico especializado en termodinámica. Usa rigor académico y asume que hablas con pares revisores."*
+
+  > **¿Qué hace esta sintaxis?** Al ordenarle literalmente usar el marco de 'Experto' (**'Expert Persona'**), estás apagando su estilo amistoso o básico por defecto. Le fuerzas a emplear exclusivamente terminología precisa y lógicas avanzadas propias de ese sector. Es la clave para exigir máxima exactitud desde la primera palabra.
 
 **B. Audience-Oriented Persona (Patrón Orientado a la Audiencia)**
 
@@ -78,6 +82,8 @@ Aquí el rol se define no por quién *es*, sino por a quién *habla*. Es la vari
 - **Cuándo usarlo:** Para comunicación, ventas o enseñanza.
 - **Sintaxis Táctica:** *"Actúa como un profesor (Expert), pero tu arquitectura es 'Audience-Oriented': explícale la computación cuántica a un niño de 12 años (Listener). Ajusta todas las analogías a su nivel cognitivo."*
 
+  > **¿Qué hace esta sintaxis?** Al usar explícitamente el comando **'Audience-Oriented'**, aislas el "quién sabe" (**'Expert'**) del "a quién se lo cuenta" (**'Listener'**). El choque entre el conocimiento inmenso del experto y la poca capacidad inicial del público obliga a la IA a esforzarse, produciendo traducciones de esquemas complejos de forma brillantemente sencilla.
+
 **C. Constraint-Driven Persona (Patrón Basado en Restricciones)**
 
 El patrón más realista. Un experto sin límites es un teórico; un experto con límites es un profesional.
@@ -85,6 +91,8 @@ El patrón más realista. Un experto sin límites es un teórico; un experto con
 - **Función:** Introduce "fricción" en el razonamiento para forzar *trade-offs* (decisiones de compromiso) realistas.
 - **Cuándo usarlo:** Planificación de proyectos, estrategia empresarial o código eficiente.
 - **Sintaxis Táctica:** *"Eres un Arquitecto de Software (Expert). Estás bajo un patrón 'Constraint-Driven': tienes presupuesto cero para servidores y el lanzamiento es en 2 días. Dame la solución más sucia y rápida, no la más elegante."*
+
+  > **¿Qué hace esta sintaxis?** Impide que el modelo te escupa la típica teoría brillante pero inútil de manual. Al declarar que es un **'Expert'** pero inyectarle el patrón de limitación estricta **'Constraint-Driven'**, le obligas a razonar de forma realista y sucia. Te entregará soluciones prácticas de compromiso asumiendo sacrificios, tal y como lo haría un ingeniero de verdad.
 
 ---
 
