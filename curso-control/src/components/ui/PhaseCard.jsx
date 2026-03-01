@@ -18,8 +18,8 @@ const phaseData = [
     { letter: 'N', key: 'N', title: 'Normas y Negativas', subtitle: 'Muro de Contención', desc: 'Neutraliza la sicofancia y la pereza con prohibiciones explícitas.' },
     { letter: 'T', key: 'T', title: 'Traza de Pensamiento', subtitle: 'Motor Cognitivo', desc: 'Obliga al modelo a procesar antes de responder con cadenas de razonamiento.' },
     { letter: 'R', key: 'R', title: 'Realidad y Resistencia', subtitle: 'Protocolos de Verdad', desc: 'Detecta alucinaciones y valida hechos con auditoría adversarial.' },
-    { letter: 'O', key: 'O2', title: 'Output y Organización', subtitle: 'Vibe Coding', desc: 'Entregables finales, no borradores. El formato determina la utilidad.' },
-    { letter: 'L', key: 'L', title: 'Loop de Mejora', subtitle: 'Meta-Prompting', desc: 'Optimización recursiva. La excelencia no está en el primer intento.' },
+    { letter: 'O', key: 'O2', title: 'Output y Organización', subtitle: 'Diseña la Respuesta', desc: 'El formato determina la utilidad. Aplica F.O.R.M.A.S. para resultados listos para usar.' },
+    { letter: 'L', key: 'L', title: 'Loop de Mejora', subtitle: 'Revisa y Mejora', desc: 'La primera respuesta casi nunca es la definitiva. Corrige y perfecciona.' },
 ];
 
 export const PhaseCard = ({ phase, index, isExpanded, onToggle }) => {

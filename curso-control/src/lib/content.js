@@ -48,8 +48,8 @@ const phasesMeta = [
     { prefix: '03 ', letter: 'N', key: 'N', title: 'Normas y Negativas', subtitle: 'Muro de Contención', color: 'red' },
     { prefix: '04 ', letter: 'T', key: 'T', title: 'Traza de Pensamiento', subtitle: 'Motor Cognitivo 2026', color: 'amber' },
     { prefix: '05 ', letter: 'R', key: 'R', title: 'Realidad y Resistencia', subtitle: 'Protocolos de Verdad', color: 'emerald' },
-    { prefix: '06 ', letter: 'O₂', key: 'O2', title: 'Output y Organización', subtitle: 'Vibe Coding', color: 'blue' },
-    { prefix: '07 ', letter: 'L', key: 'L', title: 'Loop de Mejora', subtitle: 'Meta-Prompting', color: 'violet' },
+    { prefix: '06 ', letter: 'O₂', key: 'O2', title: 'Output y Organización', subtitle: 'Diseña la Respuesta', color: 'blue' },
+    { prefix: '07 ', letter: 'L', key: 'L', title: 'Loop de Mejora', subtitle: 'Revisa y Mejora', color: 'violet' },
 ];
 
 export const getControlPhases = () => {
