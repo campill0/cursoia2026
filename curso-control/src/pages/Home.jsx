@@ -105,7 +105,7 @@ const Home = () => (
                     <Link to="/llms" className="block h-full group">
                         <div className="relative h-48 -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-[1.3rem]">
                             <img
-                                src="/images/fundamentos_llms_1772420207578.png"
+                                src={`${import.meta.env.BASE_URL}images/fundamentos_llms_1772420207578.png`}
                                 alt="Fundamentos"
                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
                             />
@@ -137,7 +137,7 @@ const Home = () => (
                         <div className="relative h-48 -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-[1.3rem]">
                             <div className="absolute inset-0 bg-[#2d0519] mix-blend-color z-10" />
                             <img
-                                src="/images/patologias_llms_1772420230272.png"
+                                src={`${import.meta.env.BASE_URL}images/patologias_llms_1772420230272.png`}
                                 alt="Patologías"
                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700 contrast-125"
                             />
@@ -165,7 +165,7 @@ const Home = () => (
 
                 {/* Módulo 3: Framework C.O.N.T.R.O.L (Full Width) */}
                 <BentoCell span={2} glowColor="cyan" className="lg:col-span-4 md:col-span-3 sm:col-span-1 bg-obsidian border-surface-active p-8 relative overflow-hidden group">
-                    <div className="absolute z-0 inset-0 bg-[url('/images/framework_control_1772420252617.png')] bg-cover bg-center opacity-15 group-hover:opacity-25 transition-opacity mix-blend-screen"></div>
+                    <div className="absolute z-0 inset-0 bg-cover bg-center opacity-15 group-hover:opacity-25 transition-opacity mix-blend-screen" style={{ backgroundImage: `url('${import.meta.env.BASE_URL}images/framework_control_1772420252617.png')` }}></div>
                     <div className="absolute z-0 right-0 top-0 w-1/2 h-full bg-gradient-to-l from-electric-cyan/5 to-transparent pointer-events-none" />
 
                     <div className="relative z-10">
@@ -211,7 +211,7 @@ const Home = () => (
                         <div className="flex flex-col md:flex-row h-full">
                             <div className="w-full md:w-2/5 md:order-2 h-48 md:h-auto relative overflow-hidden shrink-0">
                                 <img
-                                    src="/images/chatgpt_avanzado_1772420283630.png"
+                                    src={`${import.meta.env.BASE_URL}images/chatgpt_avanzado_1772420283630.png`}
                                     alt="ChatGPT Tools"
                                     className="w-full h-full object-cover opacity-50 sepia-[.3] hue-rotate-[-30deg] group-hover:scale-110 transition-transform duration-1000"
                                 />

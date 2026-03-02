@@ -377,7 +377,7 @@ const Control = () => {
                     {/* Header with bloom */}
                     <motion.div variants={fadeUp} className="relative rounded-2xl overflow-hidden border border-surface-3">
                         <img
-                            src="/images/header-framework-control.jpeg"
+                            src={`${import.meta.env.BASE_URL}images/header-framework-control.jpeg`}
                             alt="Framework C.O.N.T.R.O.L."
                             className="w-full h-48 md:h-64 object-cover opacity-40 header-image"
                         />

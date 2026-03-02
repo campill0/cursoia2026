@@ -34,7 +34,7 @@ const Llms = () => {
             {/* Header with bloom effect */}
             <motion.div variants={fadeUp} className="relative rounded-3xl overflow-hidden border border-surface-3 shadow-2xl">
                 <img
-                    src="/images/header-llm-architecture.jpeg"
+                    src={`${import.meta.env.BASE_URL}images/header-llm-architecture.jpeg`}
                     alt="LLM Physics"
                     className="w-full h-56 md:h-72 object-cover opacity-30 header-image scale-105"
                 />

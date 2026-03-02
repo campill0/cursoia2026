@@ -63,7 +63,7 @@ const PathologyCard = ({ item, cs, isFlashGlobal }) => {
     };
 
     const imgName = getImageName(item.name);
-    const imgSrc = imgName ? `/images/pathologies/${imgName}.png?v=2` : `https://picsum.photos/seed/${item.name.replace(/\s+/g, '')}/400/200`;
+    const imgSrc = imgName ? `${import.meta.env.BASE_URL}images/pathologies/${imgName}.png?v=2` : `https://picsum.photos/seed/${item.name.replace(/\s+/g, '')}/400/200`;
 
     return (
         <div
@@ -270,7 +270,7 @@ const Pathologies = () => {
             {/* Header */}
             <motion.div variants={fadeUp} className="relative rounded-3xl overflow-hidden border border-surface-3 shadow-2xl">
                 <img
-                    src="/images/header-pathology-atlas.jpeg"
+                    src={`${import.meta.env.BASE_URL}images/header-pathology-atlas.jpeg`}
                     alt="Pathology atlas"
                     className="w-full h-56 md:h-72 object-cover opacity-30 header-image scale-105"
                 />
