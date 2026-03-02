@@ -234,21 +234,34 @@ Uso típico:
 
 ---
 
-## 7. Lienzo (Canvas)
+## 7. Lienzo (Canvas) y el "Vibe Coding"
 
-Canvas es un espacio lateral de edición (texto/código) con enfoque de “documento”.
+El Lienzo (Canvas) es un espacio lateral de edición con enfoque de "documento" o "código", diseñado para trabajar interactivamente sin el caos del chat lineal.
 
-Qué permite:
-- Editar directamente un texto o código.
-- Pedir cambios puntuales sin regenerar todo el documento.
-- Seleccionar un fragmento concreto y pedir modificación solo de ese tramo.
-- Iterar con control y menos caos que en el chat lineal.
+### Qué permite a nivel básico:
+- **Edición directa y selectiva:** Seleccionar un fragmento concreto y pedir cambios solo en esa parte, sin regenerar todo el documento.
+- **Iteración con control:** Trabajar sobre una versión "viva" de un texto o código para ir puliéndolo.
+- **Previsualización de código:** Algunos Canvas (según modelo e interfaz) permiten ver aplicaciones web renderizadas directamente.
 
-Casos típicos:
-- Documentos largos.
-- Manuales.
-- Código.
-- Revisión y refactor.
+### El potencial del "Vibe Coding"
+Canvas es el entorno ideal para el **"Vibe Coding"**: un nuevo paradigma donde *no programas escribiendo código*, sino actuando como director de producto. Guías a la IA mediante lenguaje natural, transmitiendo "sensaciones" (vibes) y objetivos funcionales.
+
+**¿Qué puedes lograr con el Vibe Coding en Canvas?**
+- **Creación sin programar:** Pide a la IA que programe un dashboard interactivo, un formulario, una calculadora o una pequeña web funcional.
+- **Feedback visual iterativo:** Ves el resultado (o el código) y reaccionas: *"Haz la interfaz más futurista"*, *"Añade un modo oscuro"* o *"Haz que el botón destaque más"*.
+- **Portabilidad local total:** El resultado es un producto terminado ("listo para usar"). Puedes copiar el bloque de código final o guardarlo en un solo archivo `.html`, llevártelo a tu PC, y al abrirlo con tu navegador funcionará exactamente igual que en la previsualización.
+
+### El Vibe Coding como máxima expresión de la Fase O
+Esto enlaza y amplifica directamente con la segunda **O (Output y Organización)** del framework C.O.N.T.R.O.L.:
+1. **Definir el Output Final:** En vez de pedir "escríbeme sobre SQL", pides "Créame una mini-herramienta web para generar consultas SQL". 
+2. **Herramienta autocontenida:** Tal como vimos en la Fase O, la técnica clave aquí es forzar a la IA a entregarte todo en **un único archivo HTML** (HTML, CSS y JS juntos) para garantizar que sea "plug and play".
+3. **Cambiar por sensaciones (Vibes):** Como dicta la Fase O, tú te encargas de pedir *"Hazlo más profesional e intuitivo"* y la IA se encarga de la parte técnica (ajustar paddings, paletas de colores y estilos CSS).
+
+### Límites del Vibe Coding con Canvas
+Aunque parece magia, tiene fronteras claras:
+- **Complejidad Arquitectónica:** Es brillante para herramientas de un único archivo front-end (HTML+JS) o scripts cerrados. Falla en proyectos que requieren múltiples archivos interconectados, bases de datos complejas o arquitecturas de servidor complejas.
+- **El Efecto "Código Espagueti":** Si iteramos de forma caótica (pidiendo y deshaciendo muchos cambios), el código que genera la IA se enreda, se vuelve frágil y empiezan a aparecer fallos lógicos difíciles de reparar.
+- **Dependencia de la Ventana de Contexto:** Como se manipula código, gasta muchos tokens. Si la herramienta crece demasiado, la IA olvidará funciones anteriores y empezará a romper cosas que ya funcionaban bien.
 
 ---
 
