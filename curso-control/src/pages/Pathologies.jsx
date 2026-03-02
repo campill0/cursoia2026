@@ -29,13 +29,36 @@ const PathologyCard = ({ item, cs, isFlashGlobal }) => {
 
     const getImageName = (name) => {
         const lowerName = name.toLowerCase();
+        // Sección 1 — Epistémicas
         if (lowerName.includes("fluidez engañosa")) return "fluidez_enganosa";
         if (lowerName.includes("búnker temporal")) return "bunker_temporal";
         if (lowerName.includes("fabricación de citas")) return "fabricacion_citas";
         if (lowerName.includes("colapso epistémico")) return "colapso_epistemico";
-        if (lowerName.includes("alucinación")) return "alucinacion";
         if (lowerName.includes("memoria borrosa")) return "memoria_borrosa";
         if (lowerName.includes("falsedades por imitación")) return "falsedades_imitacion";
+        // Sección 2 — Comportamiento y Alineación
+        if (lowerName.includes("sicofancia social")) return "sicofancia_social";
+        if (lowerName.includes("sicofancia") || lowerName.includes("síndrome del adulador")) return "sicofancia";
+        if (lowerName.includes("ruido teatral")) return "ruido_teatral";
+        if (lowerName.includes("verbosidad")) return "verbosidad";
+        if (lowerName.includes("pereza")) return "pereza";
+        if (lowerName.includes("sobre-rechazo")) return "sobre_rechazo";
+        // Sección 3 — Memoria y Contexto
+        if (lowerName.includes("podredumbre del contexto")) return "podredumbre_contexto";
+        if (lowerName.includes("lost-in-the-middle")) return "lost_in_the_middle";
+        if (lowerName.includes("distracción de contexto")) return "distraccion_de_contexto";
+        if (lowerName.includes("choque de contexto")) return "choque_de_contexto";
+        if (lowerName.includes("truncamiento silencioso")) return "truncamiento_silencioso";
+        if (lowerName.includes("envenenamiento de memoria")) return "envenenamiento_de_memoria";
+        if (lowerName.includes("hinchazón del prompt")) return "hinchazon_de_prompt";
+        if (lowerName.includes("truncación por recuperación")) return "truncado_por_recuperacion_rag";
+        // Sección 4 — Operativas y Evolución
+        if (lowerName.includes("deriva del prompt")) return "deriva_del_prompt";
+        if (lowerName.includes("inyección de prompt")) return "inyeccion_de_prompt";
+        if (lowerName.includes("bypass")) return "bypass_y_jailbreak";
+        if (lowerName.includes("alucinación de herramientas")) return "alucinacion_de_herramientas";
+        // Alucinación genérica (al final para no colisionar con "alucinación de herramientas")
+        if (lowerName.includes("alucinación")) return "alucinacion";
         return null;
     };
 
@@ -65,7 +88,7 @@ const PathologyCard = ({ item, cs, isFlashGlobal }) => {
                         <img
                             src={imgSrc}
                             alt={item.name}
-                            className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
+                            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
                         />
                         <div className={`absolute inset-0 ${cs.accent} mix-blend-overlay opacity-50`} />
                         <div className="absolute inset-0 bg-gradient-to-t from-surface-1/80 via-transparent to-transparent" />
