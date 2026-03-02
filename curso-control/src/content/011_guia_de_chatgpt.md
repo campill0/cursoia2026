@@ -18,6 +18,7 @@
 3. Herramientas de entrada y trabajo con materiales  
    3.1. Adjuntar fotos y archivos  
    3.2. Crear imágenes  
+   3.3. Análisis de Datos Avanzado (Intérprete de Código)
 
 4. Búsqueda en internet  
 
@@ -185,6 +186,24 @@ Para qué sirve:
 La interfaz permite generar imágenes a partir de texto:
 - Puedes pedir una imagen describiendo la escena.
 - En algunos casos puedes editar una imagen que subas (según disponibilidad de la herramienta en tu cuenta).
+
+---
+
+### 3.3. Análisis de Datos Avanzado (Intérprete de Código)
+
+El Analista de Datos Avanzado (antiguamente *Code Interpreter*) es un entorno seguro de Python donde ChatGPT puede escribir y **ejecutar código**. En lugar de adivinar matemáticamente una respuesta, el modelo programa un script para calcularla o procesarla con precisión absoluta.
+
+**Posibilidades que abre:**
+- **Precisión matemática:** Los LLMs fallan en matemáticas complejas, pero al usar Python, las operaciones son exactas.
+- **Análisis y manipulación de datos:** Puede procesar grandes volúmenes de datos, detectar tendencias, limpiar valores nulos o generar gráficos a partir de un simple archivo CSV o Excel.
+- **Conversión de archivos y formatos:** Puedes subirle un PDF para extraer el texto, convertir una imagen PNG a WebP o extraer un audio de un vídeo.
+- **Creación de herramientas:** Puede programarte en el acto pequeños scripts, simulaciones o resolver problemas lógicos y ejecutar el código para mostrarte el resultado.
+
+**Usos más típicos:**
+- **Analítica rápida:** *"Sube este Excel de ventas y hazme un gráfico de barras de los productos más vendidos por mes, agrupando las fechas."*
+- **Transformación de datos:** *"Limpia las filas duplicadas de este archivo y dime cuáles son los tres valores atípicos (outliers) más extremos."*
+- **Manejo de imágenes o PDFs:** *"Recorta los bordes blancos de este logotipo, pásalo a blanco y negro y entrégamelo como archivo descargable."*
+- **Verificación:** Si tienes dudas sobre un cálculo complejo de la IA, puedes pedirle explícitamente *"Ejecuta código en Python para confirmar esta cifra"*.
 
 ---
 
