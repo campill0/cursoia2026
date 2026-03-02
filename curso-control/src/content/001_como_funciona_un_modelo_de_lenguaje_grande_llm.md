@@ -14,6 +14,8 @@ Todo lo demás —respuestas coherentes, tono profesional, explicaciones largas,
 
 Entender esto es esencial para aprender a escribir mejores prompts **y para no frustrarse con sus límites**.
 
+![El modelo no piensa, solo predice el token más probable](./images/llms/llm_prediccion_probabilistica.png)
+
 ---
 
 ## 1. Todo empieza con texto… solo texto
@@ -67,6 +69,8 @@ A partir de aquí ocurre algo importante:
 
 Cada token se convierte en un número interno.
 
+![Proceso de tokenización: el texto se fragmenta en piezas](./images/llms/llm_tokenizacion.png)
+
 ---
 
 ## 3. Los números se convierten en vectores (embeddings)
@@ -87,6 +91,8 @@ Es simplemente una **posición en un espacio matemático** donde:
 Aquí aparece una limitación clave:
 
 > El modelo **no almacena información exacta**, sino **patrones comprimidos**
+
+![Los embeddings: posiciones en un espacio vectorial](./images/llms/llm_embeddings.png)
 
 ---
 
@@ -130,6 +136,8 @@ Este concepto será clave más adelante para entender por qué:
 - a veces “olvida” cosas ya dichas
 - y a veces responde bien… hasta que deja de hacerlo
 
+![La ventana de contexto: espacio limitado de trabajo](./images/llms/llm_ventana_contexto.png)
+
 ---
 
 ---
@@ -164,6 +172,8 @@ La atención:
 
 - **no crea conocimiento**
 - solo selecciona información del contexto
+
+![El mecanismo de atención: ponderando relevancia entre tokens](./images/llms/llm_atencion.png)
 
 ---
 
@@ -237,6 +247,8 @@ Aquí aparece una limitación fundamental:
 
 Probabilidad ≠ verdad.
 
+![Probabilidad vs Verdad: el modelo elige lo más frecuente](./images/llms/llm_probabilidades.png)
+
 ---
 
 ## 9. Elegir el siguiente token
@@ -265,6 +277,8 @@ El modelo repite el proceso:
 token a token
 
 Esto se llama **generación autoregresiva**.
+
+![Generación autoregresiva: token a token, en bucle](./images/llms/llm_autoregresivo.png)
 
 ---
 
