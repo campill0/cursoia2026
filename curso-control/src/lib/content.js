@@ -6,8 +6,8 @@
 const modules = import.meta.glob('../content/*.md', { query: '?raw', import: 'default', eager: true });
 
 export const contentMap = Object.keys(modules).reduce((acc, path) => {
-    // Extract filename
-    const fileName = path.split('/').pop();
+    // Extract filename and decode URI components (like %20, %C3%AD)
+    const fileName = decodeURIComponent(path.split('/').pop());
     acc[fileName] = modules[path];
     return acc;
 }, {});
@@ -60,4 +60,8 @@ export const getControlPhases = () => {
             content: file ? contentMap[file] : '',
         };
     }).filter(p => p.content);
+};
+
+export const getChatGptGuideContent = () => {
+    return getContent('Guía_de_chatgpt');
 };

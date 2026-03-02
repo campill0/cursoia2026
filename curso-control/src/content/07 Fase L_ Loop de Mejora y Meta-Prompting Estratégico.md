@@ -54,7 +54,20 @@ Regla práctica:
 
 ---
 
-## 5. Mini‑checklist antes de copiar y pegar
+## 5. Higiene de Sesión y Mitigación de la Deriva del Prompt (Prompt Drift)
+
+A medida que una conversación se alarga, el modelo sufre de **Deriva del Prompt**: empieza a olvidar las instrucciones iniciales de rigor y formato, y su comportamiento se degrada o se vuelve caótico. 
+
+Cuando la conversación "se nos va de madre", aplicar más parches no sirve. Sigue este protocolo de poda y reinicio:
+
+1. **Poda Correctiva (Retrasar el reloj):** No le digas al modelo "Te has equivocado, vuelve a intentar". Sube por el historial de chat, localiza tu *última petición correcta* (justo antes de que el modelo diera la primera respuesta errónea), edita ese mensaje, ajusta la instrucción y vuelve a lanzarlo. Esto borra la "rama mala" del historial temporal del modelo.
+2. **Resumen de Seguridad:** Si la conversación ya ha avanzado mucho y hay datos críticos diseminados en múltiples mensajes, pide un resumen concentrado:  
+   *Prompt:* "Quiero cerrar esta sesión. Genera un resumen ejecutivo de un párrafo con los acuerdos finales, datos clave y código final que hemos logrado hasta ahora, sin introducciones ni explicaciones".
+3. **Reinicio Clínico (Reset de Contexto):** Lee el resumen generado. Si todo cuadra, abre una **nueva sesión de chat** y pega ese resumen como punto de partida ("fuente de verdad"). Así inicias con el contexto completamente limpio, libre del ruido y la deriva probabilística de los intentos fallidos de la sesión anterior.
+
+---
+
+## 6. Mini‑checklist antes de copiar y pegar
 
 Antes de usar una respuesta, comprueba:
 

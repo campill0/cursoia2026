@@ -6,11 +6,12 @@ El objetivo de esta fase es aislar al modelo en un entorno de alta fidelidad par
 - **Búnker Temporal (Knowledge Cutoff):** Obligamos al modelo a "vivir en el presente" inyectando la verdad actualizada (Grounding) a través de documentos.
 - **Alucinaciones por Ruido:** Extirpamos la "paja" que obliga al modelo a adivinar, proporcionando solo señales limpias (Pruning).
 
-**2. La mitigación total de las 8 Patologías Estructurales de Memoria:**
+**2. La mitigación total de las Patologías Estructurales de Memoria:**
 A lo largo de esta fase, aprenderemos a neutralizar todos los fallos físicos de la Ventana de Contexto que vimos en el diagnóstico:
+- **Amnesias de Sistema:** Esquivando el Truncamiento Silencioso (límite de tokens) y la gravísima Truncación por Recuperación Silenciosa (RAG Efímero).
+- **Distorsiones:** Mitigando la *Memoria Borrosa (Compresión)* al forzar anclajes de recuperación y extracción literal.
 - **Sobrecargas:** Evitando la Podredumbre (Context Rot) y la Hinchazón del Prompt.
 - **Sesgos de Atención:** Venciendo la Distracción y el Efecto Lost-in-the-Middle.
-- **Amnesias de Sistema:** Esquivando el Truncamiento Silencioso (límite de tokens) y la gravísima Truncación por Recuperación Silenciosa (RAG Efímero).
 - **Contaminación Cruzada:** Evitando el Choque de Contextos (Clash) y el Envenenamiento irreversible de la Memoria Episódica.
 
 ### El imperativo de la Relación Señal/Ruido
@@ -178,6 +179,19 @@ Calcula el tamaño del documento en tokens **antes** de decidir el canal de entr
 | Tarea puntual sobre sección conocida del documento | Adjuntar como archivo es aceptable |
 
 > **Principio de fondo:** Cuando adjuntas un archivo, no le das el documento al modelo. Le das al **sistema** la decisión de qué partes del documento merece ver el modelo. Esa delegación es silenciosa, opaca y puede costarte exactamente las secciones que más necesitabas.
+
+#### 3.5 Mitigación de la Memoria Borrosa (Compresión)
+
+El modelo no es una base de datos relacional. Al procesar la información, la comprime de forma estadística y luego "reconstruye" el texto. Esta compresión genera la **Memoria Borrosa**, donde el modelo puede recordar vagamente el sentido general pero inventa los detalles finos. 
+
+**Jerarquía de Probabilidad de Recuerdo (De mayor a menor fidelidad):**
+1. **Conocimiento pre-entrenado:** Hechos universales arraigados durante meses en sus billones de parámetros (ej: Leyes de Newton). Alta fidelidad.
+2. **Ficheros añadidos a la conversación (RAG):** El sistema trocea el documento, busca los fragmentos relevantes y los inyecta. Riesgo alto de pérdida de contexto periférico.
+3. **Contexto curado añadido directamente al prompt (Texto Plano):** La señal más pura. El modelo "ve" las palabras exactas en su mesa de trabajo actual. 
+
+**La Regla del Verbatim:**
+Para evitar que el modelo "reconstruya con errores" la información crítica (como cláusulas legales o datos numéricos), nunca le pidas que "resuma" sin más. Exígele la extracción literal:
+*Instrucción Táctica:* "Basándote en el documento proporcionado, responde citando *verbatim* (textualmente) la cláusula correspondiente antes de ofrecer tu análisis."
 
 #### 3.5 Distinción Técnica de Memoria: Procedimental vs. Episódica
 
