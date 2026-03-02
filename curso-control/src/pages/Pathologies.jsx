@@ -27,6 +27,21 @@ const PathologyCard = ({ item, cs, isFlashGlobal }) => {
 
     const showingFlash = isFlashGlobal ? !localFlip : false;
 
+    const getImageName = (name) => {
+        const lowerName = name.toLowerCase();
+        if (lowerName.includes("fluidez engañosa")) return "fluidez_enganosa";
+        if (lowerName.includes("búnker temporal")) return "bunker_temporal";
+        if (lowerName.includes("fabricación de citas")) return "fabricacion_citas";
+        if (lowerName.includes("colapso epistémico")) return "colapso_epistemico";
+        if (lowerName.includes("alucinación")) return "alucinacion";
+        if (lowerName.includes("memoria borrosa")) return "memoria_borrosa";
+        if (lowerName.includes("falsedades por imitación")) return "falsedades_imitacion";
+        return null;
+    };
+
+    const imgName = getImageName(item.name);
+    const imgSrc = imgName ? `/images/pathologies/${imgName}.png?v=2` : `https://picsum.photos/seed/${item.name.replace(/\s+/g, '')}/400/200`;
+
     return (
         <div
             className="relative h-full cursor-pointer group"
@@ -41,25 +56,38 @@ const PathologyCard = ({ item, cs, isFlashGlobal }) => {
                 animate={{ rotateY: showingFlash ? 180 : 0 }}
                 transition={{ duration: 0.6, type: "spring", stiffness: 200, damping: 20 }}
             >
-                {/* FRONT: Detailed */}
                 <div
-                    className="w-full h-full p-5 rounded-2xl border border-surface-3 bg-surface-1/40 group-hover:bg-surface-2 transition-colors"
+                    className="w-full h-full flex flex-col rounded-2xl border border-surface-3 bg-surface-1/40 group-hover:bg-surface-2 transition-colors overflow-hidden"
                     style={{ backfaceVisibility: 'hidden' }}
                 >
-                    <div className="flex items-start gap-3 mb-2">
-                        <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${cs.accent} shrink-0 group-hover:scale-125 transition-transform`} />
-                        <h3 className="text-sm font-bold text-ghost-white group-hover:text-white transition-colors">
-                            {item.name}
-                        </h3>
+                    {/* Image cover */}
+                    <div className="w-full relative shrink-0 border-b border-surface-3/50 bg-surface-1/50 overflow-hidden aspect-video">
+                        <img
+                            src={imgSrc}
+                            alt={item.name}
+                            className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
+                        />
+                        <div className={`absolute inset-0 ${cs.accent} mix-blend-overlay opacity-50`} />
+                        <div className="absolute inset-0 bg-gradient-to-t from-surface-1/80 via-transparent to-transparent" />
+
+                        {isFlashGlobal && localFlip && (
+                            <div className="absolute top-3 right-3 text-white bg-obsidian/60 p-1.5 rounded-lg border border-surface-3 backdrop-blur-md group-hover:border-surface-4 transition-colors z-10">
+                                <Repeat className="w-3.5 h-3.5" />
+                            </div>
+                        )}
                     </div>
-                    <div className="text-[1.05rem] text-muted leading-relaxed pl-4 [&>strong]:font-semibold [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded">
-                        <MarkdownRenderer content={item.desc} className="prose-sm p-0 flex-1 prose-p:my-0 prose-p:leading-relaxed" />
-                    </div>
-                    {isFlashGlobal && localFlip && (
-                        <div className="absolute top-4 right-4 text-muted/40 group-hover:text-muted/80 transition-colors">
-                            <Repeat className="w-4 h-4" />
+
+                    <div className="p-5 flex-1 flex flex-col">
+                        <div className="flex items-start gap-3 mb-3">
+                            <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${cs.accent} shrink-0 shadow-[0_0_8px_currentColor] group-hover:scale-125 transition-transform`} />
+                            <h3 className="text-sm font-bold text-ghost-white group-hover:text-white transition-colors leading-tight">
+                                {item.name}
+                            </h3>
                         </div>
-                    )}
+                        <div className="text-[1.05rem] text-muted leading-relaxed pl-4 [&>strong]:font-semibold [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded flex-1">
+                            <MarkdownRenderer content={item.desc} className="prose-sm p-0 prose-p:my-0 prose-p:leading-relaxed" />
+                        </div>
+                    </div>
                 </div>
 
                 {/* BACK: Flash */}
