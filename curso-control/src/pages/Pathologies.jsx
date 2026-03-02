@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { CompleteButton } from '../components/ui/CompleteButton';
+import { MarkdownRenderer } from '../components/ui/MarkdownRenderer';
+import { getPathologiesContent } from '../lib/content';
 import {
     Brain,
     ShieldAlert,
@@ -50,9 +52,9 @@ const PathologyCard = ({ item, cs, isFlashGlobal }) => {
                             {item.name}
                         </h3>
                     </div>
-                    <p className="text-xs text-muted leading-relaxed pl-4">
-                        {item.desc}
-                    </p>
+                    <div className="text-[1.05rem] text-muted leading-relaxed pl-4 [&>strong]:font-semibold [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded">
+                        <MarkdownRenderer content={item.desc} className="prose-sm p-0 flex-1 prose-p:my-0 prose-p:leading-relaxed" />
+                    </div>
                     {isFlashGlobal && localFlip && (
                         <div className="absolute top-4 right-4 text-muted/40 group-hover:text-muted/80 transition-colors">
                             <Repeat className="w-4 h-4" />
@@ -93,178 +95,108 @@ const fadeUp = {
     show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 200, damping: 25 } }
 };
 
-const pathologyData = [
-    {
-        id: 'epistemic',
-        title: 'Patologías de la Verdad y el Conocimiento',
-        subtitle: 'Fallo Epistémico',
-        icon: Search,
-        color: 'cyan',
-        description: <>Afectan la relación del modelo con la <strong>realidad, la facticidad y la lógica</strong>. Surgen porque el modelo prioriza la <strong>probabilidad estadística</strong> y la completitud del patrón sobre la verdad fáctica.</>,
-        items: [
-            {
-                name: 'Fluidez Engañosa (Deceptive Fluency)',
-                flashDesc: 'Suena bien, está mal',
-                desc: <>Es el <strong>riesgo más crítico</strong>. El modelo genera respuestas gramaticalmente perfectas, con tono profesional y total confianza, pero <strong>factualmente falsas</strong>. Ocurre porque optimiza la <strong>verosimilitud</strong> (que suene bien) sobre la <strong>veracidad</strong> (que sea cierto), bajando la guardia del usuario.</>
-            },
-            {
-                name: 'Ilusión de Fluidez',
-                flashDesc: 'Ceguera del usuario',
-                desc: <>Fenómeno complementario, referido específicamente a la <strong>incapacidad del usuario</strong> para detectar el error o auditar una respuesta crítica (salud, legal, código) debido a la <strong>alta calidad de la redacción</strong> y la seguridad aparente del modelo.</>
-            },
-            {
-                name: 'Colapso Epistémico',
-                flashDesc: 'Te da la razón aunque sea falso',
-                desc: <>Es la ruptura de la <strong>lógica interna</strong> del modelo. Si el usuario afirma algo falso con seguridad, el modelo abandona sus datos correctos para <strong>validar la premisa falsa</strong>, perdiendo su "agarre" a la verdad para complacer al interlocutor.</>
-            },
-            {
-                name: 'Alucinación (Inducida por ruido)',
-                flashDesc: 'Se lo inventa',
-                desc: <>Invención de información presentada como cierta. Cuando hay un <strong>exceso de datos irrelevantes</strong> que debilita la señal, o cuando faltan datos, el modelo <strong>inventa patrones</strong> para llenar los vacíos lógicos.</>
-            },
-            {
-                name: 'Búnker Temporal (Knowledge Cutoff)',
-                flashDesc: 'Vive en el pasado',
-                desc: <>El modelo vive en un <strong>pasado congelado</strong>. Al no tener noción del tiempo presente ni acceso a red, si se le pregunta por hechos recientes, <strong>inventará datos</strong> basándose en probabilidades históricas.</>
-            },
-            {
-                name: 'Memoria Borrosa (Compresión)',
-                flashDesc: 'Teléfono escacharrado',
-                desc: <>El modelo no almacena textos exactos, sino <strong>representaciones estadísticas comprimidas</strong>. Esto le obliga a <strong>"reconstruir"</strong> la información, lo que a menudo lleva a inventar detalles finos.</>
-            },
-            {
-                name: 'Fabricación de citas (Citation Fabrication)',
-                flashDesc: 'Fuentes falsas',
-                desc: <>Variante técnica donde genera textos con "aspecto" de <strong>referencias bibliográficas válidas</strong> (año, DOI). Estadísticamente es verosímil pero <strong>fácticamente inútil</strong> sin verificación externa.</>
-            },
-            {
-                name: 'Falsedades por imitación (Imitative Falsehoods)',
-                flashDesc: 'Repite mitos',
-                desc: <>Produce afirmaciones falsas porque son <strong>muy frecuentes en textos humanos</strong>. Al predecir continuaciones, absorbe y refleja <strong>mitos, rumores o concepciones erróneas sistémicas</strong>.</>
-            }
-        ]
-    },
-    {
-        id: 'psychological',
-        title: 'Patologías del Comportamiento y Alineación',
-        subtitle: 'Fallo Psicológico',
-        icon: UserSearch,
-        color: 'magenta',
-        description: <>Defectos en la <strong>"personalidad" o actitud</strong> del modelo, derivados principalmente de su entrenamiento con retroalimentación humana (<strong>RLHF</strong>).</>,
-        items: [
-            {
-                name: 'Sicofancia (El "Síndrome del Adulador")',
-                flashDesc: 'Pelota',
-                desc: <>La tendencia del modelo a <strong>confirmar los sesgos</strong> del usuario, validar errores o darle la razón para <strong>maximizar la satisfacción</strong>. Actúa como un espejo complaciente en lugar de un auditor honesto.</>
-            },
-            {
-                name: 'Sicofancia Social',
-                flashDesc: 'Exceso de cortesía',
-                desc: <>Variante donde el modelo utiliza excesivo lenguaje indirecto o <strong>validación emocional</strong> ("Entiendo tu punto...") para proteger la imagen del usuario, <strong>diluyendo la calidad técnica</strong>.</>
-            },
-            {
-                name: 'Ruido Teatral (Theatrical Noise)',
-                flashDesc: 'Pierde el foco actuando',
-                desc: <>Ocurre cuando se fuerza un <strong>"Rol" innecesario</strong> en tareas lógicas. El modelo gasta recursos en <strong>mantener el personaje</strong> en detrimento de la capacidad de cálculo, provocando errores en lógica pura.</>
-            },
-            {
-                name: 'Verbosidad (Yapping)',
-                flashDesc: 'No se calla',
-                desc: <>Tendencia a ser <strong>excesivamente "educado" y hablador</strong>, añadiendo introducciones, conclusiones morales y <strong>rellenos innecesarios</strong> que ensucian el resultado final.</>
-            },
-            {
-                name: 'Pereza (Laziness)',
-                flashDesc: 'Vago',
-                desc: <>Tendencia a tomar <strong>atajos cognitivos</strong> o dar respuestas incompletas (ej. "escribe el resto del código tú") para <strong>ahorrar recursos</strong> si el prompt no le exige un estándar alto.</>
-            },
-            {
-                name: 'Sobre-rechazo (Overrefusal)',
-                flashDesc: 'Miedica',
-                desc: <>El modelo asume una postura conservadora con <strong>falsos positivos</strong>. Puede <strong>negarse a responder</strong> preguntas benignas o inocuas debido a ambigüedad semántica que lo acerca a áreas "prohibidas".</>
-            }
-        ]
-    },
-    {
-        id: 'structural',
-        title: 'Patologías de Memoria y Contexto',
-        subtitle: 'Fallo Estructural',
-        icon: Database,
-        color: 'emerald',
-        description: <>Problemas físicos relacionados con la <strong>"Ventana de Contexto"</strong> (espacio de trabajo) y cómo se <strong>procesa o almacena</strong> la información.</>,
-        items: [
-            {
-                name: 'Podredumbre del Contexto (Context Rot)',
-                flashDesc: 'Basura acumulada',
-                desc: <>La <strong>degradación progresiva</strong> de la respuesta a medida que se acumula información irrelevante, firmas antiguas o <strong>datos obsoletos</strong> en el historial de chat.</>
-            },
-            {
-                name: 'Efecto "Lost-in-the-Middle"',
-                flashDesc: 'Olvida el centro',
-                desc: <>Incapacidad para recuperar información situada <strong>en el centro</strong> de un prompt extenso. El modelo tiene un sesgo de atención en forma de "U": <strong>recuerda bien el inicio y el final</strong>.</>
-            },
-            {
-                name: 'Distracción de Contexto',
-                flashDesc: 'Se come la paja',
-                desc: <>Cuando la instrucción es débil, el modelo prioriza <strong>patrones irrelevantes del texto adjunto ("paja")</strong> sobre su propio razonamiento lógico real.</>
-            },
-            {
-                name: 'Choque de Contexto (Context Clash)',
-                flashDesc: 'Cruza cables',
-                desc: <>Confusión generada al mezclar <strong>temas incompatibles</strong> en un mismo chat. El <strong>"residuo" latente</strong> de la tarea anterior sesga la interpretación de la nueva.</>
-            },
-            {
-                name: 'Truncamiento Silencioso',
-                flashDesc: 'Amnesia repentina',
-                desc: <>Cuando se supera el límite de tokens, la interfaz <strong>elimina mensajes antiguos sin avisar</strong>. Esto borra datos clave del cerebro, provocando <strong>amnesia inmediata</strong>.</>
-            },
-            {
-                name: 'Envenenamiento de Memoria',
-                flashDesc: 'Recuerdos falsos',
-                desc: <>Afecta a Memorias de Largo Plazo. Ocurre cuando el modelo guarda como "hechos" reales tus <strong>preferencias falsas o datos puramente de prueba</strong>, contaminando el futuro.</>
-            },
-            {
-                name: 'Hinchazón del Prompt (Prompt Bloating)',
-                flashDesc: 'Infoxicación',
-                desc: <>Uso de prompts excesivamente largos <strong>sin curar</strong>. Esto satura el contexto y, paradójicamente, <strong>reduce la "inteligencia"</strong> efectiva de la inferencia del modelo.</>
-            },
-            {
-                name: 'Truncación por Recuperación Silenciosa',
-                flashDesc: 'Lee a trozos',
-                desc: <>Pérdida de completitud causada por el RAG efímero al adjuntar archivos. El sistema fragmenta el documento y <strong>solo inserta los fragmentos que considera relevantes</strong>. La respuesta parece completa, pero se basa en una versión amputada.</>
-            }
-        ]
-    },
-    {
-        id: 'evolutionary',
-        title: 'Patologías Operativas y de Evolución',
-        subtitle: 'Fallo Sistémico',
-        icon: RefreshCcw,
-        color: 'amber',
-        description: <>Fallos relacionados con el uso continuado, la seguridad sistémica y la naturaleza <strong>invisiblemente cambiante</strong> de la infraestructura tecnológica detrás.</>,
-        items: [
-            {
-                name: 'Regresiones por Actualización (Prompt Drift)',
-                flashDesc: 'Se rompe solo',
-                desc: <>Pérdida de capacidad resolutiva o rotura de un prompt debido a <strong>modificaciones técnicas invisibles</strong> que los proveedores realizan sobre la arquitectura misma.</>
-            },
-            {
-                name: 'Inyección de Prompt (Prompt Injection)',
-                flashDesc: 'Secuestro mental',
-                desc: <>Problema de seguridad donde se introducen <strong>instrucciones agresivas camufladas</strong> dentro del input original para alterar por completo el <strong>flujo lógico predefinido</strong>.</>
-            },
-            {
-                name: 'Bypass y Jailbreak',
-                flashDesc: 'Se salta las reglas',
-                desc: <>A través de entradas adversariales rebuscadas, se rompen las <strong>barreras éticas de seguridad</strong>, permitiendo forzar el volcado de datos prohibidos o "system prompts".</>
-            },
-            {
-                name: 'Alucinación de Herramientas (Tool-Use Hallucinations)',
-                flashDesc: 'Tool inventada',
-                desc: <>El modelo predice falsamente requerir llamar a una herramienta y <strong>se inventa llamadas o parámetros técnicos JSON</strong> que jamás existieron ni fueron solicitados estáticamente.</>
-            }
-        ]
+// UI Metadata used to map non-markdown specific layout info to the parsed markdown (e.g., icons)
+const uiMetadata = {
+    '1': { icon: Search, color: 'cyan' },
+    '2': { icon: UserSearch, color: 'magenta' },
+    '3': { icon: Database, color: 'emerald' },
+    '4': { icon: RefreshCcw, color: 'amber' }
+};
+
+const parsePathologiesMarkdown = (md) => {
+    // Basic splitting
+    const parts = md.split('#### **');
+    if (parts.length < 1) return { intro: '', categories: [], clinicalSession: '' };
+
+    // Extract Intro and Clinical Session 
+    // The intro is everything before the first `#### **`
+    let rawIntro = parts[0].trim();
+    // Remove the main H3 title from intro if it exists (usually "### **Patologías...")
+    rawIntro = rawIntro.replace(/^### \*\*.*?\*\*\n+/, '');
+
+    // The clinical session is at the bottom. We look for the last block and split by `***` 
+    // since we added a separator before the Clinical Session in the markdown
+    let lastBlock = parts[parts.length - 1];
+    let clinicalSessionText = '';
+
+    const clinicalSplit = lastBlock.split('***');
+    if (clinicalSplit.length > 1) {
+        lastBlock = clinicalSplit[0]; // The category content
+        clinicalSessionText = clinicalSplit[1].trim();
+        parts[parts.length - 1] = lastBlock; // Update parts so category parsing works normally
+
+        // Remove the "### Sesión Clínica" header from the content to style it manually later if needed
+        clinicalSessionText = clinicalSessionText.replace(/^### Sesión Clínica\n+/, '');
     }
-];
+
+    let categories = [];
+
+    // Process each category block (ignoring the intro text before first #### **)
+    for (let i = 1; i < parts.length; i++) {
+        const block = parts[i];
+
+        // Match `1\. Category Name (Subtitle)**\n\nDescription`
+        const titleMatch = block.match(/(.)\\?\.\s+(.*?)(?:\s+\((.*?)\))?\*\*\s*\n+([\s\S]*?)(?=\n\* |\* \*\*|$)/);
+
+        if (!titleMatch) continue;
+
+        const categoryId = titleMatch[1]; // '1', '2', etc.
+        const categoryTitle = titleMatch[2].trim();
+        const categorySubtitle = titleMatch[3] ? titleMatch[3].trim() : 'Fallo Sistémico';
+        const categoryDesc = titleMatch[4] ? titleMatch[4].trim() : '';
+
+        // Determine metadata
+        const meta = uiMetadata[categoryId] || { icon: Search, color: 'cyan' };
+
+        // Parse list items
+        const itemMatches = block.split(/\n\*\s+\*\*/);
+        let items = [];
+
+        for (let j = 1; j < itemMatches.length; j++) {
+            const itemBlock = itemMatches[j];
+            // Format is exactly `Item Name:**\n> flash: Flash description\nDescription`
+            const splitPoint = itemBlock.indexOf(':**');
+
+            if (splitPoint !== -1) {
+                let name = itemBlock.substring(0, splitPoint).trim();
+                name = name.replaceAll('*', ''); // Remove any lingering internal bold/italics in names for consistency
+
+                let remainingContent = itemBlock.substring(splitPoint + 3).trim();
+
+                // Extract flash text
+                let flashDescStr = name.split(' (')[0]; // Default fallback
+                const flashMatch = remainingContent.match(/^>\s*flash:\s*(.*?)(?:\n|$)/i);
+                if (flashMatch) {
+                    flashDescStr = flashMatch[1].trim();
+                    // Remove the flash line from the remaining description
+                    remainingContent = remainingContent.replace(flashMatch[0], '').trim();
+                }
+
+                items.push({
+                    name: name,
+                    flashDesc: flashDescStr,
+                    desc: remainingContent
+                });
+            }
+        }
+
+        categories.push({
+            id: `cat-${categoryId}`,
+            title: categoryTitle,
+            subtitle: categorySubtitle,
+            description: categoryDesc,
+            icon: meta.icon,
+            color: meta.color,
+            items: items
+        });
+    }
+
+    return {
+        intro: rawIntro,
+        categories: categories,
+        clinicalSession: clinicalSessionText
+    };
+};
 
 const colorMap = {
     cyan: { text: 'text-electric-cyan', bg: 'bg-electric-cyan/10', border: 'border-electric-cyan/30', accent: 'bg-electric-cyan', strongModifier: '[&>strong]:text-electric-cyan [&>strong]:bg-electric-cyan/10' },
@@ -275,6 +207,11 @@ const colorMap = {
 
 const Pathologies = () => {
     const [isFlashGlobal, setIsFlashGlobal] = useState(false);
+
+    const pathologyData = useMemo(() => {
+        const md = getPathologiesContent();
+        return parsePathologiesMarkdown(md);
+    }, []);
 
     return (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12 pb-20">
@@ -310,18 +247,9 @@ const Pathologies = () => {
                     <div className="relative">
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-neon-magenta/50 to-transparent rounded-full" />
                         <div className="pl-8 space-y-4">
-                            <p className="text-[1.05rem] text-ghost-white/90 leading-[1.8]">
-                                Estas no son simples "errores", sino <span className="text-electric-cyan font-semibold bg-[rgba(0,229,255,0.15)] px-1.5 py-0.5 rounded">fallos estructurales y sistémicos</span> derivados de la naturaleza probabilística del modelo, su entrenamiento por refuerzo y la gestión técnica de su memoria.
-                            </p>
-                            <p className="text-[1.05rem] text-ghost-white/90 leading-[1.8]">
-                                A continuación, desglosamos la <span className="text-electric-cyan font-semibold bg-[rgba(0,229,255,0.15)] px-1.5 py-0.5 rounded">clínica completa</span> dividida en cuatro grandes áreas de impacto. Entender estos síntomas es el primer paso para diseñar técnicas de mitigación efectivas.
-                            </p>
-                            <p className="text-sm text-ghost-white/90 leading-relaxed mt-4">
-                                En el módulo anterior, analizamos la <strong className="text-electric-cyan">"Física del LLM"</strong>: cómo los tokens, la atención y la compresión estadística crean una maquinaria de predicción asombrosa. Pero, como en cualquier sistema complejo, donde hay una estructura, existe una <strong className="text-ghost-white">grieta potencial</strong>.
-                            </p>
-                            <p className="text-sm text-ghost-white/90 leading-relaxed">
-                                Las patologías que estudiaremos a continuación no son "errores" aleatorios; son <strong className="text-ghost-white">consecuencias sistémicas</strong> de la propia naturaleza del modelo. No ocurren porque el modelo sea "tonto", sino precisamente por cómo está diseñado para funcionar. Cuando la compresión estadística falla, cuando la atención se satura o cuando el deseo de agradar al humano (<strong className="text-neon-magenta">RLHF</strong>) supera a la veracidad, surgen los síntomas que verás en este Atlas.
-                            </p>
+                            <div className="text-[1.05rem] text-ghost-white/90 leading-[1.8] [&>p]:mb-4 last:[&>p]:mb-0 [&>p>strong]:text-electric-cyan [&>p>strong]:font-semibold [&>p>strong]:bg-[rgba(0,229,255,0.15)] [&>p>strong]:px-1.5 [&>p>strong]:py-0.5 [&>p>strong]:rounded">
+                                <MarkdownRenderer content={pathologyData.intro} className="prose-p:my-0" />
+                            </div>
                         </div>
                     </div>
                 </motion.div>
@@ -420,13 +348,9 @@ const Pathologies = () => {
                     <div className="flex items-start gap-4">
                         <div className="w-1 shrink-0 bg-neon-magenta/50 rounded-full self-stretch" />
                         <div className="space-y-3">
-                            <p className="text-[10px] font-mono text-neon-magenta tracking-[0.2em] uppercase font-bold">Sesión Clínica</p>
-                            <p className="text-sm text-ghost-white/90 leading-relaxed">
-                                No busques culpables, busca causas físicas. Cada patología tiene una raíz en la arquitectura que acabas de estudiar y, por tanto, tiene una <strong className="text-ghost-white">solución de ingeniería</strong> asociada.
-                            </p>
-                            <p className="text-sm text-muted leading-relaxed italic">
-                                ¿Estás listo para empezar el diagnóstico? Exploremos en detalle cada una de estas categorías para aprender a mitigarlas.
-                            </p>
+                            <div className="text-[1.05rem] text-ghost-white/80 leading-relaxed [&>p>strong]:text-neon-magenta [&>p>strong]:font-bold">
+                                <MarkdownRenderer content={pathologyData.clinicalSession} className="prose-p:my-0" />
+                            </div>
                         </div>
                     </div>
                 </motion.div>
@@ -453,7 +377,7 @@ const Pathologies = () => {
             {/* Content Sections */}
             <div className="space-y-16">
                 {
-                    pathologyData.map((category) => {
+                    pathologyData.categories.map((category) => {
                         const cs = colorMap[category.color];
                         return (
                             <motion.section key={category.id} id={category.id} variants={fadeUp} className="space-y-6">
@@ -477,9 +401,9 @@ const Pathologies = () => {
                                     {/* Removed individual category flash toggle as per instructions */}
                                 </div>
 
-                                <p className={`text-[1.05rem] text-ghost-white/80 leading-[1.7] max-w-3xl pl-16 [&>strong]:font-semibold [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded ${cs.strongModifier}`}>
-                                    {category.description}
-                                </p>
+                                <div className={`text-[1.05rem] text-ghost-white/80 leading-[1.7] max-w-3xl pl-16 [&>strong]:font-semibold [&>strong]:px-1.5 [&>strong]:py-0.5 [&>strong]:rounded ${cs.strongModifier}`}>
+                                    <MarkdownRenderer content={category.description} className="prose-p:my-0" />
+                                </div>
 
                                 {/* Items Grid */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

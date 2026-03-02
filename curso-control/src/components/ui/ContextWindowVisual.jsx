@@ -131,7 +131,7 @@ export const ContextWindowVisual = () => {
                         <span className="w-2 h-2 rounded-full bg-electric-cyan animate-pulse" />
                         Mesa de Trabajo
                     </h3>
-                    <p className="text-xs font-mono text-muted mt-1">TOKEN STREAM · ~128K tokens</p>
+                    <p className="text-xs font-mono text-muted mt-1">TOKEN STREAM · ~16K-1M tokens dependiendo del modelo y el tipo de cuenta del usuario</p>
                 </div>
                 {activeType && (
                     <motion.div
