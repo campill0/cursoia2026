@@ -23,38 +23,35 @@ export const getContent = (keyword) => {
 
 // Start export specific grouped content
 export const getLLMContent = () => {
-    // 000 cómo funciona...
-    // 000 Herramientas...
-    // Maybe combine them? Or just the main one.
-    return getContent('cómo funciona');
+    return getContent('001_');
 };
 
 export const getPathologiesContent = () => {
-    // 000 Patologías...
-    return getContent('Patologías');
+    return getContent('002_');
 };
 
 export const getControlContent = () => {
     const files = Object.keys(contentMap).filter(name => {
-        return (name.startsWith('00 ') || name.startsWith('01 ') || name.includes('Fase')) && !name.includes('000');
+        const num = parseInt(name.split('_')[0], 10);
+        return num >= 3 && num <= 10;
     }).sort();
     return files.map(name => contentMap[name]).join('\n\n<hr class="my-12 border-slate-800" />\n\n');
 };
 
 const phasesMeta = [
-    { prefix: '00 ', letter: 'B', key: 'F0', title: 'Fundamentos', subtitle: 'La Física del Modelo', color: 'slate' },
-    { prefix: '01 ', letter: 'C', key: 'C', title: 'Contexto Curado', subtitle: 'Signal-to-Noise Ratio', color: 'cyan' },
-    { prefix: '02 ', letter: 'O', key: 'O', title: 'Omni-Rol', subtitle: 'Ingeniería de Identidad', color: 'magenta' },
-    { prefix: '03 ', letter: 'N', key: 'N', title: 'Normas y Negativas', subtitle: 'Muro de Contención', color: 'red' },
-    { prefix: '04 ', letter: 'T', key: 'T', title: 'Traza de Pensamiento', subtitle: 'Motor Cognitivo 2026', color: 'amber' },
-    { prefix: '05 ', letter: 'R', key: 'R', title: 'Realidad y Resistencia', subtitle: 'Protocolos de Verdad', color: 'emerald' },
-    { prefix: '06 ', letter: 'O₂', key: 'O2', title: 'Output y Organización', subtitle: 'Diseña la Respuesta', color: 'blue' },
-    { prefix: '07 ', letter: 'L', key: 'L', title: 'Loop de Mejora', subtitle: 'Revisa y Mejora', color: 'violet' },
+    { prefix: '003_', letter: 'B', key: 'F0', title: 'Fundamentos', subtitle: 'La Física del Modelo', color: 'slate' },
+    { prefix: '004_', letter: 'C', key: 'C', title: 'Contexto Curado', subtitle: 'Signal-to-Noise Ratio', color: 'cyan' },
+    { prefix: '005_', letter: 'O', key: 'O', title: 'Omni-Rol', subtitle: 'Ingeniería de Identidad', color: 'magenta' },
+    { prefix: '006_', letter: 'N', key: 'N', title: 'Normas y Negativas', subtitle: 'Muro de Contención', color: 'red' },
+    { prefix: '007_', letter: 'T', key: 'T', title: 'Traza de Pensamiento', subtitle: 'Motor Cognitivo 2026', color: 'amber' },
+    { prefix: '008_', letter: 'R', key: 'R', title: 'Realidad y Resistencia', subtitle: 'Protocolos de Verdad', color: 'emerald' },
+    { prefix: '009_', letter: 'O₂', key: 'O2', title: 'Output y Organización', subtitle: 'Diseña la Respuesta', color: 'blue' },
+    { prefix: '010_', letter: 'L', key: 'L', title: 'Loop de Mejora', subtitle: 'Revisa y Mejora', color: 'violet' },
 ];
 
 export const getControlPhases = () => {
     return phasesMeta.map(meta => {
-        const file = Object.keys(contentMap).find(name => name.startsWith(meta.prefix) && !name.includes('000'));
+        const file = Object.keys(contentMap).find(name => name.startsWith(meta.prefix));
         return {
             ...meta,
             content: file ? contentMap[file] : '',
@@ -63,5 +60,5 @@ export const getControlPhases = () => {
 };
 
 export const getChatGptGuideContent = () => {
-    return getContent('Guía_de_chatgpt');
+    return getContent('011_');
 };
