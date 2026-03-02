@@ -167,8 +167,8 @@ export const Sidebar = ({ collapsed, onToggleCollapse, onClose, isMobile }) => {
                                     <ShieldCheck className="w-4 h-4 text-electric-cyan" />
                                 </div>
                                 <div>
-                                    <h1 className="text-sm font-bold gradient-text-cyan leading-tight">C.O.N.T.R.O.L.</h1>
-                                    <p className="text-[10px] text-muted font-mono">PROMPT ENGINEERING</p>
+                                    <h1 className="text-sm font-bold gradient-text-cyan leading-tight">Curso de IA</h1>
+                                    <p className="text-[10px] text-muted font-mono">INTRODUCCIÓN A LA IA</p>
                                 </div>
                             </div>
                         )}

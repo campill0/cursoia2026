@@ -105,7 +105,7 @@ const Home = () => (
                     <Link to="/llms" className="block h-full group">
                         <div className="relative h-48 -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-[1.3rem]">
                             <img
-                                src="https://images.unsplash.com/photo-1620825937374-87fc1a6008dc?q=80&w=800&auto=format&fit=crop"
+                                src="/images/fundamentos_llms_1772420207578.png"
                                 alt="Fundamentos"
                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
                             />
@@ -137,7 +137,7 @@ const Home = () => (
                         <div className="relative h-48 -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-[1.3rem]">
                             <div className="absolute inset-0 bg-[#2d0519] mix-blend-color z-10" />
                             <img
-                                src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop"
+                                src="/images/patologias_llms_1772420230272.png"
                                 alt="Patologías"
                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700 contrast-125"
                             />
@@ -165,13 +165,13 @@ const Home = () => (
 
                 {/* Módulo 3: Framework C.O.N.T.R.O.L (Full Width) */}
                 <BentoCell span={2} glowColor="cyan" className="lg:col-span-4 md:col-span-3 sm:col-span-1 bg-obsidian border-surface-active p-8 relative overflow-hidden group">
-                    <div className="absolute z-0 inset-0 bg-[url('https://images.unsplash.com/photo-1516110833967-0b5716ca1387?q=80&w=1920')] opacity-[0.03] group-hover:opacity-[0.05] transition-opacity mix-blend-overlay"></div>
+                    <div className="absolute z-0 inset-0 bg-[url('/images/framework_control_1772420252617.png')] bg-cover bg-center opacity-15 group-hover:opacity-25 transition-opacity mix-blend-screen"></div>
                     <div className="absolute z-0 right-0 top-0 w-1/2 h-full bg-gradient-to-l from-electric-cyan/5 to-transparent pointer-events-none" />
 
-                    <Link to="/control" className="block relative z-10">
+                    <div className="relative z-10">
                         <div className="flex flex-col lg:flex-row gap-10 items-center">
 
-                            <div className="lg:w-1/3">
+                            <Link to="/control" className="lg:w-1/3 block group">
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-electric-cyan/20 text-electric-cyan text-xs font-bold mb-4 border border-electric-cyan/20">
                                     <Layers className="w-3 h-3" /> MÓDULO 3 · NÚCLEO
                                 </div>
@@ -182,27 +182,27 @@ const Home = () => (
                                 <div className="inline-flex items-center gap-2 text-electric-cyan text-sm font-bold group-hover:underline pr-4 py-2 rounded-lg transition-all">
                                     Ir al Framework completo <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </div>
-                            </div>
+                            </Link>
 
                             {/* Fases Grid */}
                             <div className="lg:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
                                 {[
-                                    { letter: 'C', title: 'Contexto Curado', color: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' },
-                                    { letter: 'O', title: 'Omni-Rol', color: 'bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20' },
-                                    { letter: 'N', title: 'Normas', color: 'bg-red-500/10 text-red-400 border-red-500/20' },
-                                    { letter: 'T', title: 'Tutela Razón', color: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
-                                    { letter: 'R', title: 'Realidad', color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
-                                    { letter: 'O₂', title: 'Output', color: 'bg-blue-500/10 text-blue-400 border-blue-500/20' },
-                                    { letter: 'L', title: 'Loop Mejora', color: 'bg-violet-500/10 text-violet-400 border-violet-500/20' },
+                                    { letter: 'C', key: 'C', title: 'Contexto Curado', color: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' },
+                                    { letter: 'O', key: 'O', title: 'Omni-Rol', color: 'bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20' },
+                                    { letter: 'N', key: 'N', title: 'Normas', color: 'bg-red-500/10 text-red-400 border-red-500/20' },
+                                    { letter: 'T', key: 'T', title: 'Tutela Razón', color: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
+                                    { letter: 'R', key: 'R', title: 'Realidad', color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
+                                    { letter: 'O₂', key: 'O2', title: 'Output', color: 'bg-blue-500/10 text-blue-400 border-blue-500/20' },
+                                    { letter: 'L', key: 'L', title: 'Loop Mejora', color: 'bg-violet-500/10 text-violet-400 border-violet-500/20' },
                                 ].map((phase, idx) => (
-                                    <div key={idx} className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center gap-2 transition-all duration-300 hover:scale-105 hover:brightness-125 hover:shadow-lg ${phase.color}`}>
+                                    <Link key={idx} to="/control" state={{ targetPhase: phase.key }} className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center gap-2 transition-all duration-300 hover:scale-105 hover:brightness-125 hover:shadow-lg ${phase.color}`}>
                                         <div className="text-2xl lg:text-3xl font-black">{phase.letter}</div>
                                         <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">{phase.title}</div>
-                                    </div>
+                                    </Link>
                                 ))}
                             </div>
                         </div>
-                    </Link>
+                    </div>
                 </BentoCell>
 
                 {/* Módulo 4: Aplicación y Práctica */}
@@ -211,7 +211,7 @@ const Home = () => (
                         <div className="flex flex-col md:flex-row h-full">
                             <div className="w-full md:w-2/5 md:order-2 h-48 md:h-auto relative overflow-hidden shrink-0">
                                 <img
-                                    src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600&auto=format&fit=crop"
+                                    src="/images/chatgpt_avanzado_1772420283630.png"
                                     alt="ChatGPT Tools"
                                     className="w-full h-full object-cover opacity-50 sepia-[.3] hue-rotate-[-30deg] group-hover:scale-110 transition-transform duration-1000"
                                 />

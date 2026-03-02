@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PhaseCard, phaseData } from '../components/ui/PhaseCard';
 import { CompleteButton } from '../components/ui/CompleteButton';
@@ -194,6 +195,7 @@ const SearchBar = ({ value, onChange, onClear, resultCount, currentResult, onPre
 // ─── Control (main page) ─────────────────────────────────────────────────────
 const Control = () => {
     const phases = getControlPhases();
+    const location = useLocation();
     const [searchQuery, setSearchQuery] = useState('');
     const [currentResultIdx, setCurrentResultIdx] = useState(0);
     const highlightRefs = useRef([]);
@@ -350,6 +352,16 @@ const Control = () => {
             }
         }, 150); // Reducido el delay para mejorar la respuesta
     };
+
+    useEffect(() => {
+        if (location.state?.targetPhase) {
+            setTimeout(() => {
+                handleCardClick(location.state.targetPhase);
+            }, 300);
+            // Evitar re-ejecutar en refrescos de página
+            window.history.replaceState({}, document.title);
+        }
+    }, [location.state]);
 
     // Phases to render (filtered or all)
     const phasesToRender = searchQuery.trim() ? filteredPhases : phases;
