@@ -53,7 +53,7 @@ const navItems = [
             { id: 'phase-C', label: 'Fase C: Contexto Curado' },
             { id: 'phase-O', label: 'Fase O: Omni-Rol' },
             { id: 'phase-N', label: 'Fase N: Normas y Negativas' },
-            { id: 'phase-T', label: 'Fase T: Traza de Pensamiento' },
+            { id: 'phase-T', label: 'Fase T: Tutela del Razonamiento' },
             { id: 'phase-R', label: 'Fase R: Realidad y Resistencia' },
             { id: 'phase-O2', label: 'Fase O₂: Output y Organización' },
             { id: 'phase-L', label: 'Fase L: Loop de Mejora' }

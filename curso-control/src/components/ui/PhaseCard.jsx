@@ -16,7 +16,7 @@ const phaseData = [
     { letter: 'C', key: 'C', title: 'Contexto Curado', subtitle: 'Signal-to-Noise Ratio', desc: 'Maximiza la señal. Elimina el ruido del contexto para prevenir alucinaciones.' },
     { letter: 'O', key: 'O', title: 'Omni-Rol', subtitle: 'Ingeniería de Identidad', desc: 'Ancla al modelo a clústeres de conocimiento experto mediante roles precisos.' },
     { letter: 'N', key: 'N', title: 'Normas y Negativas', subtitle: 'Muro de Contención', desc: 'Neutraliza la sicofancia y la pereza con prohibiciones explícitas.' },
-    { letter: 'T', key: 'T', title: 'Traza de Pensamiento', subtitle: 'Motor Cognitivo', desc: 'Obliga al modelo a procesar antes de responder con cadenas de razonamiento.' },
+    { letter: 'T', key: 'T', title: 'Tutela del Razonamiento', subtitle: 'Motor Cognitivo', desc: 'Controla la profundidad, estrategia y coherencia del pensamiento del modelo.' },
     { letter: 'R', key: 'R', title: 'Realidad y Resistencia', subtitle: 'Protocolos de Verdad', desc: 'Detecta alucinaciones y valida hechos con auditoría adversarial.' },
     { letter: 'O', key: 'O2', title: 'Output y Organización', subtitle: 'Diseña la Respuesta', desc: 'El formato determina la utilidad. Aplica F.O.R.M.A.S. para resultados listos para usar.' },
     { letter: 'L', key: 'L', title: 'Loop de Mejora', subtitle: 'Revisa y Mejora', desc: 'La primera respuesta casi nunca es la definitiva. Corrige y perfecciona.' },

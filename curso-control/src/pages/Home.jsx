@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { BentoGrid, BentoCell } from '../components/ui/BentoGrid';
-import { Brain, AlertTriangle, ShieldCheck, Wrench, ArrowRight, Zap, Lock, Eye } from 'lucide-react';
+import { Brain, AlertTriangle, ShieldCheck, Wrench, ArrowRight, Zap, Target, Sparkles, Server, BookOpen, Layers } from 'lucide-react';
 
 const stagger = {
     hidden: { opacity: 0 },
@@ -10,54 +10,61 @@ const stagger = {
 };
 
 const fadeUp = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 200, damping: 25 } }
 };
 
-const Home = () => (
-    <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12">
+const scaleUp = {
+    hidden: { opacity: 0, scale: 0.95 },
+    show: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 200, damping: 25 } }
+};
 
-        {/* Hero with bloom */}
-        <motion.section variants={fadeUp} className="relative overflow-hidden rounded-3xl border border-surface-3">
+const Home = () => (
+    <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-16 pb-12">
+
+        {/* Hero Section */}
+        <motion.section variants={fadeUp} className="relative overflow-hidden rounded-[2.5rem] border border-surface-3 shadow-2xl shadow-electric-cyan/5">
             <div className="absolute inset-0">
                 <img
-                    src="/images/hero-neural-network.png"
-                    alt="Hero"
-                    className="w-full h-full object-cover opacity-30 header-image"
+                    src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1920&auto=format&fit=crop"
+                    alt="Neural Network Abstract"
+                    className="w-full h-full object-cover opacity-25 mix-blend-screen"
                 />
-                <div className="header-bloom" />
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/80 to-transparent z-[2]" />
-                <div className="absolute inset-0 bg-gradient-to-r from-obsidian/60 to-transparent z-[2]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-obsidian/90 via-obsidian/50 to-transparent" />
+                <div className="header-bloom opacity-50" />
             </div>
 
-            <div className="relative z-10 p-8 md:p-16 lg:p-20">
-                <div className="max-w-2xl">
-                    <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-electric-cyan/10 border border-electric-cyan/20 text-electric-cyan text-xs font-mono mb-6">
-                        <Zap className="w-3 h-3" /> PROMPT ENGINEERING 2026
+            <div className="relative z-10 p-10 md:p-20 lg:p-24">
+                <div className="max-w-3xl">
+                    <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-electric-cyan/10 border border-electric-cyan/20 text-electric-cyan text-xs md:text-sm font-mono mb-8 backdrop-blur-sm shadow-[0_0_15px_rgba(0,229,255,0.2)]">
+                        <Sparkles className="w-4 h-4" /> INGENIERÍA DE PROMPTS AVANZADA
                     </motion.div>
 
-                    <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95] header-text-shadow">
-                        <span className="gradient-text-cyan">Método</span>
+                    <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.95] mb-6">
+                        <span className="text-ghost-white">Curso de</span>
                         <br />
-                        <span className="text-ghost-white">C.O.N.T.R.O.L.</span>
+                        <span className="gradient-text-cyan drop-shadow-[0_0_25px_rgba(0,229,255,0.4)]">Introducción a</span>
+                        <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-ghost-white to-surface-active">la IA</span>
                     </motion.h1>
 
-                    <motion.p variants={fadeUp} className="mt-6 text-lg text-muted max-w-lg leading-relaxed header-text-shadow">
-                        Domina los modelos de lenguaje con un framework sistemático de 7 fases. De la teoría a la ingeniería profesional de prompts.
+                    <motion.p variants={fadeUp} className="text-lg md:text-xl text-muted max-w-xl leading-relaxed font-light">
+                        De la simple conversación a la <span className="text-electric-cyan font-medium">arquitectura cognitiva</span>. Domina los modelos de lenguaje con el framework sistemático <strong className="text-ghost-white font-black tracking-widest">C.O.N.T.R.O.L.</strong>
                     </motion.p>
 
-                    <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-4">
+                    <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-5">
                         <Link
                             to="/llms"
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-electric-cyan text-obsidian font-bold text-sm hover:bg-electric-cyan/90 transition-colors shadow-lg shadow-electric-cyan/20 active:scale-95"
+                            className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-electric-cyan text-obsidian font-black text-sm hover:bg-white transition-all duration-300 shadow-[0_0_30px_rgba(0,229,255,0.3)] hover:shadow-[0_0_40px_rgba(0,229,255,0.5)] active:scale-95"
                         >
-                            Comenzar Curso <ArrowRight className="w-4 h-4" />
+                            Empezar ahora <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
                         <Link
                             to="/control"
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-surface-3 text-ghost-white font-medium text-sm hover:bg-surface-2 transition-colors active:scale-95"
+                            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-surface-3 bg-surface-1/50 backdrop-blur-md text-ghost-white font-bold text-sm hover:bg-surface-2 transition-all duration-300 active:scale-95"
                         >
-                            Ver Framework
+                            Ver Framework C.O.N.T.R.O.L.
                         </Link>
                     </motion.div>
                 </div>
@@ -65,131 +72,195 @@ const Home = () => (
         </motion.section>
 
         {/* Stats strip */}
-        <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 px-2">
             {[
-                { value: '7', label: 'Fases', sub: 'C.O.N.T.R.O.L.' },
-                { value: '20+', label: 'Patologías', sub: 'Documentadas' },
-                { value: '4', label: 'Módulos', sub: 'Interactivos' },
-                { value: '∞', label: 'Offline', sub: 'Sin conexión' },
+                { value: '11', label: 'Módulos', sub: 'Y LECCIONES CLAVE', icon: <BookOpen className="w-4 h-4 text-electric-cyan/50" /> },
+                { value: '7', label: 'Fases', sub: 'FRAMEWORK CONTROL', icon: <Layers className="w-4 h-4 text-emerald-glow/50" /> },
+                { value: '25+', label: 'Patologías', sub: 'CASOS DIAGNOSTICADOS', icon: <AlertTriangle className="w-4 h-4 text-neon-magenta/50" /> },
+                { value: '1', label: 'Guía', sub: 'PRACTICA CHATGPT', icon: <Wrench className="w-4 h-4 text-amber-glow/50" /> },
             ].map((stat, i) => (
-                <div key={i} className="bg-deep-slate border border-surface-3 rounded-xl p-4 text-center">
-                    <div className="text-2xl font-black gradient-text-cyan">{stat.value}</div>
-                    <div className="text-xs font-bold text-ghost-white mt-1">{stat.label}</div>
-                    <div className="text-[10px] font-mono text-muted">{stat.sub}</div>
+                <div key={i} className="group relative bg-surface-1 border border-surface-3 rounded-2xl p-6 text-center overflow-hidden hover:border-surface-active transition-colors duration-300">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-electric-cyan/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="flex justify-center mb-3">{stat.icon}</div>
+                    <div className="text-4xl font-black text-ghost-white tracking-tight">{stat.value}</div>
+                    <div className="text-sm font-bold text-ghost-white mt-1">{stat.label}</div>
+                    <div className="text-[10px] font-mono text-muted tracking-widest mt-2">{stat.sub}</div>
                 </div>
             ))}
         </motion.div>
 
-        {/* Module Bento Grid */}
-        <motion.section variants={fadeUp}>
-            <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-ghost-white">Módulos del Curso</h2>
-                <span className="text-xs font-mono text-muted">4 SECCIONES</span>
-            </div>
+        {/* Course Modules Visuals */}
+        <div className="space-y-6">
+            <motion.div variants={fadeUp} className="flex items-end justify-between px-2 mb-8">
+                <div>
+                    <h2 className="text-3xl font-black text-ghost-white mb-2">Contenido <span className="text-electric-cyan">del Curso</span></h2>
+                    <p className="text-muted font-mono text-xs">EL CAMINO HACIA LA MAESTRÍA EN IA</p>
+                </div>
+            </motion.div>
 
-            <BentoGrid className="lg:grid-cols-2">
-                <BentoCell span={1} glowColor="cyan">
-                    <Link to="/llms" className="block h-full">
-                        <div className="relative h-32 -mx-6 -mt-6 mb-4 overflow-hidden rounded-t-2xl">
+            <BentoGrid className="grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+                {/* Módulo 1: Fundamentos */}
+                <BentoCell span={2} glowColor="cyan" className="bg-surface-1 hover:bg-surface-1/80 transition-colors">
+                    <Link to="/llms" className="block h-full group">
+                        <div className="relative h-48 -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-[1.3rem]">
                             <img
-                                src="https://placehold.co/600x250/0f1520/00e5ff?text=LLM+Internals&font=mono"
-                                alt="LLM internals"
-                                className="w-full h-full object-cover opacity-60 header-image"
+                                src="https://images.unsplash.com/photo-1620825937374-87fc1a6008dc?q=80&w=800&auto=format&fit=crop"
+                                alt="Fundamentos"
+                                className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-deep-slate to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-surface-1 via-surface-1/50 to-transparent" />
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <span className="px-4 py-2 bg-obsidian/80 backdrop-blur-md rounded-full text-xs font-bold text-electric-cyan flex items-center gap-2">
+                                    Explorar módulo <ArrowRight className="w-3 h-3" />
+                                </span>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="w-10 h-10 rounded-xl bg-electric-cyan/10 flex items-center justify-center">
-                                <Brain className="w-5 h-5 text-electric-cyan" />
+                        <div className="flex items-start gap-4 mb-4">
+                            <div className="w-12 h-12 shrink-0 rounded-2xl bg-electric-cyan/10 flex items-center justify-center border border-electric-cyan/20 group-hover:scale-110 transition-transform">
+                                <Server className="w-6 h-6 text-electric-cyan" />
                             </div>
                             <div>
-                                <h3 className="text-base font-bold text-ghost-white group-hover:text-electric-cyan transition-colors">Fundamentos LLM</h3>
-                                <p className="text-[10px] font-mono text-muted tracking-wider">FASE 0 · PREREQUISITO</p>
+                                <h3 className="text-xl font-black text-ghost-white mb-1">Módulo 1: Fundamentos</h3>
+                                <p className="text-[10px] font-mono text-electric-cyan tracking-wider mb-2">LA FÍSICA DEL MODELO</p>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    Adéntrate en las tripas de los grandes modelos de lenguaje (LLMs). Comprende conceptos clave como la compresión probabilística, los embeddings, la atención y los límites de la ventana de contexto.
+                                </p>
                             </div>
                         </div>
-                        <p className="text-sm text-muted leading-relaxed">La "física" interna: compresión, predicción probabilística, ventana de contexto y sesgo de atención.</p>
                     </Link>
                 </BentoCell>
 
-                <BentoCell span={1} glowColor="magenta">
-                    <Link to="/pathologies" className="block h-full">
-                        <div className="relative h-32 -mx-6 -mt-6 mb-4 overflow-hidden rounded-t-2xl">
+                {/* Módulo 2: Patologías */}
+                <BentoCell span={2} glowColor="magenta" className="bg-surface-1 hover:bg-surface-1/80 transition-colors">
+                    <Link to="/pathologies" className="block h-full group">
+                        <div className="relative h-48 -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-[1.3rem]">
+                            <div className="absolute inset-0 bg-[#2d0519] mix-blend-color z-10" />
                             <img
-                                src="https://placehold.co/600x250/0f1520/e040fb?text=Pathology+Map&font=mono"
-                                alt="Pathology map"
-                                className="w-full h-full object-cover opacity-60 header-image"
+                                src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop"
+                                alt="Patologías"
+                                className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700 contrast-125"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-deep-slate to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-surface-1 via-surface-1/50 to-transparent z-20" />
+                            <div className="absolute inset-0 z-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <span className="px-4 py-2 bg-obsidian/80 backdrop-blur-md rounded-full text-xs font-bold text-neon-magenta flex items-center gap-2">
+                                    Ver patologías <ArrowRight className="w-3 h-3" />
+                                </span>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="w-10 h-10 rounded-xl bg-neon-magenta/10 flex items-center justify-center">
-                                <AlertTriangle className="w-5 h-5 text-neon-magenta" />
+                        <div className="flex items-start gap-4 mb-4">
+                            <div className="w-12 h-12 shrink-0 rounded-2xl bg-neon-magenta/10 flex items-center justify-center border border-neon-magenta/20 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(224,64,251,0.2)]">
+                                <AlertTriangle className="w-6 h-6 text-neon-magenta" />
                             </div>
                             <div>
-                                <h3 className="text-base font-bold text-ghost-white group-hover:text-neon-magenta transition-colors">Patologías</h3>
-                                <p className="text-[10px] font-mono text-muted tracking-wider">20+ FALLOS DOCUMENTADOS</p>
+                                <h3 className="text-xl font-black text-ghost-white mb-1">Módulo 2: Patologías de la IA</h3>
+                                <p className="text-[10px] font-mono text-neon-magenta tracking-wider mb-2">CONOCE A TU ENEMIGO</p>
+                                <p className="text-sm text-muted leading-relaxed">
+                                    La IA no siempre dice la verdad. Descubre el origen de las alucinaciones, la sicofancia (el peligro de que te dé la razón), la degradación del contexto y los sesgos estructurales inherentes a su concepción.
+                                </p>
                             </div>
                         </div>
-                        <p className="text-sm text-muted leading-relaxed">Fallos epistémicos, psicológicos, estructurales y operativos. Conoce al enemigo.</p>
                     </Link>
                 </BentoCell>
 
-                <BentoCell span={2} glowColor="cyan">
-                    <Link to="/control" className="block h-full">
-                        <div className="flex flex-col md:flex-row gap-6">
-                            <div className="flex-1">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-10 h-10 rounded-xl bg-electric-cyan/10 flex items-center justify-center">
-                                        <ShieldCheck className="w-5 h-5 text-electric-cyan" />
+                {/* Módulo 3: Framework C.O.N.T.R.O.L (Full Width) */}
+                <BentoCell span={2} glowColor="cyan" className="lg:col-span-4 md:col-span-3 sm:col-span-1 bg-obsidian border-surface-active p-8 relative overflow-hidden group">
+                    <div className="absolute z-0 inset-0 bg-[url('https://images.unsplash.com/photo-1516110833967-0b5716ca1387?q=80&w=1920')] opacity-[0.03] group-hover:opacity-[0.05] transition-opacity mix-blend-overlay"></div>
+                    <div className="absolute z-0 right-0 top-0 w-1/2 h-full bg-gradient-to-l from-electric-cyan/5 to-transparent pointer-events-none" />
+
+                    <Link to="/control" className="block relative z-10">
+                        <div className="flex flex-col lg:flex-row gap-10 items-center">
+
+                            <div className="lg:w-1/3">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-electric-cyan/20 text-electric-cyan text-xs font-bold mb-4 border border-electric-cyan/20">
+                                    <Layers className="w-3 h-3" /> MÓDULO 3 · NÚCLEO
+                                </div>
+                                <h3 className="text-3xl lg:text-4xl font-black text-ghost-white mb-4">Framework <span className="gradient-text-cyan">C.O.N.T.R.O.L.</span></h3>
+                                <p className="text-muted leading-relaxed mb-6">
+                                    Siete fases tácticas diseñadas para contener las patologías, dirigir el razonamiento y asegurar la fiabilidad de tus implementaciones de IA. Deja de escribir simples prompts y comienza a hacer <strong>ingeniería de sistemas cognitivos</strong>.
+                                </p>
+                                <div className="inline-flex items-center gap-2 text-electric-cyan text-sm font-bold group-hover:underline pr-4 py-2 rounded-lg transition-all">
+                                    Ir al Framework completo <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </div>
+
+                            {/* Fases Grid */}
+                            <div className="lg:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-3 w-full">
+                                {[
+                                    { letter: 'C', title: 'Contexto Curado', color: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' },
+                                    { letter: 'O', title: 'Omni-Rol', color: 'bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20' },
+                                    { letter: 'N', title: 'Normas', color: 'bg-red-500/10 text-red-400 border-red-500/20' },
+                                    { letter: 'T', title: 'Tutela Razón', color: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
+                                    { letter: 'R', title: 'Realidad', color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
+                                    { letter: 'O₂', title: 'Output', color: 'bg-blue-500/10 text-blue-400 border-blue-500/20' },
+                                    { letter: 'L', title: 'Loop Mejora', color: 'bg-violet-500/10 text-violet-400 border-violet-500/20' },
+                                ].map((phase, idx) => (
+                                    <div key={idx} className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center gap-2 transition-all duration-300 hover:scale-105 hover:brightness-125 hover:shadow-lg ${phase.color}`}>
+                                        <div className="text-2xl lg:text-3xl font-black">{phase.letter}</div>
+                                        <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">{phase.title}</div>
                                     </div>
-                                    <div>
-                                        <h3 className="text-base font-bold text-ghost-white">Framework C.O.N.T.R.O.L.</h3>
-                                        <p className="text-[10px] font-mono text-muted tracking-wider">7 FASES · NÚCLEO DEL CURSO</p>
+                                ))}
+                            </div>
+                        </div>
+                    </Link>
+                </BentoCell>
+
+                {/* Módulo 4: Aplicación y Práctica */}
+                <BentoCell span={2} glowColor="amber" className="lg:col-span-4 md:col-span-3 sm:col-span-1 bg-gradient-to-br from-surface-1 to-obsidian group p-0 aspect-auto min-h-[400px]">
+                    <Link to="/chatgpt-guide" className="block relative h-full w-full">
+                        <div className="flex flex-col md:flex-row h-full">
+                            <div className="w-full md:w-2/5 md:order-2 h-48 md:h-auto relative overflow-hidden shrink-0">
+                                <img
+                                    src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600&auto=format&fit=crop"
+                                    alt="ChatGPT Tools"
+                                    className="w-full h-full object-cover opacity-50 sepia-[.3] hue-rotate-[-30deg] group-hover:scale-110 transition-transform duration-1000"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-surface-1 to-transparent hidden md:block" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-surface-1 to-transparent md:hidden" />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="w-16 h-16 rounded-full bg-amber-glow/20 backdrop-blur-md border border-amber-glow/50 flex items-center justify-center text-amber-glow group-hover:scale-110 transition-transform shadow-[0_0_30px_rgba(255,176,0,0.3)]">
+                                        <Wrench className="w-8 h-8" />
                                     </div>
                                 </div>
-                                <p className="text-sm text-muted leading-relaxed">El sistema completo de ingeniería de prompts: Contexto, Omni-Rol, Normas, Traza, Realidad, Output, y Loop.</p>
-                                <div className="mt-4 flex gap-2 flex-wrap">
-                                    {['C', 'O', 'N', 'T', 'R', 'O', 'L'].map((letter, i) => (
-                                        <span key={i} className="w-8 h-8 rounded-lg bg-surface-2 border border-surface-3 flex items-center justify-center text-xs font-black text-electric-cyan">
-                                            {letter}
+                            </div>
+
+                            <div className="w-full md:w-3/5 md:order-1 flex flex-col justify-center p-8 md:p-12 lg:p-16">
+                                <div className="inline-flex items-center gap-2 w-max px-3 py-1 rounded-full bg-amber-glow/10 text-amber-glow border border-amber-glow/20 text-xs font-mono tracking-wider mb-4">
+                                    EL ENTORNO PROFESIONAL
+                                </div>
+                                <h3 className="text-3xl font-black text-ghost-white mb-2 group-hover:text-amber-glow transition-colors">Módulo 4: Guía de ChatGPT Avanzada</h3>
+                                <p className="text-[12px] font-mono text-amber-glow/80 tracking-widest mb-4">LLEVANDO LA TEORÍA A LA PRÁCTICA</p>
+                                <p className="text-base text-muted leading-relaxed mb-8">
+                                    Aplica el framework C.O.N.T.R.O.L. de forma profesional configurando tu entorno de trabajo. Domina el <strong>Lienzo Canvas</strong> interactivo, programa <strong>Instrucciones Personalizadas</strong> que condicionen al modelo globalmente y exprime el <strong>Análisis de Datos</strong> local.
+                                </p>
+                                <div className="flex flex-wrap gap-3">
+                                    {[
+                                        { label: 'Memoria a largo plazo', icon: <Brain className="w-3 h-3" /> },
+                                        { label: 'Custom Instructions', icon: <Target className="w-3 h-3" /> },
+                                        { label: 'Canvas y Workspace', icon: <Layers className="w-3 h-3" /> },
+                                    ].map((tag, i) => (
+                                        <span key={i} className="px-4 py-2 bg-amber-glow/5 border border-amber-glow/10 text-amber-glow/90 text-xs font-bold flex items-center gap-2 rounded-lg">
+                                            {tag.icon} {tag.label}
                                         </span>
                                     ))}
                                 </div>
-                            </div>
-                            <div className="relative w-full md:w-48 h-32 md:h-auto rounded-xl overflow-hidden shrink-0">
-                                <img
-                                    src="/images/card-framework-shield.png"
-                                    alt="Framework diagram"
-                                    className="w-full h-full object-cover opacity-50 header-image"
-                                />
                             </div>
                         </div>
                     </Link>
                 </BentoCell>
             </BentoGrid>
-        </motion.section>
-
-        {/* Tool placeholder */}
-        <motion.section variants={fadeUp}>
-            <Link to="/tools" className="block">
-                <BentoCell glowColor="amber" className="bg-surface-1">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-amber-glow/10 flex items-center justify-center">
-                            <Wrench className="w-6 h-6 text-amber-glow" />
-                        </div>
-                        <div>
-                            <h3 className="text-base font-bold text-ghost-white">Herramienta Interactiva</h3>
-                            <p className="text-xs font-mono text-amber-glow/60 tracking-wider">PRÓXIMAMENTE · FASE 2</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-muted ml-auto" />
-                    </div>
-                </BentoCell>
-            </Link>
-        </motion.section>
+        </div>
 
         {/* Footer */}
-        <div className="text-center text-xs font-mono text-muted/40 pt-8 pb-4 border-t border-surface-3">
-            DATOS PERSISTIDOS LOCALMENTE · EXPORTA TU BACKUP
+        <div className="text-center pt-24 pb-8">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-surface-2 border border-surface-3 mb-6 relative group overflow-hidden cursor-crosshair">
+                <div className="absolute inset-0 bg-electric-cyan/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <Brain className="w-6 h-6 text-muted group-hover:text-electric-cyan transition-colors relative z-10" />
+            </div>
+            <p className="text-xs font-mono text-muted/40 tracking-[0.2em] uppercase">
+                Curso Avanzado de Inteligencia Artificial<br />
+                <span className="mt-2 block opacity-50">Ingeniería de Prompts y Patologías de Lenguaje 2026</span>
+            </p>
         </div>
     </motion.div>
 );

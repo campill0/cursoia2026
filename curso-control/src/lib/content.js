@@ -43,7 +43,7 @@ const phasesMeta = [
     { prefix: '004_', letter: 'C', key: 'C', title: 'Contexto Curado', subtitle: 'Signal-to-Noise Ratio', color: 'cyan' },
     { prefix: '005_', letter: 'O', key: 'O', title: 'Omni-Rol', subtitle: 'Ingeniería de Identidad', color: 'magenta' },
     { prefix: '006_', letter: 'N', key: 'N', title: 'Normas y Negativas', subtitle: 'Muro de Contención', color: 'red' },
-    { prefix: '007_', letter: 'T', key: 'T', title: 'Traza de Pensamiento', subtitle: 'Motor Cognitivo 2026', color: 'amber' },
+    { prefix: '007_', letter: 'T', key: 'T', title: 'Tutela del Razonamiento', subtitle: 'Motor Cognitivo 2026', color: 'amber' },
     { prefix: '008_', letter: 'R', key: 'R', title: 'Realidad y Resistencia', subtitle: 'Protocolos de Verdad', color: 'emerald' },
     { prefix: '009_', letter: 'O₂', key: 'O2', title: 'Output y Organización', subtitle: 'Diseña la Respuesta', color: 'blue' },
     { prefix: '010_', letter: 'L', key: 'L', title: 'Loop de Mejora', subtitle: 'Revisa y Mejora', color: 'violet' },
