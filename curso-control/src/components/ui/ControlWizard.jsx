@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../../lib/utils';
 import {
     PHASE_KEYS, phasesMeta, quickTemplates, defaultWizardState,
-    speakerOptions, audienceOptions, intentOptions,
+    speakerOptions, expertProfiles, archetypeProfiles,
+    audienceOptions, intentOptions,
     formatOptions, organizationOptions, lengthOptions, toneOptions,
     reasoningLevels, normsCheckboxes,
     buildPrompt, buildPromptBlocks,
@@ -18,6 +19,13 @@ import {
 const fadeUp = {
     hidden: { opacity: 0, y: 16 },
     show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 28 } },
+    exit: { opacity: 0, y: -12, transition: { duration: 0.15 } },
+};
+
+// AnimatePresence children need explicit initial/animate/exit props (not variant names)
+const fadeInOut = {
+    initial: { opacity: 0, y: 16 },
+    animate: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 28 } },
     exit: { opacity: 0, y: -12, transition: { duration: 0.15 } },
 };
 
@@ -173,6 +181,11 @@ const StepC = ({ state, update }) => {
 const StepO = ({ state, update }) => {
     const O = state.O;
     const set = (patch) => update({ O: { ...O, ...patch } });
+
+    // Check if the current value matches a predefined profile
+    const expertIsCustom = O.speakerType === 'expert' && O.expertise && !expertProfiles.some(p => p.value === O.expertise);
+    const archetypeIsCustom = O.speakerType === 'archetype' && O.archetype && !archetypeProfiles.some(p => p.value === O.archetype);
+
     return (
         <div className="space-y-4">
             <div>
@@ -193,7 +206,7 @@ const StepO = ({ state, update }) => {
                                 name="speaker"
                                 value={o.value}
                                 checked={O.speakerType === o.value}
-                                onChange={() => set({ speakerType: o.value })}
+                                onChange={() => set({ speakerType: o.value, expertise: '', archetype: '' })}
                                 className="sr-only"
                             />
                             <div className={cn(
@@ -213,21 +226,53 @@ const StepO = ({ state, update }) => {
 
             <AnimatePresence mode="wait">
                 {O.speakerType === 'expert' && (
-                    <motion.div key="expert" {...fadeUp} className="space-y-3">
+                    <motion.div key="expert" {...fadeInOut} className="space-y-3">
                         <div>
-                            <Label>Ocupación / Especialidad</Label>
-                            <Input value={O.expertise} onChange={v => set({ expertise: v })} placeholder="Ej: Abogado laboralista con 15 años de experiencia" />
+                            <Label>Elige un perfil profesional</Label>
+                            <Select
+                                value={expertIsCustom ? '' : O.expertise}
+                                onChange={v => set({ expertise: v })}
+                                options={expertProfiles}
+                            />
+                            <HelpText>Selecciona un perfil predefinido o déjalo en blanco para escribir uno propio.</HelpText>
                         </div>
+                        {(O.expertise === '' || expertIsCustom) && (
+                            <motion.div {...fadeInOut}>
+                                <Label className="text-xs">O describe tu propio perfil</Label>
+                                <Input
+                                    value={expertIsCustom ? O.expertise : ''}
+                                    onChange={v => set({ expertise: v })}
+                                    placeholder="Ej: Abogado laboralista con 15 años de experiencia"
+                                />
+                            </motion.div>
+                        )}
                     </motion.div>
                 )}
                 {O.speakerType === 'archetype' && (
-                    <motion.div key="archetype" {...fadeUp}>
-                        <Label>¿Qué personaje o referente?</Label>
-                        <Input value={O.archetype || ''} onChange={v => set({ archetype: v })} placeholder="Ej: Steve Jobs, Sherlock Holmes, Gordon Ramsay..." />
+                    <motion.div key="archetype" {...fadeInOut} className="space-y-3">
+                        <div>
+                            <Label>Elige un arquetipo famoso</Label>
+                            <Select
+                                value={archetypeIsCustom ? '' : (O.archetype || '')}
+                                onChange={v => set({ archetype: v })}
+                                options={archetypeProfiles}
+                            />
+                            <HelpText>Cada arquetipo activa un "clúster cognitivo" diferente en el modelo.</HelpText>
+                        </div>
+                        {((O.archetype || '') === '' || archetypeIsCustom) && (
+                            <motion.div {...fadeInOut}>
+                                <Label className="text-xs">O escribe tu propio referente</Label>
+                                <Input
+                                    value={archetypeIsCustom ? O.archetype : ''}
+                                    onChange={v => set({ archetype: v })}
+                                    placeholder="Ej: Steve Jobs, Sherlock Holmes, Gordon Ramsay..."
+                                />
+                            </motion.div>
+                        )}
                     </motion.div>
                 )}
                 {O.speakerType === 'domain' && (
-                    <motion.div key="domain" {...fadeUp}>
+                    <motion.div key="domain" {...fadeInOut}>
                         <Label>Dominio técnico</Label>
                         <Input value={O.expertise} onChange={v => set({ expertise: v })} placeholder="Ej: Optimización de bases de datos PostgreSQL" />
                     </motion.div>

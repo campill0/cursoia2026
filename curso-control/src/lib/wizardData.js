@@ -193,6 +193,55 @@ export const speakerOptions = [
     { value: 'domain', label: 'Sin personalidad (Domain Priming)', desc: 'Solo dominio técnico, cero teatro' },
 ];
 
+// Perfiles predefinidos para "Profesional específico"
+export const expertProfiles = [
+    { value: '', label: '— Elige un perfil o escribe uno propio —' },
+    { value: 'Arquitecto/a de Software Senior con 15 años de experiencia en sistemas distribuidos', label: 'Arquitecto/a de Software Senior' },
+    { value: 'Médico/a Internista con especialidad en diagnóstico diferencial', label: 'Médico/a Internista' },
+    { value: 'Abogado/a Laboralista con experiencia en convenios colectivos y despidos', label: 'Abogado/a Laboralista' },
+    { value: 'Director/a Financiero/a (CFO) con experiencia en startups y restructuraciones', label: 'Director/a Financiero/a (CFO)' },
+    { value: 'Ingeniero/a de Ciberseguridad especialista en pentesting y Zero Trust', label: 'Ingeniero/a de Ciberseguridad' },
+    { value: 'Profesor/a Universitario/a de Física con experiencia en divulgación científica', label: 'Profesor/a Universitario/a de Física' },
+    { value: 'Periodista de Investigación con 20 años en verificación de hechos (fact-checking)', label: 'Periodista de Investigación' },
+    { value: 'Director/a de Marketing Digital especialista en growth hacking y analítica', label: 'Director/a de Marketing Digital' },
+    { value: 'Psicólogo/a Clínico/a especialista en terapia cognitivo-conductual', label: 'Psicólogo/a Clínico/a' },
+    { value: 'Ingeniero/a de Datos Senior experto en pipelines ETL y arquitectura de datos', label: 'Ingeniero/a de Datos Senior' },
+    { value: 'Economista especialista en macroeconomía y política monetaria', label: 'Economista Macro' },
+    { value: 'Diseñador/a UX/UI Senior con enfoque en accesibilidad y design systems', label: 'Diseñador/a UX/UI Senior' },
+    { value: 'Chef Ejecutivo/a con estrella Michelin, experto en gastronomía creativa', label: 'Chef Ejecutivo/a' },
+    { value: 'Funcionario/a de Administración Pública especialista en contratación y licitaciones', label: 'Funcionario/a de Administración Pública' },
+    { value: 'Director/a de Recursos Humanos con experiencia en gestión del talento y cultura organizacional', label: 'Director/a de RRHH' },
+    { value: 'Historiador/a especialista en historia contemporánea y análisis geopolítico', label: 'Historiador/a Contemporáneo/a' },
+    { value: 'Product Manager Senior con experiencia en metodologías ágiles y descubrimiento de producto', label: 'Product Manager Senior' },
+    { value: 'Consultor/a de Estrategia Empresarial (ex-McKinsey/BCG) con foco en transformación digital', label: 'Consultor/a de Estrategia' },
+    { value: 'Científico/a de Datos especialista en Machine Learning e interpretabilidad de modelos', label: 'Científico/a de Datos (ML)' },
+    { value: 'Arquitecto/a urbanista con experiencia en ciudades sostenibles y movilidad', label: 'Arquitecto/a Urbanista' },
+];
+
+// Perfiles predefinidos para "Personaje famoso (arquetipo)"
+export const archetypeProfiles = [
+    { value: '', label: '— Elige un arquetipo o escribe uno propio —' },
+    { value: 'Steve Jobs presentando el iPhone en 2007', label: 'Steve Jobs — Visionario minimalista' },
+    { value: 'Sherlock Holmes analizando una escena del crimen', label: 'Sherlock Holmes — Deducción lógica' },
+    { value: 'Gordon Ramsay evaluando un restaurante en Kitchen Nightmares', label: 'Gordon Ramsay — Crítica brutal' },
+    { value: 'Marie Curie en su laboratorio de investigación', label: 'Marie Curie — Rigor científico' },
+    { value: 'Sócrates haciendo preguntas incómodas en el ágora', label: 'Sócrates — Método socrático' },
+    { value: 'Sun Tzu planificando una campaña militar', label: 'Sun Tzu — Estrategia y táctica' },
+    { value: 'Leonardo da Vinci diseñando una máquina renacentista', label: 'Da Vinci — Genio polímata' },
+    { value: 'Warren Buffett analizando una oportunidad de inversión a largo plazo', label: 'Warren Buffett — Inversión racional' },
+    { value: 'Frida Kahlo creando una obra que desafía convenciones', label: 'Frida Kahlo — Arte e identidad' },
+    { value: 'Carl Sagan explicando el cosmos a millones de personas', label: 'Carl Sagan — Divulgación magistral' },
+    { value: 'Ada Lovelace diseñando el primer algoritmo de la historia', label: 'Ada Lovelace — Pensamiento computacional' },
+    { value: 'Miyamoto Musashi escribiendo El Libro de los Cinco Anillos', label: 'Musashi — Disciplina y maestría' },
+    { value: 'Coco Chanel revolucionando la moda con simplicidad radical', label: 'Coco Chanel — Elegancia disruptiva' },
+    { value: 'Richard Feynman explicando física cuántica en una pizarra', label: 'Richard Feynman — Claridad pedagógica' },
+    { value: 'Machiavelo asesorando a un príncipe sobre poder y política', label: 'Maquiavelo — Pragmatismo político' },
+    { value: 'Nikola Tesla imaginando la transmisión inalámbrica de energía', label: 'Nikola Tesla — Innovación visionaria' },
+    { value: 'Jane Austen observando y narrando la sociedad con ironía sutil', label: 'Jane Austen — Ironía narrativa' },
+    { value: 'Elon Musk proponiendo un plan imposible con plazo agresivo', label: 'Elon Musk — Ambición audaz' },
+    { value: 'Marco Aurelio reflexionando en sus meditaciones estoicas', label: 'Marco Aurelio — Estoicismo práctico' },
+];
+
 export const audienceOptions = [
     { value: 'expert', label: 'Otro experto del sector' },
     { value: 'professional', label: 'Profesional no técnico' },
