@@ -200,21 +200,7 @@ export const Sidebar = ({ collapsed, onToggleCollapse, onClose, isMobile }) => {
                     </div>
                 </div>
 
-                {/* Progress bar */}
-                {!collapsed && (
-                    <div className="px-4 py-3 border-b border-surface-3">
-                        <div className="flex items-center justify-between text-[10px] font-mono text-muted mb-1.5">
-                            <span>PROGRESO</span>
-                            <span>{completedCount}/{totalModules}</span>
-                        </div>
-                        <div className="h-1 bg-surface-3 rounded-full overflow-hidden">
-                            <div
-                                className="h-full bg-gradient-to-r from-electric-cyan to-emerald-glow rounded-full transition-all duration-500"
-                                style={{ width: `${progressPct}%` }}
-                            />
-                        </div>
-                    </div>
-                )}
+
 
                 {/* Settings dropdown (hidden in nav, shown by gear) */}
                 {isSettingsOpen && !collapsed && (
