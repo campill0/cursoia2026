@@ -60,6 +60,7 @@ const navItems = [
         ]
     },
     { path: '/chatgpt-guide', label: 'Guía ChatGPT', icon: BookMarked, moduleId: 'chatgpt-guide' },
+    { path: '/recursos', label: 'Recursos', icon: Download, moduleId: null },
     { path: '/tools', label: 'Herramienta', icon: Wrench, moduleId: null },
 ];
 

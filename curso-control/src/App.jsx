@@ -9,6 +9,7 @@ const Pathologies = lazy(() => import('./pages/Pathologies'));
 const Control = lazy(() => import('./pages/Control'));
 const ChatGptGuide = lazy(() => import('./pages/ChatGptGuide'));
 const Tools = lazy(() => import('./pages/Tools'));
+const Recursos = lazy(() => import('./pages/Recursos'));
 
 function App() {
   return (
@@ -43,6 +44,11 @@ function App() {
           <Route path="tools" element={
             <Suspense fallback={<SkeletonPage />}>
               <Tools />
+            </Suspense>
+          } />
+          <Route path="recursos" element={
+            <Suspense fallback={<SkeletonPage />}>
+              <Recursos />
             </Suspense>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
