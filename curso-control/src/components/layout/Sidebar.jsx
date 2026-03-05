@@ -5,7 +5,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db/db';
 import {
     Home, Brain, AlertTriangle, ShieldCheck, Download, Upload,
-    Check, ChevronLeft, ChevronRight, X, Wrench, Settings, BookMarked
+    Check, ChevronLeft, ChevronRight, X, Wrench, Settings, BookMarked, Target
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { exportBackup, downloadBackup, importBackupReplace } from '../../services/storage';
@@ -60,6 +60,7 @@ const navItems = [
         ]
     },
     { path: '/chatgpt-guide', label: 'Guía ChatGPT', icon: BookMarked, moduleId: 'chatgpt-guide' },
+    { path: '/ejercicios', label: 'Ejercicios', icon: Target, moduleId: 'ejercicios' },
     { path: '/recursos', label: 'Recursos', icon: Download, moduleId: null },
     { path: '/tools', label: 'Herramienta', icon: Wrench, moduleId: null },
 ];

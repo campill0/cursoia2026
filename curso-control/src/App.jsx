@@ -8,6 +8,7 @@ const Llms = lazy(() => import('./pages/Llms'));
 const Pathologies = lazy(() => import('./pages/Pathologies'));
 const Control = lazy(() => import('./pages/Control'));
 const ChatGptGuide = lazy(() => import('./pages/ChatGptGuide'));
+const Ejercicios = lazy(() => import('./pages/Ejercicios'));
 const Tools = lazy(() => import('./pages/Tools'));
 const Recursos = lazy(() => import('./pages/Recursos'));
 
@@ -39,6 +40,11 @@ function App() {
           <Route path="chatgpt-guide" element={
             <Suspense fallback={<SkeletonPage />}>
               <ChatGptGuide />
+            </Suspense>
+          } />
+          <Route path="ejercicios" element={
+            <Suspense fallback={<SkeletonPage />}>
+              <Ejercicios />
             </Suspense>
           } />
           <Route path="tools" element={

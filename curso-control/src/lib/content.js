@@ -62,3 +62,7 @@ export const getControlPhases = () => {
 export const getChatGptGuideContent = () => {
     return getContent('011_');
 };
+
+export const getEjerciciosContent = () => {
+    return getContent('propuesta_ejercicios');
+};
