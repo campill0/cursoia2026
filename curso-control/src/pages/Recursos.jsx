@@ -231,6 +231,25 @@ const Recursos = () => {
                             <p className="text-sm text-muted/90 leading-relaxed">Grabación de la primera sesión presencial del curso.</p>
                         </div>
                     </motion.div>
+
+                    <motion.div variants={fadeUp} className="group block relative bg-surface-1/40 backdrop-blur-md rounded-2xl border border-surface-3 overflow-hidden shadow-lg p-4 transition-all hover:border-surface-3/80 hover:shadow-xl">
+                        <div className="aspect-video w-full rounded-xl overflow-hidden bg-surface-2/50 relative border border-surface-3">
+                            <iframe
+                                src="https://aytocartagenaes-my.sharepoint.com/personal/froilan_ros_ayto-cartagena_es/_layouts/15/embed.aspx?UniqueId=f06b0596-8417-4ee0-b06d-987a494c3819&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
+                                width="100%"
+                                height="100%"
+                                frameBorder="0"
+                                scrolling="no"
+                                allowFullScreen
+                                title="II Curso Iniciación a la IA-20260304_100457-Grabación de la reunión.mp4"
+                                className="absolute top-0 left-0 w-full h-full"
+                            ></iframe>
+                        </div>
+                        <div className="mt-4">
+                            <h3 className="text-lg font-bold text-ghost-white mb-1 group-hover:text-electric-cyan transition-colors">Sesión 2</h3>
+                            <p className="text-sm text-muted/90 leading-relaxed">Grabación de la segunda sesión presencial del curso.</p>
+                        </div>
+                    </motion.div>
                 </motion.div>
             </motion.div>
 
