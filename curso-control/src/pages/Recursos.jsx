@@ -154,6 +154,9 @@ const ResourceCard = ({ item, colorGradient }) => {
 };
 
 const Recursos = () => {
+    const session1VideoSrc = `${import.meta.env.BASE_URL}videos/sesion-1.mp4`;
+    const session2VideoSrc = `${import.meta.env.BASE_URL}videos/sesion-2.mp4`;
+
     return (
         <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-12 pb-20 max-w-6xl mx-auto">
 
@@ -215,16 +218,14 @@ const Recursos = () => {
                 <motion.div variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <motion.div variants={fadeUp} className="group block relative bg-surface-1/40 backdrop-blur-md rounded-2xl border border-surface-3 overflow-hidden shadow-lg p-4 transition-all hover:border-surface-3/80 hover:shadow-xl">
                         <div className="aspect-video w-full rounded-xl overflow-hidden bg-surface-2/50 relative border border-surface-3">
-                            <iframe
-                                src="https://aytocartagenaes-my.sharepoint.com/personal/froilan_ros_ayto-cartagena_es/_layouts/15/embed.aspx?UniqueId=d787778b-82b1-40a2-8ccf-db075eb6a055&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
-                                width="100%"
-                                height="100%"
-                                frameBorder="0"
-                                scrolling="no"
-                                allowFullScreen
-                                title="II Curso Iniciación a la IA-20260303_085417UTC-Meeting Recording.mp4"
-                                className="absolute top-0 left-0 w-full h-full"
-                            ></iframe>
+                            <video
+                                src={session1VideoSrc}
+                                controls
+                                preload="metadata"
+                                className="absolute top-0 left-0 w-full h-full object-cover"
+                            >
+                                Tu navegador no soporta video HTML5.
+                            </video>
                         </div>
                         <div className="mt-4">
                             <h3 className="text-lg font-bold text-ghost-white mb-1 group-hover:text-electric-cyan transition-colors">Sesión 1</h3>
@@ -234,16 +235,14 @@ const Recursos = () => {
 
                     <motion.div variants={fadeUp} className="group block relative bg-surface-1/40 backdrop-blur-md rounded-2xl border border-surface-3 overflow-hidden shadow-lg p-4 transition-all hover:border-surface-3/80 hover:shadow-xl">
                         <div className="aspect-video w-full rounded-xl overflow-hidden bg-surface-2/50 relative border border-surface-3">
-                            <iframe
-                                src="https://aytocartagenaes-my.sharepoint.com/personal/froilan_ros_ayto-cartagena_es/_layouts/15/embed.aspx?UniqueId=f06b0596-8417-4ee0-b06d-987a494c3819&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
-                                width="100%"
-                                height="100%"
-                                frameBorder="0"
-                                scrolling="no"
-                                allowFullScreen
-                                title="II Curso Iniciación a la IA-20260304_100457-Grabación de la reunión.mp4"
-                                className="absolute top-0 left-0 w-full h-full"
-                            ></iframe>
+                            <video
+                                src={session2VideoSrc}
+                                controls
+                                preload="metadata"
+                                className="absolute top-0 left-0 w-full h-full object-cover"
+                            >
+                                Tu navegador no soporta video HTML5.
+                            </video>
                         </div>
                         <div className="mt-4">
                             <h3 className="text-lg font-bold text-ghost-white mb-1 group-hover:text-electric-cyan transition-colors">Sesión 2</h3>
