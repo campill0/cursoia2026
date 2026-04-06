@@ -15,9 +15,9 @@ Puedes hacerlas en paralelo, pero el orden propuesto está pensado para gente si
 
 - Acceso a ChatGPT.
 - Un sitio donde guardar evidencias: una carpeta con:
-  - `PROMPTS/` (tus prompts)
-  - `SALIDAS/` (copias de respuestas o capturas)
-  - `BITACORA.md` (tu diario de aprendizaje)
+  - PROMPTS/ (tus prompts)
+  - SALIDAS/ (copias de respuestas o capturas)
+  - BITACORA.md (tu diario de aprendizaje)
 
 ### 0.2 Cómo entregar cada ejercicio (siempre igual)
 
